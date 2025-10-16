@@ -34,7 +34,7 @@ case $cmd in
 	docker run --name jrvs-psql -e POSTGRES_PASSWORD=$db_password  \
 	-e POSTGRES_USER=$db_username -d -v pgdata:/var/lib/postgresql/data \
 	-p 5432:5432 postgres:9.6-alpine
-  # Make sure you understand what's `$?`
+  # `$?` is the exit code of the previous command
 	exit $?
 	;;
 
