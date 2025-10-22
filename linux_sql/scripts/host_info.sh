@@ -18,7 +18,7 @@ hostname=$(hostname -f)
 lscpu_out=`lscpu`
 
 # hardware info
-hostname=$(hostname -f)
+hostname="$hostname"
 cpu_number=$(echo "$lscpu_out"  | egrep "^CPU\(s\):" | awk '{print $2}' | xargs)
 cpu_architecture=$(echo "$lscpu_out"  | egrep "^Architecture:" | awk '{print $2}' | xargs)
 cpu_model=$(echo "$lscpu_out"  | egrep "^Model name:" |  awk -F': *' '{print $2}' | xargs)
@@ -28,8 +28,9 @@ total_mem=$(cat /proc/meminfo | egrep 'MemTotal' | egrep -o '[0-9]+' |xargs)
 timestamp=$(date +"%Y-%m-%d %H:%M:%S") # current timestamp in `2019-11-26 14:40:19` format; use `date` cmd
 
 # PSQL command: Inserts hardware info into host_info table
-# Note: be careful with double and single quotes
-insert_stmt="INSERT INTO host_info(timestamp, ...) VALUES('$timestamp', #todo....
+insert_stmt="INSERT INTO host_info(id, hostname, cpu_number, cpu_architecture, cpu_model, cpu_mhz, l2_cache, total_mem, \"timestamp\") \
+VALUES(1, '$hostname', '$cpu_number', '$cpu_architecture', '$cpu_model', '$cpu_mhz', '$l2_cache', '$total_mem', '$timestamp') \
+ON CONFLICT (id) DO UPDATE SET hostname = EXCLUDED.hostname, cpu_number = EXCLUDED.cpu_number, cpu_architecture = EXCLUDED.cpu_architecture, cpu_model = EXCLUDED.cpu_model, cpu_mhz = EXCLUDED.cpu_mhz, l2_cache = EXCLUDED.l2_cache, total_mem = EXCLUDED.total_mem, \"timestamp\" = EXCLUDED.\"timestamp\";"
 
 #set up env var for pql cmd
 export PGPASSWORD=$psql_password
