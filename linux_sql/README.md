@@ -19,7 +19,6 @@ Follow the steps below to set up and run the Linux Cluster Monitoring Agent.
 ./scripts/psql_docker.sh create [db_username] [db_password]
 ```
 
-
 ### 1.2 Start a PostgreSQL instance using Docker
 ```bash
 ./scripts/psql_docker.sh start
@@ -43,6 +42,12 @@ Then add the following line to the `crontab` file:
 * * * * * bash /full/path/to/scripts/host_usage.sh localhost 5432 host_agent [db_username] [db_password] > /tmp/host_usage.log
 ```
 ## Implementation
+The project was developed on a GCP VM running Rocky Linux 9 with an XFCE desktop 
+using IntelliJ IDEA, which provided syntax highlighting and an integrated terminal 
+for running scripts. Crontab edits were done with `vim`. Debugging was assisted using 
+`set -x`/`set +x` within scripts and the `bash -x` option to trace execution. All work 
+was version-controlled on GitHub using a GitFlow workflow, with feature branches 
+merged into `develop` and pull requests to `main` for final review.
 
 ### Scalable Architecture
 ![Linux Cluster Monitoring Diagram](./assets/cluster.jpg)
@@ -82,7 +87,7 @@ Example:
 ./scripts/host_usage.sh "localhost" 5432 "host_agent" "postgres" "password"
 ```
 #### 4. Crontab
-Used to automate periodic execution of host_usage.sh for continuous monitoring.
+Used to automate the periodic execution of host_usage.sh for continuous monitoring.
 
 Edit the crontab file:
 ```bash
@@ -140,6 +145,15 @@ To verify the functionality of the Bash scripts and the ddl.sql script:
 **Result:** All scripts worked as intended, creating tables and inserting data reliably, allowing the system to track host information and usage accurately.
 
 ## Deployment
+The Linux cluster monitoring agent was deployed on a single GCP VM running Rocky Linux 9.
+
+**1. Source Code Management:** All scripts and SQL files were managed via GitHub and cloned directly onto the VM.
+
+**2. Database Setup:** A PostgreSQL Docker container was used to host the database, with the ddl.sql script creating the necessary tables (host_info and host_usage).
+
+**3. Automated Data Collection:** The Bash scripts (host_info.sh and host_usage.sh) were scheduled using crontab to collect and insert host metrics at regular intervals.
+
+While the project ran on a single VM, the architecture is designed to be scalable, allowing additional hosts to feed data into a centralized database for distributed systems.
 
 ## Improvements
 #### 1. Scale the setup to run on multiple host machines to gather centralized data for a distributed system.
