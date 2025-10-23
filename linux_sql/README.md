@@ -13,14 +13,14 @@ health and performance through simple SQL queries.
 
 ## Setup
 Follow the steps below to set up and run the Linux Cluster Monitoring Agent.
-### 1. If necessary create the Docker container for the PostgreSQL instance
+### 1.1 If necessary, create the Docker container for the PostgreSQL instance
 
 ```bash
 ./scripts/psql_docker.sh create [db_username] [db_password]
 ```
 
 
-### 1. Start a PostgreSQL instance using Docker
+### 1.2 Start a PostgreSQL instance using Docker
 ```bash
 ./scripts/psql_docker.sh start
 ```
@@ -42,5 +42,8 @@ Then add the following line to the `crontab` file:
 ```crontab
 * * * * * bash /full/path/to/scripts/host_usage.sh localhost 5432 host_agent [db_username] [db_password] > /tmp/host_usage.log
 ```
+## Implementation
 
+### Architecture
+![Linux Cluster Monitoring Diagram](./assets/cluster.jpg)
 
