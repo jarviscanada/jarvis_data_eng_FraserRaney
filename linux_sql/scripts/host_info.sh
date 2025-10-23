@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Script usage
+# ./scripts/host_info.sh [psql_host] [psql_port] [db_name] [psql_user] [psql_password]
+
+# Example
+# ./scripts/host_info.sh "localhost" 5432 "host_agent" "postgres" "password"
+
 # setup arguments
 psql_host=$1
 psql_port=$2
@@ -9,7 +15,9 @@ psql_password=$5
 
 # validate arguments
 if [ "$#" -ne 5 ]; then
-    echo "Illegal number of parameters"
+    echo "Illegal number of parameters" >&2
+    echo "Usage:"
+    echo "./scripts/host_info.sh [psql_host] [psql_port] [db_name] [psql_user] [psql_password]"
     exit 1
 fi
 
