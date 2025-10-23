@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# script usage
+# ./scripts/psql_docker.sh start|stop|create [db_username][db_password]
+
 # Capture CLI arguments
 cmd=$1
 db_username=$2
@@ -56,5 +59,3 @@ case $cmd in
 	exit 1
 	;;
 esac
-
-exit 0
