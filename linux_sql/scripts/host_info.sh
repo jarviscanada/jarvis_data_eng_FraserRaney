@@ -34,7 +34,7 @@ cpu_architecture=$(echo "$lscpu_out"  | egrep "^Architecture:" | awk '{print $2}
 cpu_model=$(echo "$lscpu_out"  | egrep "^Model name:" |  awk -F': *' '{print $2}' | xargs)
 cpu_mhz=$(echo "$cpu_model" | egrep -o '[0-9]+(\.[0-9]+)?' | awk '{printf "%.3f", $1 * 1000}' | xargs)
 l2_cache=$(echo "$lscpu_out"  | egrep "^L2 cache:" | egrep -o '[0-9]+' | awk 'NR==2' | xargs)
-total_mem=$(cat /proc/meminfo | egrep 'MemTotal' | egrep -o '[0-9]+' |xargs)
+total_mem=$(free | head -2 | tail -1 | awk '{print $2}' | xargs)
 timestamp=$(date +"%Y-%m-%d %H:%M:%S") # current timestamp in `2019-11-26 14:40:19` format
 
 # PSQL command: Inserts hardware into host_info table
