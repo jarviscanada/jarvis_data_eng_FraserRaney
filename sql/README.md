@@ -1,10 +1,15 @@
 # Introduction
+In this project, I learned SQL fundamentals using the pgAdmin4 desktop app alongside a Docker-based
+PostgreSQL 16 (Alpine) instance. I began by creating the tables with a ddl.sql file. I also loaded a 
+data set into the database with the script `clubdata.sql`, populating it with test records. With this 
+environment, I created and executed a series of SQL queries designed to answer specific analysis 
+questions. This hands-on practice helped me deepen my understanding of relational database concepts, such 
+as DDL, modifying data, joins, table structure, filtering, aggregation, and strings, and improved my 
+confidence in writing effective, well-structured SQL commands.
 
 # SQL Queries
 
 ###### Table Setup (DDL)
-The tables were setup with the pgAdmin4 GUI. The following is the DDL that 
-was used to setup the tables.
 ```sql
 -- Table: members
 
@@ -35,23 +40,23 @@ CREATE TABLE IF NOT EXISTS public.bookings (
     starttime timestamp NOT NULL,
     slots integer NOT NULL,
     CONSTRAINT bookings_pkey PRIMARY KEY (bookid),
-    CONSTRAINT fk_bookings_facid FOREIGN KEY (facid) REFERENCES public.facilites (facid),
+    CONSTRAINT fk_bookings_facid FOREIGN KEY (facid) REFERENCES public.facilities (facid),
     CONSTRAINT fk_bookings_memid FOREIGN KEY (memid) REFERENCES public.members (memid)
     );
 
 ```
 
 ```sql
--- Table: facilites
+-- Table: facilities
 
-CREATE TABLE IF NOT EXISTS public.facilites (
+CREATE TABLE IF NOT EXISTS public.facilities (
     facid integer NOT NULL,
     name character varying(100) NOT NULL,
     membercost numeric NOT NULL,
     guestcost numeric NOT NULL,
     initialoutlay numeric NOT NULL,
     monthlymaintenance numeric NOT NULL,
-    CONSTRAINT facilites_pkey PRIMARY KEY (facid)
+    CONSTRAINT facilities_pkey PRIMARY KEY (facid)
     );
 
 ```
