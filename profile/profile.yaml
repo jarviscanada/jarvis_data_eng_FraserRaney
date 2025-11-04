@@ -1,0 +1,129 @@
+# Preferred name (Characters only)
+name: "Fraser Raney"
+# Your GitHub repo root URL
+github_repo_root_url: https://github.com/jarviscanada/jarvis_data_eng_FraserRaney
+
+# Introduce yourself, your academic and professional background.
+# What excites you about the software industry and your passion. At least 80 words
+summary: I'm a software developer with a Master's degree in Computer Science from Queen's University and a Bachelor's from Trent University. My experience spans academic research in machine learning for medical imaging and hands-on software development in industry, including work on geophysical interpretation tools at Lamontagne Geophysics. I'm passionate about solving real-world problems through technology-whether optimizing code, designing intuitive systems, or exploring tools like cloud computing and AI. What excites me most is the constant opportunity to innovate and make meaningful contributions through software.
+
+# Group your skills by level.
+# Your skills can be anything software related (e.g. language, frameworks, methodologies, software, etc.).
+skills:
+  # At least 5 skills
+  proficient:
+    - Java
+    - Linux/Bash
+    - RDBMS/SQL
+    - Agile/Scrum
+    - Git
+  # At least 5 skills
+  competent:
+    - Python
+    - TypeScript
+    - C#/C++/C
+    - React
+    - TailwindCSS
+  # At least 5 skills
+  familiar:
+    - JUint
+    - Jest
+    - Three.JS
+    - D3.JS
+    - Machine Learning
+
+# List of Jarvis projects
+jarvis_projects:
+  - name: "Cluster Monitor"
+    git_url: "/linux_sql"
+    # The project description allows hiring managers to understand your project and technologies you used(e.g. programming languages, libraries, algorithms, hardware, tools, etc.).
+    # The project description must start with an action verb (https://bit.ly/3guO98u)
+    description: Developed a scalable Linux-cluster monitoring system using Bash scripts and crontab to log CPU, memory, and disk metrics, storing data in a PostgreSQL database within Docker; enables usage tracking and real-time cluster health visibility via SQL.
+  - name: "SQL"
+    git_url: "/sql"
+    description: "Practiced SQL fundamentals using pgAdmin 4 and a Docker-based PostgreSQL 16 (Alpine) instance: created DDL tables via ddl.sql, loaded test data with clubdata.sql, then executed analytical SQL queries involving joins, aggregation, filtering, and string manipulation to reinforce relational database concepts."
+  #- name: "Core Java Apps"
+  #  git_url: "/core_java"
+  #  description:
+  #    - "Twitter App: Curabitur laoreet tristique leo, eget suscipit nisi. Sed in sodales ex. Maecenas vitae tincidunt dui, et eleifend quam."
+  #    - "JDBC App: Curabitur laoreet tristique leo, eget suscipit nisi. Sed in sodales ex. Maecenas vitae tincidunt dui, et eleifend quam."
+  #    - "Grep App: Curabitur laoreet tristique leo, eget suscipit nisi. Sed in sodales ex. Maecenas vitae tincidunt dui, et eleifend quam."
+  #- name: "Springboot App"
+  #  git_url: "/springboot"
+  #  description: ""
+  #- name: "Python Data Analytics"
+  #  git_url: "/python_data_anlytics"
+  #  description: ""
+  #- name: "Hadoop"
+  #  git_url: "/hadoop"
+  #  description: ""
+  #- name: "Spark"
+  #  git_url: "/spark"
+  #  description: ""
+  #- name: "Cloud/DevOps"
+  #  git_url: "/cloud_devops"
+  #  description: ""
+
+# List of personal or academic projects
+# Feel free to add more projects
+highlighted_projects:
+  #project name
+  - name: "JavaFX Snake Game with Score Database"
+    #URL is optional
+    git_url: "https://github.com/studentuser13/Examples/tree/main/JavaFX%20Snake%20Game%20with%20Score%20Database"
+    # The project description must start with an action verb (https://bit.ly/3guO98u)
+    description: "Developed a JavaFX snake game featuring real-time scoring and persistent high-score storage: built using Java and JavaFX for GUI, a relational database (e.g., SQLite/PostgreSQL) for score tracking, and Git version control. Implements collision detection, dynamic growth mechanics, and SQL integration to reinforce game logic and data-persistence concepts."
+  - name: "Prostate CT Segmentation Using UNet"
+    git_url: "https://github.com/studentuser13/Examples/tree/main/Prostate%20CT%20Segmentation%20Using%20UNet%20(Colab%20Notebook)"
+    description: "Developed a UNet-based deep learning model for prostate segmentation in CT scans using Python and PyTorch on Google Colab. Implemented data preprocessing with NumPy, SimpleITK, and scikit-learn; trained and evaluated on GPU to demonstrate semantic segmentation, visualization, and model performance in a medical imaging context."
+  #- name: "Machine Learning"
+  #  git_url:
+  #  description: Suspendisse a tincidunt odio. Suspendisse posuere luctus aliquet. Quisque magna tellus, tempor vitae arcu sed, volutpat scelerisque lacus. Aliquam varius pulvinar dapibus. Ut a tincidunt sem. Aenean sollicitudin fringilla erat ut imperdiet. Phasellus fermentum, enim vitae laoreet elementum, eros nisl hendrerit lorem.
+
+#List of professional experience
+#The job description allows hiring managers to understand your job and the technologies you used(e.g. programming languages, libraries, algorithms, hardware, tools, etc.).
+#The description must be more than 25 words. If your experience is not software related, please focus on soft skills and achievements (e.g. team collaboration, problem-solving, improvements, communication).
+professional_experience:
+  #Write your Jarvis role as a professional experience rather than training.
+  - title: "Software Developer"
+    company: "Jarvis"
+    duration: "2025-present"
+    # The project description must start with an action verb (https://bit.ly/3guO98u)
+    description: "Collaborated using Agile/Scrum methodology to deliver back-end and data projects. Gained hands-on experience with Linux/Shell, SQL, Git, Docker, SDLC practices, and workflows for real-world enterprise environments."
+  - title: "Software Developer"
+    company: "Lamontagne Geophysics Ltd."
+    duration: "2022-2024"
+    description: "Developed and enhanced geological-interpretation web applications using Vanilla JavaScript (ES6+), HTML5, CSS3, d3.js, and Three.js; implemented dynamic UI controls, offline caching with service workers, and prototype migration to React/TypeScript. Debugged visualization software, documented code changes, and updated manuals."
+
+#List of edcuation
+education:
+  - school_name: "Queen's University"
+    duration: "2019-2021"
+    degree: "Master's of Science"
+    department: "Computing"
+    # optional
+    awards_achievements:
+      - "GPA: 3.62/4.0"
+      - "R. Samuel McLaughlin Fellowship"
+  - school_name: "Trent University"
+    duration: "2015-2019"
+    degree: "Bachelor of Science in the Honours Program, Computing Systems"
+    department: "Computing and Information Systems"
+    awards_achievements:
+      - "Scholarship"
+      - "Dean's Honour Roll (2015-2019)"
+
+#Optional section
+others:
+  #category
+  #- title: "Certificates"
+  #  #list of items
+  #  bullets:
+  #    - "Udacity Machine Learning (2019)"
+  - title: "Awards"
+    bullets:
+      - "Coach of the Year - 2024, Kingston Rowing Club"
+  - title: "Activities/Hobbies"
+    bullets:
+      - "Volunteer, Murphy Charitable Foundation, contributing to the open-source Next.js/React pen-pal application: Figma/Tailwind CSS, and supported GCP backend features."
+      - "Volunteer, PlanetGeek Toronto, refurbishing and repairing Macs and PCs for reuse to support e-waste reduction and digital access."
