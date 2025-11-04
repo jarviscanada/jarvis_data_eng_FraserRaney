@@ -1,6 +1,6 @@
 # Introduction
 In this project, I learned SQL fundamentals using the pgAdmin4 desktop app alongside a Docker-based
-PostgreSQL 16 (Alpine) instance. I began by creating the tables with a ddl.sql file. I also loaded a 
+PostgreSQL 16 (Alpine) instance. I began by creating the tables with a `ddl.sql` file. I also loaded a 
 data set into the database with the script `clubdata.sql`, populating it with test records. With this 
 environment, I created and executed a series of SQL queries designed to answer specific analysis 
 questions. This hands-on practice helped me deepen my understanding of relational database concepts, such 
@@ -228,7 +228,7 @@ JOIN cd.facilities ON cd.bookings.facid = cd.facilities.facid
 WHERE
 name LIKE 'Tennis Court%'
 AND starttime >= '2012-09-21 00:00:00'
-AND starttime <= '2012-09-22 00:00:00'
+AND starttime < '2012-09-22 00:00:00'
 ORDER BY
 start ASC;
 ```
