@@ -1,0 +1,103 @@
+{
+  "education": [
+    {
+      "awards_achievements": [
+        "GPA: 3.62/4.0",
+        "R. Samuel McLaughlin Fellowship"
+      ],
+      "degree": "Master's of Science",
+      "department": "Computing",
+      "duration": "2019-2021",
+      "school_name": "Queen's University"
+    },
+    {
+      "awards_achievements": [
+        "Scholarship",
+        "Dean's Honour Roll (2015-2019)"
+      ],
+      "degree": "Bachelor of Science in the Honours Program, Computing Systems",
+      "department": "Computing and Information Systems",
+      "duration": "2015-2019",
+      "school_name": "Trent University"
+    }
+  ],
+  "github_repo_root_url": "https://github.com/jarviscanada/jarvis_data_eng_FraserRaney",
+  "highlighted_projects": [
+    {
+      "description": "Developed a JavaFX snake game featuring real-time scoring and persistent high-score storage: built using Java and JavaFX for GUI, a relational database (e.g., SQLite/PostgreSQL) for score tracking, and Git version control. Implements collision detection, dynamic growth mechanics, and SQL integration to reinforce game logic and data-persistence concepts.",
+      "git_url": "https://github.com/studentuser13/Examples/tree/main/JavaFX%20Snake%20Game%20with%20Score%20Database",
+      "name": "JavaFX Snake Game with Score Database"
+    },
+    {
+      "description": "Developed a UNet-based deep learning model for prostate segmentation in CT scans using Python and PyTorch on Google Colab. Implemented data preprocessing with NumPy, SimpleITK, and scikit-learn; trained and evaluated on GPU to demonstrate semantic segmentation, visualization, and model performance in a medical imaging context.",
+      "git_url": "https://github.com/studentuser13/Examples/tree/main/Prostate%20CT%20Segmentation%20Using%20UNet%20(Colab%20Notebook)",
+      "name": "Prostate CT Segmentation Using UNet"
+    }
+  ],
+  "jarvis_projects": [
+    {
+      "description": "Developed a scalable Linux-cluster monitoring system using Bash scripts and crontab to log CPU, memory, and disk metrics, storing data in a PostgreSQL database within Docker; enables usage tracking and real-time cluster health visibility via SQL.",
+      "git_url": "/linux_sql",
+      "name": "Cluster Monitor"
+    },
+    {
+      "description": "Practiced SQL fundamentals using pgAdmin 4 and a Docker-based PostgreSQL 16 (Alpine) instance: created DDL tables via ddl.sql, loaded test data with clubdata.sql, then executed analytical SQL queries involving joins, aggregation, filtering, and string manipulation to reinforce relational database concepts.",
+      "git_url": "/sql",
+      "name": "SQL"
+    }
+  ],
+  "name": "Fraser Raney",
+  "others": [
+    {
+      "bullets": [
+        "Coach of the Year - 2024, Kingston Rowing Club"
+      ],
+      "title": "Awards"
+    },
+    {
+      "bullets": [
+        "Volunteer, Murphy Charitable Foundation, contributing to the open-source Next.js/React pen-pal application: Figma/Tailwind CSS, and supported GCP backend features.",
+        "Volunteer, PlanetGeek Toronto, refurbishing and repairing Macs and PCs for reuse to support e-waste reduction and digital access."
+      ],
+      "title": "Activities/Hobbies"
+    }
+  ],
+  "professional_experience": [
+    {
+      "company": "Jarvis",
+      "description": "Collaborated using Agile/Scrum methodology to deliver back-end and data projects. Gained hands-on experience with Linux/Shell, SQL, Git, Docker, SDLC practices, and workflows for real-world enterprise environments.",
+      "duration": "2025-present",
+      "title": "Software Developer"
+    },
+    {
+      "company": "Lamontagne Geophysics Ltd.",
+      "description": "Developed and enhanced geological-interpretation web applications using Vanilla JavaScript (ES6+), HTML5, CSS3, d3.js, and Three.js; implemented dynamic UI controls, offline caching with service workers, and prototype migration to React/TypeScript. Debugged visualization software, documented code changes, and updated manuals.",
+      "duration": "2022-2024",
+      "title": "Software Developer"
+    }
+  ],
+  "skills": {
+    "competent": [
+      "Python",
+      "TypeScript",
+      "C#/C++/C",
+      "React",
+      "TailwindCSS"
+    ],
+    "familiar": [
+      "JUint",
+      "Jest",
+      "Three.JS",
+      "D3.JS",
+      "Machine Learning"
+    ],
+    "proficient": [
+      "Java",
+      "Linux/Bash",
+      "RDBMS/SQL",
+      "Agile/Scrum",
+      "Git"
+    ]
+  },
+  "summary": "I'm a software developer with a Master's degree in Computer Science from Queen's University and a Bachelor's from Trent University. My experience spans academic research in machine learning for medical imaging and hands-on software development in industry, including work on geophysical interpretation tools at Lamontagne Geophysics. I'm passionate about solving real-world problems through technology-whether optimizing code, designing intuitive systems, or exploring tools like cloud computing and AI. What excites me most is the constant opportunity to innovate and make meaningful contributions through software."
+}
