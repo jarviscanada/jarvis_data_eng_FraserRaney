@@ -20,9 +20,9 @@ CREATE TABLE IF NOT EXISTS public.members
     REFERENCES public.members (memid) ON DELETE SET NULL
     );
 
--- Table: cd.facilities
+-- Table: cd.facilites
 
-CREATE TABLE IF NOT EXISTS public.facilities
+CREATE TABLE IF NOT EXISTS public.facilites
 (
     facid integer NOT NULL,
     name character varying(100) NOT NULL,
@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS public.facilities
     guestcost numeric NOT NULL,
     initialoutlay numeric NOT NULL,
     monthlymaintenance numeric NOT NULL,
-    CONSTRAINT facilities_pkey PRIMARY KEY (facid)
+    CONSTRAINT facilites_pkey PRIMARY KEY (facid)
     );
 
 -- Table: cd.bookings
@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS public.bookings
     slots integer NOT NULL,
     CONSTRAINT bookings_pkey PRIMARY KEY (bookid),
     CONSTRAINT fk_bookings_facid FOREIGN KEY (facid)
-    REFERENCES public.facilities (facid),
+    REFERENCES public.facilites (facid),
     CONSTRAINT fk_bookings_memid FOREIGN KEY (memid)
     REFERENCES public.members (memid)
     );
