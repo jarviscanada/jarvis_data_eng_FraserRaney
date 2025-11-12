@@ -104,7 +104,6 @@ education:
     department: "Computing"
     # optional
     awards_achievements:
-      - "GPA: 3.62/4.0"
       - "R. Samuel McLaughlin Fellowship"
   - school_name: "Trent University"
     duration: "2015-2019"

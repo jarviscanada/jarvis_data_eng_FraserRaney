@@ -35,7 +35,6 @@ Project source code: [https://github.com/jarviscanada/jarvis_data_eng_FraserRane
 
 ## Education
 **Queen's University (2019-2021)**, Master's of Science, Computing
-- GPA: 3.62/4.0
 - R. Samuel McLaughlin Fellowship
 
 **Trent University (2015-2019)**, Bachelor of Science in the Honours Program, Computing Systems, Computing and Information Systems
