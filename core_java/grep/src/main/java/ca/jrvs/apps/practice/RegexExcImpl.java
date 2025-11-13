@@ -6,7 +6,7 @@ public class RegexExcImpl implements RegexExc {
 
   // Precompile patterns for efficiency
   private static final Pattern JPEG_PATTERN = Pattern.compile("(?i).*\\.(jpe?g)$");
-  private static final Pattern IP_PATTERN   = Pattern.compile("^\\d{1,3}(?:\\.\\d{1,3}){3}$");
+  private static final Pattern IP_PATTERN = Pattern.compile("^\\d{1,3}(?:\\.\\d{1,3}){3}$");
   private static final Pattern EMPTY_LINE_PATTERN = Pattern.compile("^\\s*$");
 
   @Override
