@@ -94,7 +94,7 @@ public class JavaGrepImpl implements JavaGrep {
    * default).
    * </p>
    * <p>
-   * Note: This implementation does not expose encoding choice ? it assumes default encoding.
+   * Note: This implementation does not expose encoding choice, it assumes default encoding.
    * </p>
    *
    * @param inputFile file to be read
