@@ -56,13 +56,14 @@ public class JavaGrepImpl implements JavaGrep {
   @Override
   public void process() throws IOException {
     List<String> matchedLines = new ArrayList<>();
-    for (File file : listFiles(getRootPath())) {
-      for (String line : readLines(file)) {
-        if (containsPattern(line)) {
-          matchedLines.add(line);
-        }
-      }
-    }
+
+    listFiles(getRootPath()).stream().forEach(file -> {
+      readLines(file)
+          .stream()
+          .filter(this::containsPattern)
+          .forEach(matchedLines::add);
+    });
+
     writeToFile(matchedLines);
   }
 
@@ -106,18 +107,15 @@ public class JavaGrepImpl implements JavaGrep {
     if (inputFile == null || !inputFile.isFile()) {
       throw new IllegalArgumentException("inputFile is not a valid file: " + inputFile);
     }
-    List<String> lines = new ArrayList<>();
     try (BufferedReader reader = new BufferedReader(new FileReader(inputFile))) {
-      String line;
-      while ((line = reader.readLine()) != null) {
-        lines.add(line);
-      }
+      return reader
+          .lines()
+          .collect(Collectors.toList());
     } catch (IOException ex) {
-      // You can wrap or rethrow, depending on how you want to handle it
       this.LOGGER.error("Unable to read lines from file: " + inputFile, ex);
     }
 
-    return lines;
+    return Collections.emptyList();
   }
 
   /**
@@ -156,12 +154,16 @@ public class JavaGrepImpl implements JavaGrep {
         OutputStreamWriter osw = new OutputStreamWriter(fos);
         BufferedWriter writer = new BufferedWriter(osw)) {
 
-      for (int i = 0; i < lines.size(); i++) {
-        writer.write(lines.get(i));
-        if (i < (lines.size() - 1)) {
+      lines
+          .stream()
+          .forEach(line -> {
+        try {
+          writer.write(line);
           writer.newLine();
+        } catch (IOException ex) {
+          this.LOGGER.error("Unable to write line to file: " + line, ex);
         }
-      }
+      });
     }
 
   }
