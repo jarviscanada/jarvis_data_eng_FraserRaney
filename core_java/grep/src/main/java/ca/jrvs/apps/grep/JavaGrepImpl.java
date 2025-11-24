@@ -57,12 +57,14 @@ public class JavaGrepImpl implements JavaGrep {
   public void process() throws IOException {
     List<String> matchedLines = new ArrayList<>();
 
-    listFiles(getRootPath()).stream().forEach(file -> {
-      readLines(file)
-          .stream()
-          .filter(this::containsPattern)
-          .forEach(matchedLines::add);
-    });
+    listFiles(getRootPath())
+        .stream()
+        .forEach(file -> {
+          readLines(file)
+              .stream()
+              .filter(this::containsPattern)
+              .forEach(matchedLines::add);
+        });
 
     writeToFile(matchedLines);
   }
@@ -157,13 +159,13 @@ public class JavaGrepImpl implements JavaGrep {
       lines
           .stream()
           .forEach(line -> {
-        try {
-          writer.write(line);
-          writer.newLine();
-        } catch (IOException ex) {
-          this.LOGGER.error("Unable to write line to file: " + line, ex);
-        }
-      });
+            try {
+              writer.write(line);
+              writer.newLine();
+            } catch (IOException ex) {
+              this.LOGGER.error("Unable to write line to file: " + line, ex);
+            }
+          });
     }
 
   }
