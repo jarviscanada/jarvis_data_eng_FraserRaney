@@ -71,6 +71,8 @@ public class JavaGrepImpl implements JavaGrep {
 
   /**
    * Traverse a given directory and return all files
+   * Uses the walk method of {@link Files} to return a DFS list of the files
+   * in the rootDir.
    *
    * @param rootDir input directory
    * @return files under the rootDir
