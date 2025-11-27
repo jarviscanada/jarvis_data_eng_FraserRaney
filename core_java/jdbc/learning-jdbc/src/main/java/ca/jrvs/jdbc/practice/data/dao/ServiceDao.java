@@ -1,19 +1,34 @@
 package ca.jrvs.jdbc.practice.data.dao;
 
 import ca.jrvs.jdbc.practice.data.entity.Service;
+import ca.jrvs.jdbc.practice.data.util.DatabaseUtils;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.logging.Logger;
 
 public class ServiceDao implements Dao <Service, UUID>{
+  private static final Logger LOGGER = Logger.getLogger(ServiceDao.class.getName());
+
+  private static final String GET_ALL = "select service_id, name, price from wisdom.services";
 
   @Override
   public List<Service> getAll() {
-    return Collections.emptyList();
+    List<Service> services = new ArrayList<>();
+    Connection connection = DatabaseUtils.getConnection();
+    try(Statement statement = connection.createStatement()){
+      ResultSet rs = statement.executeQuery(GET_ALL);
+      services = this.processResultSet(rs);
+    } catch(SQLException e){
+      DatabaseUtils.handleSqlException("ServiceDao.getAll", e, LOGGER);
+    }
+    return services;
   }
 
   @Override
