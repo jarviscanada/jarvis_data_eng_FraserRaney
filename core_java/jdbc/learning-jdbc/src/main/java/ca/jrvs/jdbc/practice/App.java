@@ -3,6 +3,7 @@ package ca.jrvs.jdbc.practice;
 import ca.jrvs.jdbc.practice.data.dao.CustomerDao;
 import ca.jrvs.jdbc.practice.data.dao.ProductVendorDao;
 import ca.jrvs.jdbc.practice.data.dao.ServiceDao;
+import ca.jrvs.jdbc.practice.data.dao.SimpleProductDao;
 import ca.jrvs.jdbc.practice.data.entity.Customer;
 import ca.jrvs.jdbc.practice.data.entity.Product;
 import ca.jrvs.jdbc.practice.data.entity.Service;
@@ -10,6 +11,7 @@ import ca.jrvs.jdbc.practice.data.entity.Vendor;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 /**
  * Hello world!
@@ -83,5 +85,18 @@ public class App {
     productVendorDao.delete(updated.getProductId());
     System.out.println("\n*** DELETE ***\n");
 
+    System.out.println("\n\n*** SIMPLE PRODUCT ***");
+    SimpleProductDao spdao = new SimpleProductDao();
+    UUID productId = spdao.createProduct("foobarbaz" + System.currentTimeMillis(), new BigDecimal(45.67), "Jaloo" );
+    System.out.println(productId);
+
+    System.out.println("\n\n*** LIMIT ***");
+    serviceDao.getAllLimit(2).forEach(System.out::println);
+
+    System.out.println("\n\n*** PAGED ***");
+    for (int i = 1; i < 11; i++){
+      System.out.println("Page number: " + i);
+      customerDao.getAllPaged(i, 10).forEach(System.out::println);
+    }
   }
 }
