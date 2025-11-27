@@ -1,9 +1,12 @@
 package ca.jrvs.jdbc.practice;
 
 import ca.jrvs.jdbc.practice.data.dao.CustomerDao;
+import ca.jrvs.jdbc.practice.data.dao.ProductVendorDao;
 import ca.jrvs.jdbc.practice.data.dao.ServiceDao;
 import ca.jrvs.jdbc.practice.data.entity.Customer;
+import ca.jrvs.jdbc.practice.data.entity.Product;
 import ca.jrvs.jdbc.practice.data.entity.Service;
+import ca.jrvs.jdbc.practice.data.entity.Vendor;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
@@ -52,6 +55,32 @@ public class App {
     newCustomer = customerDao.update(newCustomer);
     System.out.println("\n*** UPDATE ***\n" + newCustomer);
     customerDao.delete(newCustomer.getCustomerId());
+    System.out.println("\n*** DELETE ***\n");
+
+    ProductVendorDao productVendorDao = new ProductVendorDao();
+    List<Product> products = productVendorDao.getAll();
+    System.out.println("**** PRODUCTS ****");
+    System.out.println("\n*** GET_ALL ***");
+    products.forEach(System.out::println);
+    Optional<Product> product = productVendorDao.getOne(products.get(0).getProductId());
+    System.out.println("\n*** GET ONE ***\n" + product.get());
+    Vendor newVendor = new Vendor();
+    newVendor.setName("TestVendor");
+    newVendor.setContact("TestContact");
+    newVendor.setEmail("vendor" + System.currentTimeMillis() + "@example.com");
+    newVendor.setPhone("000-000-0000");
+    newVendor.setAddress("123 Vendor St");
+    Product newProduct = new Product();
+    newProduct.setName("TestProduct_" + System.currentTimeMillis());
+    newProduct.setPrice(new BigDecimal("19.99"));
+    newProduct.setVendor(product.get().getVendor());
+    Product created = productVendorDao.create(newProduct);
+    System.out.println("\n*** CREATE ***\n" + created);
+    created.setPrice(new BigDecimal("29.99"));
+    created.getVendor().setName("UpdatedVendorName");
+    Product updated = productVendorDao.update(created);
+    System.out.println("\n*** UPDATE ***\n" + updated);
+    productVendorDao.delete(updated.getProductId());
     System.out.println("\n*** DELETE ***\n");
 
   }
