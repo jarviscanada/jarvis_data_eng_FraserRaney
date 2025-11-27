@@ -42,6 +42,11 @@
       "description": "Practiced SQL fundamentals using pgAdmin 4 and a Docker-based PostgreSQL 16 (Alpine) instance: created DDL tables via ddl.sql, loaded test data with clubdata.sql, then executed analytical SQL queries involving joins, aggregation, filtering, and string manipulation to reinforce relational database concepts.",
       "git_url": "/sql",
       "name": "SQL"
+    },
+    {
+      "description": "Grep App: A command-line tool built with Java 8 in IntelliJ IDEA and containerised with a Docker. The build is managed by Maven, testing is done with JUnit 5, and logging is handled via SLF4J with a Log4j backend. Lambdas and streams are also used.",
+      "git_url": "/core_java",
+      "name": "Core Java Apps"
     }
   ],
   "name": "Fraser Raney",

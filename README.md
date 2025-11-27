@@ -19,6 +19,8 @@ Project source code: [https://github.com/jarviscanada/jarvis_data_eng_FraserRane
 
 **SQL** [[GitHub](https://github.com/jarviscanada/jarvis_data_eng_FraserRaney/tree/master/sql)]: Practiced SQL fundamentals using pgAdmin 4 and a Docker-based PostgreSQL 16 (Alpine) instance: created DDL tables via ddl.sql, loaded test data with clubdata.sql, then executed analytical SQL queries involving joins, aggregation, filtering, and string manipulation to reinforce relational database concepts.
 
+**Core Java Apps** [[GitHub](https://github.com/jarviscanada/jarvis_data_eng_FraserRaney/tree/master/core_java)]: Grep App: A command-line tool built with Java 8 in IntelliJ IDEA and containerised with a Docker. The build is managed by Maven, testing is done with JUnit 5, and logging is handled via SLF4J with a Log4j backend. Lambdas and streams are also used.
+
 
 ## Highlighted Projects
 **Lamontagne Geophysics - 3C Plotter**: Maintained and enhanced a browser-based geophysical data visualization tool using vanilla ES6+ JavaScript, D3.js, HTML5 and CSS3. Implemented signal-normalization algorithms, offline caching via custom service workers, installable web app manifests, support for legacy file formats, user preferences and viewing options, dynamic PDF export, UI enhancements and bug fixes. https://www.lamontagnegeophysics.com/plotter/ .
