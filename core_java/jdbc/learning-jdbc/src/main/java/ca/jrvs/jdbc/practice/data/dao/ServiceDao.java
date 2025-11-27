@@ -8,13 +8,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.logging.Logger;
 
-public class ServiceDao implements Dao <Service, UUID>{
+public class ServiceDao implements Dao<Service, UUID> {
+
   private static final Logger LOGGER = Logger.getLogger(ServiceDao.class.getName());
 
   private static final String GET_ALL = "select service_id, name, price from wisdom.services";
@@ -27,10 +27,10 @@ public class ServiceDao implements Dao <Service, UUID>{
   public List<Service> getAll() {
     List<Service> services = new ArrayList<>();
     Connection connection = DatabaseUtils.getConnection();
-    try(Statement statement = connection.createStatement()){
+    try (Statement statement = connection.createStatement()) {
       ResultSet rs = statement.executeQuery(GET_ALL);
       services = this.processResultSet(rs);
-    } catch(SQLException e){
+    } catch (SQLException e) {
       DatabaseUtils.handleSqlException("ServiceDao.getAll", e, LOGGER);
     }
     return services;
@@ -41,7 +41,7 @@ public class ServiceDao implements Dao <Service, UUID>{
 
     UUID serviceId = UUID.randomUUID();
     Connection connection = DatabaseUtils.getConnection();
-    try{
+    try {
       connection.setAutoCommit(false);
       PreparedStatement statement = connection.prepareStatement(CREATE);
       statement.setObject(1, serviceId);
@@ -50,7 +50,7 @@ public class ServiceDao implements Dao <Service, UUID>{
       statement.execute();
       connection.commit();
       statement.close();
-    } catch(SQLException e){
+    } catch (SQLException e) {
       try {
         connection.rollback();
       } catch (SQLException sqle) {
@@ -59,7 +59,7 @@ public class ServiceDao implements Dao <Service, UUID>{
       DatabaseUtils.handleSqlException("ServiceDao.create", e, LOGGER);
     }
     Optional<Service> service = this.getOne(serviceId);
-    if (!service.isPresent()){
+    if (!service.isPresent()) {
       return null;
     }
     return service.get();
@@ -68,15 +68,15 @@ public class ServiceDao implements Dao <Service, UUID>{
 
   @Override
   public Optional<Service> getOne(UUID id) {
-    try(PreparedStatement statement = DatabaseUtils.getConnection().prepareStatement(GET_BY_ID)){
+    try (PreparedStatement statement = DatabaseUtils.getConnection().prepareStatement(GET_BY_ID)) {
       statement.setObject(1, id);
       ResultSet rs = statement.executeQuery();
       List<Service> services = this.processResultSet(rs);
-      if (services.isEmpty()){
+      if (services.isEmpty()) {
         return Optional.empty();
       }
       return Optional.of(services.get(0));
-    } catch(SQLException e){
+    } catch (SQLException e) {
       DatabaseUtils.handleSqlException("ServiceDao.getOne", e, LOGGER);
     }
     return Optional.empty();
@@ -85,9 +85,8 @@ public class ServiceDao implements Dao <Service, UUID>{
   @Override
   public Service update(Service entity) {
 
-
     Connection connection = DatabaseUtils.getConnection();
-    try{
+    try {
       connection.setAutoCommit(false);
       PreparedStatement statement = connection.prepareStatement(UPDATE);
       statement.setString(1, entity.getName());
@@ -96,7 +95,7 @@ public class ServiceDao implements Dao <Service, UUID>{
       statement.execute();
       connection.commit();
       statement.close();
-    }catch(SQLException e){
+    } catch (SQLException e) {
       try {
         connection.rollback();
       } catch (SQLException sqle) {
@@ -117,7 +116,7 @@ public class ServiceDao implements Dao <Service, UUID>{
       statement.executeUpdate();
       connection.commit();
       statement.close();
-    } catch(SQLException e){
+    } catch (SQLException e) {
       try {
         connection.rollback();
       } catch (SQLException sqle) {
@@ -130,9 +129,9 @@ public class ServiceDao implements Dao <Service, UUID>{
 
   List<Service> processResultSet(ResultSet rs) throws SQLException {
     List<Service> services = new ArrayList<>();
-    while(rs.next()){
+    while (rs.next()) {
       Service service = new Service();
-      service.setServiceId((UUID)rs.getObject("service_id"));
+      service.setServiceId((UUID) rs.getObject("service_id"));
       service.setName(rs.getString("name"));
       service.setPrice(rs.getBigDecimal("price"));
       services.add(service);
