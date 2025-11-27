@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.UUID;
 
 public class SimpleProduct {
+
   private UUID productId;
   private String name;
   private BigDecimal price;

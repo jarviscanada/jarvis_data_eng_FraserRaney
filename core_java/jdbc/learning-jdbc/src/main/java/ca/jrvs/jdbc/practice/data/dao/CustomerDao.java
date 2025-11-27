@@ -23,20 +23,19 @@ public class CustomerDao implements Dao<Customer, UUID> {
   private static final String DELETE = "delete from wisdom.customers where customer_id = ?";
   private static final String GET_ALL_PAGED = "select customer_id, first_name, last_name, email, phone, address from wisdom.customers order by last_name limit ? offset ?";
 
-  public List<Customer> getAllPaged(int pageNumber, int limit){
+  public List<Customer> getAllPaged(int pageNumber, int limit) {
 
     List<Customer> customers = new ArrayList<>();
     Connection connection = DatabaseUtils.getConnection();
-    int offset = (pageNumber -1) * limit;
+    int offset = (pageNumber - 1) * limit;
 
-    try(PreparedStatement statement = connection.prepareStatement(GET_ALL_PAGED))
-    {
+    try (PreparedStatement statement = connection.prepareStatement(GET_ALL_PAGED)) {
       statement.setInt(1, limit);
       statement.setInt(2, limit);
       ResultSet rs = statement.executeQuery();
       customers = this.processResultSet(rs);
       rs.close();
-    } catch (SQLException e){
+    } catch (SQLException e) {
       DatabaseUtils.handleSqlException("CustomerDao.getAllPaged", e, LOGGER);
     }
     return customers;

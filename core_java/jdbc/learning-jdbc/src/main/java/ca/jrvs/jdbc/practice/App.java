@@ -12,39 +12,42 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.logging.Logger;
 
 /**
  * Hello world!
  */
 public class App {
 
+  private static final Logger LOGGER = Logger.getLogger(App.class.getName());
+
   public static void main(String[] args) {
 
     ServiceDao serviceDao = new ServiceDao();
     List<Service> services = serviceDao.getAll();
-    System.out.println("**** SERVICES ****");
-    System.out.println("\n*** GET_ALL ***");
-    services.forEach(System.out::println);
+    LOGGER.info("**** SERVICES ****");
+    LOGGER.info("\n*** GET_ALL ***");
+    services.forEach(m -> LOGGER.info(m.toString()));
     Optional<Service> service = serviceDao.getOne(services.get(0).getServiceId());
-    System.out.println("\n*** GET ONE ***\n" + service.get());
+    LOGGER.info("\n*** GET ONE ***\n" + service.get());
     Service newService = new Service();
     newService.setName("FooBarBaz" + System.currentTimeMillis());
     newService.setPrice(new BigDecimal(4.35));
     newService = serviceDao.create(newService);
-    System.out.println("\n*** CREATE ***\n" + newService);
+    LOGGER.info("\n*** CREATE ***\n" + newService);
     newService.setPrice(new BigDecimal(13.45));
     newService = serviceDao.update(newService);
-    System.out.println("\n*** UPDATE ***\n" + newService);
+    LOGGER.info("\n*** UPDATE ***\n" + newService);
     serviceDao.delete(newService.getServiceId());
-    System.out.println("\n*** DELETE ***\n");
+    LOGGER.info("\n*** DELETE ***\n");
 
     CustomerDao customerDao = new CustomerDao();
     List<Customer> customers = customerDao.getAll();
-    System.out.println("**** CUSTOMERS ****");
-    System.out.println("\n*** GET_ALL ***");
-    customers.forEach(System.out::println);
+    LOGGER.info("**** CUSTOMERS ****");
+    LOGGER.info("\n*** GET_ALL ***");
+    customers.forEach(m -> LOGGER.info(m.toString()));
     Optional<Customer> customer = customerDao.getOne(customers.get(0).getCustomerId());
-    System.out.println("\n*** GET ONE ***\n" + customer.get());
+    LOGGER.info("\n*** GET ONE ***\n" + customer.get());
     Customer newCustomer = new Customer();
     newCustomer.setFirstName("Foo");
     newCustomer.setLastName("Bar");
@@ -52,20 +55,20 @@ public class App {
     newCustomer.setPhone("1234567890");
     newCustomer.setAddress("123 Hello Way");
     newCustomer = customerDao.create(newCustomer);
-    System.out.println("\n*** CREATE ***\n" + newCustomer);
+    LOGGER.info("\n*** CREATE ***\n" + newCustomer);
     newCustomer.setLastName("Baz");
     newCustomer = customerDao.update(newCustomer);
-    System.out.println("\n*** UPDATE ***\n" + newCustomer);
+    LOGGER.info("\n*** UPDATE ***\n" + newCustomer);
     customerDao.delete(newCustomer.getCustomerId());
-    System.out.println("\n*** DELETE ***\n");
+    LOGGER.info("\n*** DELETE ***\n");
 
     ProductVendorDao productVendorDao = new ProductVendorDao();
     List<Product> products = productVendorDao.getAll();
-    System.out.println("**** PRODUCTS ****");
-    System.out.println("\n*** GET_ALL ***");
-    products.forEach(System.out::println);
+    LOGGER.info("**** PRODUCTS ****");
+    LOGGER.info("\n*** GET_ALL ***");
+    products.forEach(m -> LOGGER.info(m.toString()));
     Optional<Product> product = productVendorDao.getOne(products.get(0).getProductId());
-    System.out.println("\n*** GET ONE ***\n" + product.get());
+    LOGGER.info("\n*** GET ONE ***\n" + product.get());
     Vendor newVendor = new Vendor();
     newVendor.setName("TestVendor");
     newVendor.setContact("TestContact");
@@ -77,26 +80,27 @@ public class App {
     newProduct.setPrice(new BigDecimal("19.99"));
     newProduct.setVendor(product.get().getVendor());
     Product created = productVendorDao.create(newProduct);
-    System.out.println("\n*** CREATE ***\n" + created);
+    LOGGER.info("\n*** CREATE ***\n" + created);
     created.setPrice(new BigDecimal("29.99"));
     created.getVendor().setName("UpdatedVendorName");
     Product updated = productVendorDao.update(created);
-    System.out.println("\n*** UPDATE ***\n" + updated);
+    LOGGER.info("\n*** UPDATE ***\n" + updated);
     productVendorDao.delete(updated.getProductId());
-    System.out.println("\n*** DELETE ***\n");
+    LOGGER.info("\n*** DELETE ***\n");
 
-    System.out.println("\n\n*** SIMPLE PRODUCT ***");
+    LOGGER.info("\n\n*** SIMPLE PRODUCT ***");
     SimpleProductDao spdao = new SimpleProductDao();
-    UUID productId = spdao.createProduct("foobarbaz" + System.currentTimeMillis(), new BigDecimal(45.67), "Jaloo" );
-    System.out.println(productId);
+    UUID productId = spdao.createProduct("foobarbaz" + System.currentTimeMillis(),
+        new BigDecimal(45.67), "Jaloo");
+    LOGGER.info(productId.toString());
 
-    System.out.println("\n\n*** LIMIT ***");
-    serviceDao.getAllLimit(2).forEach(System.out::println);
+    LOGGER.info("\n\n*** LIMIT ***");
+    serviceDao.getAllLimit(2).forEach(m -> LOGGER.info(m.toString()));
 
-    System.out.println("\n\n*** PAGED ***");
-    for (int i = 1; i < 11; i++){
-      System.out.println("Page number: " + i);
-      customerDao.getAllPaged(i, 10).forEach(System.out::println);
+    LOGGER.info("\n\n*** PAGED ***");
+    for (int i = 1; i < 11; i++) {
+      LOGGER.info("Page number: " + i);
+      customerDao.getAllPaged(i, 10).forEach(m -> LOGGER.info(m.toString()));
     }
   }
 }

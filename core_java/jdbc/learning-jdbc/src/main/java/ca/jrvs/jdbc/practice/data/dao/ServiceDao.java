@@ -129,11 +129,11 @@ public class ServiceDao implements Dao<Service, UUID> {
   }
 
 
-  public List<Service> getAllLimit(int limit){
+  public List<Service> getAllLimit(int limit) {
     List<Service> services = new ArrayList<>();
     Connection connection = DatabaseUtils.getConnection();
 
-    try{
+    try {
       connection.setAutoCommit(false);
       PreparedStatement statement = connection.prepareStatement(GET_ALL_LIMIT);
       statement.setInt(1, limit);
