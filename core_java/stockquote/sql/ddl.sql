@@ -1,0 +1,4 @@
+-- switch to database from command line
+-- psql -h [hostname] -U [username] -d [database] -f [file]
+-- Example:
+-- psql -h localhost -U postgres -d host_agent -f sql/ddl.sql
