@@ -1,48 +1,35 @@
 package ca.jrvs.apps.practice;
 
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.util.EntityUtils;
-
+import java.io.IOException;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class Example {
 
-  public static void main(String[] args) {
-    System.out.println("Hello, World");
+  OkHttpClient client = new OkHttpClient();
 
+  String run(String url) throws IOException {
     String apiKey = "d4n0g8pr01qsn6g8qu0gd4n0g8pr01qsn6g8qu10";
-    //String secret  = "d4n0g8pr01qsn6g8qu0gd4n0g8pr01qsn6g8qu10";  // if needed for webhooks
-    String symbol = "AAPL";
+
+    Request request = new Request.Builder()
+        .url(url)
+        .addHeader("X-Finnhub-Token", apiKey)
+        .build();
+
+    try (Response response = client.newCall(request).execute()) {
+      return response.body().string();
+    }
+  }
+
+  public static void main(String[] args) throws IOException {
+    String symbol = "NaN";
     String url = "https://finnhub.io/api/v1/quote?symbol=" + symbol;
 
-    // Create HttpClient
-    try (CloseableHttpClient client = HttpClients.createDefault()) {
-      // Prepare GET request
-      HttpGet request = new HttpGet(url);
+    String url2 = "https://finnhub.io/api/v1//search?q=" + symbol + "&exchange=US";
 
-      // If the API requires a custom header for the token:
-      request.setHeader("X-Finnhub-Token", apiKey);
+    String quote = new Example().run(url2).toString();
 
-      // If you also need to send a secret header (for webhook acknowledgement or similar):
-      //request.setHeader("X-Finnhub-Secret", secret);
-
-      // Execute request
-      try (CloseableHttpResponse response = client.execute(request)) {
-        int status = response.getStatusLine().getStatusCode();
-        String body = EntityUtils.toString(response.getEntity(), "UTF-8");
-
-        System.out.println("HTTP Status: " + status);
-        System.out.println("Response Body:");
-        ObjectMapper mapper = new ObjectMapper();
-        Quote quote = mapper.readValue(body, Quote.class);
-        System.out.println(quote);
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
+    System.out.println(quote);
   }
 }
