@@ -1,6 +1,8 @@
 package ca.jrvs.apps.stockquote.data.util;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -22,6 +24,7 @@ class QuoteHttpHelperTest {
   private OkHttpClient mockClient;
   private QuoteHttpHelper helper;
   private final Logger LOGGER = LoggerFactory.getLogger(QuoteHttpHelperTest.class);
+
   @BeforeEach
   void setUp() {
     mockClient = mock(OkHttpClient.class);
@@ -70,7 +73,8 @@ class QuoteHttpHelperTest {
 
   @Test
   void fetchQuoteInfo_emptyResponse() throws Exception {
-    String emptyJson = "{\"c\":0,\"d\":null,\"dp\":null,\"h\":0,\"l\":0,\"o\":0,\"pc\":0,\"t\":0}";;  // or copy the string
+    String emptyJson = "{\"c\":0,\"d\":null,\"dp\":null,\"h\":0,\"l\":0,\"o\":0,\"pc\":0,\"t\":0}";
+    ;  // or copy the string
 
     Call mockCall = mock(Call.class);
     ResponseBody body = ResponseBody.create(emptyJson, okhttp3.MediaType.get("application/json"));

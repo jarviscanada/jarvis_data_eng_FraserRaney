@@ -18,12 +18,15 @@ public class QuoteHttpHelper {
   private final String EMPTY_RESP = "{\"c\":0,\"d\":null,\"dp\":null,\"h\":0,\"l\":0,\"o\":0,\"pc\":0,\"t\":0}";
 
   private OkHttpClient client;
+
   public QuoteHttpHelper(OkHttpClient client) {
     this.client = client;
   }
+
   public QuoteHttpHelper() {
     this(new OkHttpClient());
   }
+
   /**
    * Fetch latest quote data from finnhub endpoint
    *
@@ -59,5 +62,4 @@ public class QuoteHttpHelper {
   public static void handleHttpException(String method, IOException e, Logger log) {
     log.warn(String.format(exceptionFormat, method, e.getMessage(), e.getCause()));
   }
-
 }
