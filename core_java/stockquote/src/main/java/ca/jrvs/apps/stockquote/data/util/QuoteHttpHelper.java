@@ -13,11 +13,17 @@ import org.slf4j.LoggerFactory;
 public class QuoteHttpHelper {
 
   private String apiKey = "d4n0g8pr01qsn6g8qu0gd4n0g8pr01qsn6g8qu10";
-  private OkHttpClient client = new OkHttpClient();
   private Logger LOGGER = LoggerFactory.getLogger(QuoteHttpHelper.class);
   private static final String exceptionFormat = "exception in %s, message %s, cause: %s";
   private final String EMPTY_RESP = "{\"c\":0,\"d\":null,\"dp\":null,\"h\":0,\"l\":0,\"o\":0,\"pc\":0,\"t\":0}";
 
+  private OkHttpClient client;
+  public QuoteHttpHelper(OkHttpClient client) {
+    this.client = client;
+  }
+  public QuoteHttpHelper() {
+    this(new OkHttpClient());
+  }
   /**
    * Fetch latest quote data from finnhub endpoint
    *

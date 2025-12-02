@@ -13,7 +13,8 @@ import java.sql.Timestamp;
     "h",
     "l",
     "o",
-    "pc"
+    "pc",
+    "t"
 })
 public class Quote {
 
