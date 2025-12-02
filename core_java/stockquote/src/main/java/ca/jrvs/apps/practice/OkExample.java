@@ -6,6 +6,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class OkExample {
+
   OkHttpClient client = new OkHttpClient();
 
   String run(String url) throws IOException {
@@ -22,10 +23,12 @@ public class OkExample {
   }
 
   public static void main(String[] args) throws IOException {
-    String symbol = "AAPL";
+    String symbol = "NaN";
     String url = "https://finnhub.io/api/v1/quote?symbol=" + symbol;
 
-    Quote quote = JsonParser.toObjectFromJson(new OkExample().run(url), Quote.class);
+    String url2 = "https://finnhub.io/api/v1//search?q=" + symbol + "&exchange=US";
+
+    String quote = new OkExample().run(url2).toString();
 
     System.out.println(quote);
   }

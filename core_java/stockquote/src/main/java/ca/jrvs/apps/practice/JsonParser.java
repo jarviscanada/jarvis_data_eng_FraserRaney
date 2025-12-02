@@ -7,7 +7,9 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import java.io.IOException;
 
 public class JsonParser {
-  public static String toJson(Object object, boolean prettyJson, boolean includeNullValues) throws JsonProcessingException {
+
+  public static String toJson(Object object, boolean prettyJson, boolean includeNullValues)
+      throws JsonProcessingException {
     ObjectMapper m = new ObjectMapper();
     if (!includeNullValues) {
       m.setSerializationInclusion(Include.NON_NULL);
@@ -23,7 +25,7 @@ public class JsonParser {
     return (T) m.readValue(json, clazz);
   }
 
-  public static void main(String[] args) throws IOException{
+  public static void main(String[] args) throws IOException {
     Company company = toObjectFromJson(companyStr, Company.class);
     System.out.println(toJson(company, true, false));
   }
