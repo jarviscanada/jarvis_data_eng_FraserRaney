@@ -1,7 +1,6 @@
 package ca.jrvs.apps.practice;
 
 
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -17,7 +16,7 @@ public class Example {
     System.out.println("Hello, World");
 
     String apiKey = "d4n0g8pr01qsn6g8qu0gd4n0g8pr01qsn6g8qu10";
-    String secret  = "d4n0g8pr01qsn6g8qu0gd4n0g8pr01qsn6g8qu10";  // if needed for webhooks
+    //String secret  = "d4n0g8pr01qsn6g8qu0gd4n0g8pr01qsn6g8qu10";  // if needed for webhooks
     String symbol = "AAPL";
     String url = "https://finnhub.io/api/v1/quote?symbol=" + symbol;
 
@@ -39,11 +38,9 @@ public class Example {
 
         System.out.println("HTTP Status: " + status);
         System.out.println("Response Body:");
-        System.out.println(body);
         ObjectMapper mapper = new ObjectMapper();
-        JsonNode root = mapper.readTree(body);
-        System.out.println(root.toPrettyString());
-
+        Quote quote = mapper.readValue(body, Quote.class);
+        System.out.println(quote);
       }
     } catch (Exception e) {
       e.printStackTrace();
