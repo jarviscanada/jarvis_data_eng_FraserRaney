@@ -11,7 +11,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import org.apache.log4j.BasicConfigurator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,7 +21,7 @@ public class PositionDao implements CrudDao<Position, String> {
   private final String FIND_BY_ID = "select symbol, number_of_shares, value_paid from position where symbol = ?";
   private final String FIND_ALL = "select symbol, number_of_shares, value_paid from position";
   private final String DELETE_BY_ID = "delete from position where symbol = ?";
-  private final String DELETE_ALL = "delete from position";
+  private final String DELETE_ALL = "truncate table position";
   private final String UPDATE = "update position set number_of_shares=?, value_paid=? where symbol = ?";
   private final String CREATE = "insert into position (symbol, number_of_shares, value_paid) values (?,?,?)";
 
@@ -35,6 +34,9 @@ public class PositionDao implements CrudDao<Position, String> {
    */
   @Override
   public Position save(Position entity) throws IllegalArgumentException {
+    if (entity.getTicker() == null) {
+      throw new IllegalArgumentException("save: id is null");
+    }
     Optional<Position> position = this.findById(entity.getTicker());
     if (position.isPresent()) {
       return this.update(entity);
@@ -44,7 +46,7 @@ public class PositionDao implements CrudDao<Position, String> {
   }
 
   public Position create(Position entity) {
-    try{
+    try {
       this.c.setAutoCommit(false);
       PreparedStatement statement = this.c.prepareStatement(CREATE);
       statement.setString(1, entity.getTicker());
@@ -53,16 +55,16 @@ public class PositionDao implements CrudDao<Position, String> {
       statement.execute();
       this.c.commit();
       statement.close();
-    }catch (SQLException e) {
-      try{
+    } catch (SQLException e) {
+      try {
         this.c.rollback();
-      }catch(SQLException sqle){
+      } catch (SQLException sqle) {
         DatabaseUtils.handleSqlException("PositionDao.create.rollback", sqle, LOGGER);
       }
       DatabaseUtils.handleSqlException("PositionDao.create", e, LOGGER);
     }
     Optional<Position> position = this.findById(entity.getTicker());
-    if(!position.isPresent()){
+    if (!position.isPresent()) {
       return null;
     }
     return position.get();
@@ -99,6 +101,9 @@ public class PositionDao implements CrudDao<Position, String> {
    */
   @Override
   public Optional<Position> findById(String s) throws IllegalArgumentException {
+    if (s == null) {
+      throw new IllegalArgumentException("findById: id is null");
+    }
     try (PreparedStatement statement = c.prepareStatement(FIND_BY_ID)) {
       statement.setString(1, s);
       ResultSet rs = statement.executeQuery();
@@ -139,6 +144,9 @@ public class PositionDao implements CrudDao<Position, String> {
    */
   @Override
   public void deleteById(String s) throws IllegalArgumentException {
+    if (s == null) {
+      throw new IllegalArgumentException("deleteById: id is null");
+    }
     try {
       this.c.setAutoCommit(false);
       PreparedStatement statement = this.c.prepareStatement(DELETE_BY_ID);
@@ -164,7 +172,7 @@ public class PositionDao implements CrudDao<Position, String> {
     try {
       this.c.setAutoCommit(false);
       Statement statement = this.c.createStatement();
-      statement.executeQuery(DELETE_ALL);
+      statement.execute(DELETE_ALL);
       this.c.commit();
       statement.close();
     } catch (SQLException sqle) {
@@ -187,63 +195,5 @@ public class PositionDao implements CrudDao<Position, String> {
       positions.add(position);
     }
     return positions;
-  }
-
-  public static void main(String[] args) {
-    BasicConfigurator.configure();
-
-    PositionDao dao = new PositionDao();
-    // 1) Clean up any existing data (optional)
-    System.out.println("Deleting all existing positions (if any)...");
-    dao.deleteAll();
-    System.out.println("After deleteAll, findAll(): " + toListString(dao.findAll()));
-
-    // 2) Create a new position
-    Position p1 = new Position();
-    p1.setTicker("TEST");              // symbol
-    p1.setNumOfShares(100);
-    p1.setValuePaid(1234.56);
-    System.out.println("Creating position: " + p1);
-    Position created = dao.save(p1);
-    System.out.println("Created: " + created);
-
-    // 3) Read it back with findById
-    System.out.println("Finding by id 'TEST': " + dao.findById("TEST"));
-
-    // 4) Update the position (change number of shares or value paid)
-    p1.setNumOfShares(200);
-    p1.setValuePaid(2000.00);
-    System.out.println("Updating position to: " + p1);
-    Position updated = dao.save(p1);
-    System.out.println("Updated: " + updated);
-
-    // 5) Create another position
-    Position p2 = new Position();
-    p2.setTicker("FOO");
-    p2.setNumOfShares(50);
-    p2.setValuePaid(500.00);
-    System.out.println("Creating position: " + p2);
-    dao.save(p2);
-
-    // 6) List all positions
-    System.out.println("All positions: " + toListString(dao.findAll()));
-
-    // 7) Delete one by id
-    System.out.println("Deleting position with ticker 'TEST'");
-    dao.deleteById("TEST");
-    System.out.println("After deleteById, findAll(): " + toListString(dao.findAll()));
-
-    // 8) Delete all
-    System.out.println("Deleting all positions");
-    dao.deleteAll();
-    System.out.println("After deleteAll again, findAll(): " + toListString(dao.findAll()));
-
-  }
-  private static String toListString(Iterable<Position> positions) {
-    StringBuilder sb = new StringBuilder();
-    for (Position p : positions) {
-      sb.append(p.toString()).append("\n");
-    }
-    return sb.toString();
   }
 }
