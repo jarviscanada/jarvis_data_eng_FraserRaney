@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 
 public class QuoteHttpHelper {
 
-  private String apiKey = "d4n0g8pr01qsn6g8qu0gd4n0g8pr01qsn6g8qu10";
+  private String apiKey = System.getenv("FINNHUB_API_KEY");
   private Logger LOGGER = LoggerFactory.getLogger(QuoteHttpHelper.class);
   private static final String exceptionFormat = "exception in %s, message %s, cause: %s";
   private final String EMPTY_RESP = "{\"c\":0,\"d\":null,\"dp\":null,\"h\":0,\"l\":0,\"o\":0,\"pc\":0,\"t\":0}";
