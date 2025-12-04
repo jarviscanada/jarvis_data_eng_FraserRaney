@@ -56,7 +56,7 @@ public class QuoteHttpHelper {
     } catch (IOException e) {
       handleHttpException("QuoteHttpHelp.fetchQuoteInfo", e, LOGGER);
     }
-    return new Quote();
+    return null;
   }
 
   public static void handleHttpException(String method, IOException e, Logger log) {
