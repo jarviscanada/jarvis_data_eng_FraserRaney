@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
 
 public class PositionDao implements CrudDao<Position, String> {
 
-  private Connection c = DatabaseUtils.getConnection();
+  private Connection c;
   private final Logger LOGGER = LoggerFactory.getLogger(PositionDao.class);
   private final String FIND_BY_ID = "select symbol, number_of_shares, value_paid from position where symbol = ?";
   private final String FIND_ALL = "select symbol, number_of_shares, value_paid from position";
@@ -24,6 +24,15 @@ public class PositionDao implements CrudDao<Position, String> {
   private final String DELETE_ALL = "truncate table position";
   private final String UPDATE = "update position set number_of_shares=?, value_paid=? where symbol = ?";
   private final String CREATE = "insert into position (symbol, number_of_shares, value_paid) values (?,?,?)";
+
+
+  public PositionDao(Connection c) {
+    this.c = c;
+  }
+
+  public PositionDao() {
+    this(DatabaseUtils.getConnection());
+  }
 
   /**
    * Saves a given entity. Used for create and update

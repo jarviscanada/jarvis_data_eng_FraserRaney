@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
 
 public class QuoteDao implements CrudDao<Quote, String> {
 
-  private Connection c = DatabaseUtils.getConnection();
+  private Connection c;
   private final Logger LOGGER = LoggerFactory.getLogger(QuoteDao.class);
   private final String FIND_BY_ID = "select symbol, open, high, low, price, latest_trading_day, previous_close, change, change_percent, timestamp from quote where symbol = ?";
   private final String FIND_ALL = "select symbol, open, high, low, price, latest_trading_day, previous_close, change, change_percent, timestamp from quote";
@@ -24,6 +24,14 @@ public class QuoteDao implements CrudDao<Quote, String> {
   private final String DELETE_ALL = "delete from quote";
   private final String UPDATE = "update quote set open=?, high=?, low=?, price=?, latest_trading_day=?, previous_close=?, change=?, change_percent=?, timestamp=? where symbol = ?";
   private final String CREATE = "insert into quote (symbol, open, high, low, price, latest_trading_day, previous_close, change, change_percent, timestamp) values (?,?,?,?,?,?,?,?,?,?)";
+
+  public QuoteDao(Connection c) {
+    this.c = c;
+  }
+
+  public QuoteDao() {
+    this(DatabaseUtils.getConnection());
+  }
 
   /**
    * Saves a given entity. Used for create and update

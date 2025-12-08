@@ -28,7 +28,7 @@ class QuoteHttpHelperTest {
   @BeforeEach
   void setUp() {
     mockClient = mock(OkHttpClient.class);
-    helper = new QuoteHttpHelper(mockClient);
+    helper = new QuoteHttpHelper("mockApiKey", mockClient);
   }
 
   @Test
