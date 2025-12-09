@@ -14,7 +14,7 @@ public class StockQuoteController {
   private QuoteService quoteService;
   private PositionService positionService;
   private PositionDao positionDao;
-  private Logger LOGGER = LoggerFactory.getLogger(StockQuoteController.class);
+  private static Logger LOGGER = LoggerFactory.getLogger(StockQuoteController.class);
   private static final String exceptionFormat = "exception in %s, message %s";
 
   public StockQuoteController(QuoteService quoteService, PositionService positionService) {
@@ -32,12 +32,12 @@ public class StockQuoteController {
    */
   public void initClient(String[] args) {
     if (args.length == 0) {
-      System.out.println("Usage: <command> [arguments]");
-      System.out.println("Commands:");
-      System.out.println("  quote <TICKER>");
-      System.out.println("  buy <TICKER> <#shares>");
-      System.out.println("  sell <TICKER>");
-      System.out.println("  show <TICKER>");
+      LOGGER.info("Usage: <command> [arguments]");
+      LOGGER.info("Commands:");
+      LOGGER.info("  quote <TICKER>");
+      LOGGER.info("  buy <TICKER> <#shares>");
+      LOGGER.info("  sell <TICKER>");
+      LOGGER.info("  show <TICKER>");
       return;
     }
 
@@ -57,7 +57,7 @@ public class StockQuoteController {
           handleShowPosition(args);
           break;
         default:
-          System.out.println("Unknown command: " + cmd);
+          LOGGER.info("Unknown command: " + cmd);
           break;
       }
     } catch (Exception e) {
@@ -67,26 +67,26 @@ public class StockQuoteController {
 
   private void handleQuote(String[] args) {
     if (args.length != 2) {
-      System.out.println("Usage: quote <TICKER>");
+      LOGGER.info("Usage: quote <TICKER>");
       return;
     }
     String ticker = args[1];
     Optional<Quote> opt = quoteService.fetchQuoteDataFromAPI(ticker);
     if (!opt.isPresent()) {
-      System.out.println("Quote not found for: " + ticker);
+      LOGGER.info("Quote not found for: " + ticker);
     } else {
       Quote q = opt.get();
-      System.out.println("Quote for " + ticker + ":");
-      System.out.println("  Price: " + q.getPrice());
-      System.out.println("  High: " + q.getHigh());
-      System.out.println("  Low: " + q.getLow());
-      System.out.println("  Latest trading day: " + q.getLatestTradingDay());
+      LOGGER.info("Quote for " + ticker + ":");
+      LOGGER.info("  Price: " + q.getPrice());
+      LOGGER.info("  High: " + q.getHigh());
+      LOGGER.info("  Low: " + q.getLow());
+      LOGGER.info("  Latest trading day: " + q.getLatestTradingDay());
     }
   }
 
   private void handleBuy(String[] args) {
     if (args.length != 3) {
-      System.out.println("Usage: buy <TICKER> <#shares>");
+      LOGGER.info("Usage: buy <TICKER> <#shares>");
       return;
     }
     String ticker = args[1];
@@ -100,11 +100,11 @@ public class StockQuoteController {
     }
     Optional<Quote> opt = quoteService.fetchQuoteDataFromAPI(ticker);
     if (!opt.isPresent()) {
-      System.out.println("Quote not found for: " + ticker);
+      LOGGER.info("Quote not found for: " + ticker);
     } else {
       Quote q = opt.get();
       Position pos = positionService.buy(ticker, shares, q.getPrice());
-      System.out.println("Bought position: " + pos.getTicker()
+      LOGGER.info("Bought position: " + pos.getTicker()
           + " shares=" + pos.getNumOfShares()
           + " totalCost=" + pos.getValuePaid());
     }
@@ -113,13 +113,13 @@ public class StockQuoteController {
 
   private void handleSell(String[] args) {
     if (args.length != 2) {
-      System.out.println("Usage: sell <TICKER>");
+      LOGGER.info("Usage: sell <TICKER>");
       return;
     }
     String ticker = args[1];
     try {
       positionService.sell(ticker);
-      System.out.println("Sold all shares of " + ticker);
+      LOGGER.info("Sold all shares of " + ticker);
     } catch (IllegalArgumentException e) {
       handleException("StockQuoteController.handleSell", e, LOGGER);
     }
@@ -127,25 +127,25 @@ public class StockQuoteController {
 
   private void handleShowPosition(String[] args) {
     if (args.length != 2) {
-      System.out.println("Usage: show-position <TICKER>");
+      LOGGER.info("Usage: show-position <TICKER>");
       return;
     }
     String ticker = args[1];
     Optional<Position> opt = positionDao.findById(ticker);
     if (!opt.isPresent()) {
-      System.out.println("No position found for " + ticker);
+      LOGGER.info("No position found for " + ticker);
     } else {
       Position pos = opt.get();
-      System.out.println("Position for " + ticker + ": shares=" + pos.getNumOfShares()
+      LOGGER.info("Position for " + ticker + ": shares=" + pos.getNumOfShares()
           + " paid=" + pos.getValuePaid());
 
       Optional<Quote> maybeQuote = quoteService.fetchQuoteDataFromAPI(ticker);
       if (maybeQuote.isPresent()) {
         double currentValue = maybeQuote.get().getPrice() * pos.getNumOfShares();
-        System.out.println("Current Market Value: " + currentValue);
-        System.out.println("Unrealized P/L: " + (currentValue - pos.getValuePaid()));
+        LOGGER.info("Current Market Value: " + currentValue);
+        LOGGER.info("Unrealized P/L: " + (currentValue - pos.getValuePaid()));
       } else {
-        System.out.println("Unable to fetch current quote for " + ticker);
+        LOGGER.info("Unable to fetch current quote for " + ticker);
       }
     }
   }
