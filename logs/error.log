@@ -1,0 +1,3 @@
+2025-12-09 20:51:20 WARN  Main:88 - exception in Main.main.dockerConnection, message The connection attempt failed., code: 0
+2025-12-09 20:51:20 WARN  Main:88 - exception in Main.main.fallbackConnection, message Connection to localhost:5432 refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections., code: 0
+2025-12-09 20:51:21 WARN  StockQuoteController:155 - exception in StockQuoteController.initClient, message null
