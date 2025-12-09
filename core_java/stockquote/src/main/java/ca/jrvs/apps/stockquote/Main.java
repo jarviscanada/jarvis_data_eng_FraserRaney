@@ -26,7 +26,6 @@ public class Main {
   private static final String exceptionFormat = "exception in %s, message %s";
 
   public static void main(String[] args) {
-    BasicConfigurator.configure();
     Map<String, String> properties = new HashMap<>();
     try (BufferedReader br = new BufferedReader(
         new FileReader("src/main/resources/properties.txt"))) {
