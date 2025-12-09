@@ -16,7 +16,6 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import okhttp3.OkHttpClient;
-import org.apache.log4j.BasicConfigurator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
