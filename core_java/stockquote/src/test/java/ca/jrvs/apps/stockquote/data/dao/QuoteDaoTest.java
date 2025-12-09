@@ -10,11 +10,17 @@ import ca.jrvs.apps.stockquote.data.entity.Quote;
 import java.sql.Timestamp;
 import java.util.Optional;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class QuoteDaoTest {
 
   private QuoteDao dao = new QuoteDao();
+
+  @BeforeEach
+  void setUp() {
+    dao.deleteAll();
+  }
 
   @AfterEach
   void tearDown() {
