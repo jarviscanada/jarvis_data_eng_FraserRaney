@@ -35,6 +35,7 @@ case $cmd in
 	docker volume create pgjdbcdata
   # Start the container
 	docker run --name jrvs-pgjdbc -e POSTGRES_PASSWORD=$db_password  \
+	--network stock-quote-net \
 	-e POSTGRES_USER=$db_username -d -v pgjdbcdata:/var/lib/postgresql/data \
 	-p 5432:5432 postgres:16-alpine
   # `$?` is the exit code of the previous command

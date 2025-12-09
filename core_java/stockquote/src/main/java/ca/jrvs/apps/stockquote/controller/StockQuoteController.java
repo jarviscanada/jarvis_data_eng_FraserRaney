@@ -17,10 +17,11 @@ public class StockQuoteController {
   private static Logger LOGGER = LoggerFactory.getLogger(StockQuoteController.class);
   private static final String exceptionFormat = "exception in %s, message %s";
 
-  public StockQuoteController(QuoteService quoteService, PositionService positionService) {
+  public StockQuoteController(QuoteService quoteService, PositionService positionService,
+      PositionDao positionDao) {
     this.quoteService = quoteService;
     this.positionService = positionService;
-    this.positionDao = new PositionDao();
+    this.positionDao = positionDao;
   }
 
   /**

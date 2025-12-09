@@ -55,7 +55,7 @@ public class Main {
       QuoteHttpHelper rcon = new QuoteHttpHelper(properties.get("api-key"), client);
       QuoteService sQuote = new QuoteService(qRepo, rcon);
       PositionService sPos = new PositionService(pRepo);
-      StockQuoteController con = new StockQuoteController(sQuote, sPos);
+      StockQuoteController con = new StockQuoteController(sQuote, sPos, pRepo);
       con.initClient(args);
     } catch (SQLException e) {
       handleException("Main.main", e, LOGGER);
