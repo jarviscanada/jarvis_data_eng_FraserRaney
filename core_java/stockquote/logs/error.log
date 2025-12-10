@@ -1,1 +1,0 @@
-2025-12-09 02:34:38 WARN  Main:67 - exception in Main.main, message Connection to localhost:5432 refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.
