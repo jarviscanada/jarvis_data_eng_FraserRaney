@@ -1,0 +1,20 @@
+services:
+
+  db:
+    image: fraserraney/stockquote-db
+    container_name: jrvs-pgjdbc
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgjdbcdata:/var/lib/postgresql/data
+
+  app:
+    image: fraserraney/stockquote:latest
+    container_name: stockquote
+    depends_on:
+      - db
+    volumes:
+      - ./logs:/logs
+
+volumes:
+  pgjdbcdata:

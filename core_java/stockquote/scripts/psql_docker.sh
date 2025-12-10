@@ -12,7 +12,7 @@ db_password=$3
 sudo systemctl status docker || systemctl start docker
 
 # Check container status (try the following cmds on terminal)
-docker container inspect jrvs-pgjdbc
+docker container inspect jrvs-pgjdbc-sq
 container_status=$?
 
 # User switch case to handle create|stop|start opetions
@@ -34,7 +34,8 @@ case $cmd in
   # Create container
 	docker volume create pgjdbcdata
   # Start the container
-	docker run --name jrvs-pgjdbc -e POSTGRES_PASSWORD=$db_password  \
+	docker run --name jrvs-pgjdbc-sq -e POSTGRES_PASSWORD=$db_password  \
+	--network stock-quote-net \
 	-e POSTGRES_USER=$db_username -d -v pgjdbcdata:/var/lib/postgresql/data \
 	-p 5432:5432 postgres:16-alpine
   # `$?` is the exit code of the previous command
@@ -49,7 +50,7 @@ case $cmd in
   fi
 
   # Start or stop the container
-	docker container $cmd jrvs-pgjdbc
+	docker container $cmd jrvs-pgjdbc-sq
 	exit $?
 	;;
 

@@ -23,6 +23,8 @@ public class Main {
 
   private static Logger LOGGER = LoggerFactory.getLogger(Main.class);
   private static final String exceptionFormat = "exception in %s, message %s";
+  private static final String sqlExceptionFormat = "exception in %s, message %s, code: %s";
+
 
   public static void main(String[] args) {
     Map<String, String> properties = new HashMap<>();
@@ -48,22 +50,42 @@ public class Main {
     String url =
         "jdbc:postgresql://" + properties.get("server") + ":" + properties.get("port") + "/"
             + properties.get("database");
-    try (Connection c = DriverManager.getConnection(url, properties.get("username"),
-        properties.get("password"))) {
+    String fallbackUrl = "jdbc:postgresql://localhost:" + properties.get("port") + "/"
+        + properties.get("database");
+    Connection conn = null;
+    try {
+      conn = DriverManager.getConnection(url, properties.get("username"),
+          properties.get("password"));
+    } catch (SQLException e) {
+      handleSqlException("Main.main.dockerConnection", e, LOGGER);
+
+      try {
+        conn = DriverManager.getConnection(fallbackUrl, properties.get("username"),
+            properties.get("password"));
+      } catch (SQLException ex) {
+        handleSqlException("Main.main.fallbackConnection", ex, LOGGER);
+      }
+    }
+
+    try (Connection c = conn) {
       QuoteDao qRepo = new QuoteDao(c);
       PositionDao pRepo = new PositionDao(c);
       QuoteHttpHelper rcon = new QuoteHttpHelper(properties.get("api-key"), client);
       QuoteService sQuote = new QuoteService(qRepo, rcon);
       PositionService sPos = new PositionService(pRepo);
-      StockQuoteController con = new StockQuoteController(sQuote, sPos);
+      StockQuoteController con = new StockQuoteController(sQuote, sPos, pRepo);
       con.initClient(args);
     } catch (SQLException e) {
-      handleException("Main.main", e, LOGGER);
+      handleSqlException("Main.main.init", e, LOGGER);
     }
   }
 
   public static void handleException(String method, Exception e, Logger log) {
     log.warn(String.format(exceptionFormat, method, e.getMessage()));
+  }
+
+  public static void handleSqlException(String method, SQLException e, Logger log) {
+    log.warn(String.format(sqlExceptionFormat, method, e.getMessage(), e.getErrorCode()));
   }
 
 }

@@ -2,8 +2,13 @@ package ca.jrvs.apps.stockquote.data.util;
 
 import ca.jrvs.apps.practice.JsonParser;
 import ca.jrvs.apps.stockquote.data.entity.Quote;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.HashMap;
+import java.util.Map;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -13,9 +18,10 @@ import org.slf4j.LoggerFactory;
 public class QuoteHttpHelper {
 
   private String apiKey;
-  private Logger LOGGER = LoggerFactory.getLogger(QuoteHttpHelper.class);
-  private static final String exceptionFormat = "exception in %s, message %s, cause: %s";
+  private static Logger LOGGER = LoggerFactory.getLogger(QuoteHttpHelper.class);
+  private static final String httpExceptionFormat = "exception in %s, message %s, cause: %s";
   private final String EMPTY_RESP = "{\"c\":0,\"d\":null,\"dp\":null,\"h\":0,\"l\":0,\"o\":0,\"pc\":0,\"t\":0}";
+  private static final String exceptionFormat = "exception in %s, message %s";
 
   private OkHttpClient client;
 
@@ -24,9 +30,25 @@ public class QuoteHttpHelper {
     this.client = client;
   }
 
-  public QuoteHttpHelper() {
+  public static String getApiKey() {
+    Map<String, String> properties = new HashMap<>();
+    try (BufferedReader br = new BufferedReader(
+        new FileReader("src/main/resources/properties.txt"))) {
+      String line;
+      while ((line = br.readLine()) != null) {
+        String[] tokens = line.split(":");
+        properties.put(tokens[0], tokens[1]);
+      }
+    } catch (FileNotFoundException e) {
+      handleException("Main.main", e, LOGGER);
+    } catch (IOException e) {
+      handleException("Main.main", e, LOGGER);
+    }
+    return properties.get("api-key");
+  }
 
-    this(System.getenv("FINNHUB_API_KEY"), new OkHttpClient());
+  public QuoteHttpHelper() {
+    this(getApiKey(), new OkHttpClient());
   }
 
   /**
@@ -62,6 +84,11 @@ public class QuoteHttpHelper {
   }
 
   public static void handleHttpException(String method, IOException e, Logger log) {
-    log.warn(String.format(exceptionFormat, method, e.getMessage(), e.getCause()));
+    log.warn(String.format(httpExceptionFormat, method, e.getMessage(), e.getCause()));
   }
+
+  public static void handleException(String method, Exception e, Logger log) {
+    log.warn(String.format(exceptionFormat, method, e.getMessage()));
+  }
+
 }
