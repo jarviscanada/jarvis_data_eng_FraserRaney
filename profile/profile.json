@@ -44,7 +44,10 @@
       "name": "SQL"
     },
     {
-      "description": "Grep App: A command-line tool built with Java 8 in IntelliJ IDEA and containerised with a Docker. The build is managed by Maven, testing is done with JUnit 5, and logging is handled via SLF4J with a Log4j backend. Lambdas and streams are also used.",
+      "description": [
+        "Grep App: A command-line tool built with Java 8 in IntelliJ IDEA and containerised with a Docker. The build is managed by Maven, testing is done with JUnit 5, and logging is handled via SLF4J with a Log4j backend. Lambdas and streams are also used.",
+        "Stockquote App: A Java 8/Maven CLI tool that fetches Finnhub stock data, persists trades using a JDBC/PSQL DAO layer, and logs flow/error events separately with SLF4J. Uses OkHttp, Jackson, and a shaded JAR. Fully tested with JUnit/Mockito and deployed through Docker Compose with Docker Hub images."
+      ],
       "git_url": "/core_java",
       "name": "Core Java Apps"
     }

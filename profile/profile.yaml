@@ -46,13 +46,15 @@ jarvis_projects:
     description: "Practiced SQL fundamentals using pgAdmin 4 and a Docker-based PostgreSQL 16 (Alpine) instance: created DDL tables via ddl.sql, loaded test data with clubdata.sql, then executed analytical SQL queries involving joins, aggregation, filtering, and string manipulation to reinforce relational database concepts."
   - name: "Core Java Apps"
     git_url: "/core_java"
-    description: "Grep App: A command-line tool built with Java 8 in IntelliJ IDEA and containerised with a Docker. The build is managed by Maven, testing is done with JUnit 5, and logging is handled via SLF4J with a Log4j backend. Lambdas and streams are also used."
+    description:
+      - "Grep App: A command-line tool built with Java 8 in IntelliJ IDEA and containerised with a Docker. The build is managed by Maven, testing is done with JUnit 5, and logging is handled via SLF4J with a Log4j backend. Lambdas and streams are also used."
       # Keywords: Java 8, REST API, OAuth, Design patterns (e.g. DAO, MVC), JUnit, Mockito, Docker
       #- "Twitter CRUD App: Curabitur laoreet tristique leo, eget suscipit nisi. Sed in sodales ex. Maecenas vitae tincidunt dui, et eleifend quam."
       # Keywords: Java 8, JDBC, RDBMS, SQL, CRUD,DAO
       #- "JDBC App: Curabitur laoreet tristique leo, eget suscipit nisi. Sed in sodales ex. Maecenas vitae tincidunt dui, et eleifend quam."
       # Keywords: Java 8, Lambda, Stream API, IntelliJ
-      #- "Grep App: Curabitur laoreet tristique leo, eget suscipit nisi. Sed in sodales ex. Maecenas vitae tincidunt dui, et eleifend quam."  #- name: "Springboot App"
+      - "Stockquote App: A Java 8/Maven CLI tool that fetches Finnhub stock data, persists trades using a JDBC/PSQL DAO layer, and logs flow/error events separately with SLF4J. Uses OkHttp, Jackson, and a shaded JAR. Fully tested with JUnit/Mockito and deployed through Docker Compose with Docker Hub images."
+  #- name: "Springboot App"
   #  git_url: "/springboot"
   #  description: ""
   #- name: "Python Data Analytics"
