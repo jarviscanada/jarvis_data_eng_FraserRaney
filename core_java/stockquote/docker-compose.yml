@@ -1,20 +1,15 @@
 services:
 
   db:
-    image: postgres:16-alpine
+    image: fraserraney/stockquote-db
     container_name: jrvs-pgjdbc
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: stock_quote
     ports:
       - "5432:5432"
     volumes:
       - pgjdbcdata:/var/lib/postgresql/data
-      - ./sql/ddl.sql:/docker-entrypoint-initdb.d/ddl.sql
 
   app:
-    build: .
+    image: fraserraney/stockquote:latest
     container_name: stockquote
     depends_on:
       - db
