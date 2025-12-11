@@ -19,7 +19,10 @@ Project source code: [https://github.com/jarviscanada/jarvis_data_eng_FraserRane
 
 **SQL** [[GitHub](https://github.com/jarviscanada/jarvis_data_eng_FraserRaney/tree/master/sql)]: Practiced SQL fundamentals using pgAdmin 4 and a Docker-based PostgreSQL 16 (Alpine) instance: created DDL tables via ddl.sql, loaded test data with clubdata.sql, then executed analytical SQL queries involving joins, aggregation, filtering, and string manipulation to reinforce relational database concepts.
 
-**Core Java Apps** [[GitHub](https://github.com/jarviscanada/jarvis_data_eng_FraserRaney/tree/master/core_java)]: Grep App: A command-line tool built with Java 8 in IntelliJ IDEA and containerised with a Docker. The build is managed by Maven, testing is done with JUnit 5, and logging is handled via SLF4J with a Log4j backend. Lambdas and streams are also used.
+**Core Java Apps** [[GitHub](https://github.com/jarviscanada/jarvis_data_eng_FraserRaney/tree/master/core_java)]:
+      
+  - Grep App: A command-line tool built with Java 8 in IntelliJ IDEA and containerised with a Docker. The build is managed by Maven, testing is done with JUnit 5, and logging is handled via SLF4J with a Log4j backend. Lambdas and streams are also used.
+  - Stockquote App: A Java 8/Maven CLI tool that fetches Finnhub stock data, persists trades using a JDBC/PSQL DAO layer, and logs flow/error events separately with SLF4J. Uses OkHttp, Jackson, and a shaded JAR. Fully tested with JUnit/Mockito and deployed through Docker Compose with Docker Hub images.
 
 
 ## Highlighted Projects
