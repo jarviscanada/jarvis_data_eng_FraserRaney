@@ -13,7 +13,7 @@ public class QuoteService {
     this.marketDataDao = marketDataDao;
   }
 
-  public FinnhubQuote getQuote(String ticker) {
+  public FinnhubQuote findFinnhubQuoteByTicker(String ticker) {
     return marketDataDao.findQuoteByTicker(ticker);
   }
 }

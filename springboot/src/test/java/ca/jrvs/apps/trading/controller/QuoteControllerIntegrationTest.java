@@ -2,6 +2,7 @@ package ca.jrvs.apps.trading.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import ca.jrvs.apps.trading.data.entity.FinnhubQuote;
 import org.junit.jupiter.api.Test;
@@ -22,7 +23,7 @@ class QuoteControllerIntegrationTest {
     String ticker = "AAPL";
 
     ResponseEntity<FinnhubQuote> response =
-        restTemplate.getForEntity("/iex/ticker/" + ticker, FinnhubQuote.class);
+        restTemplate.getForEntity("/quote/finnhub/ticker/" + ticker, FinnhubQuote.class);
 
     assertEquals(HttpStatus.OK, response.getStatusCode());
     FinnhubQuote quote = response.getBody();
@@ -31,4 +32,5 @@ class QuoteControllerIntegrationTest {
     assertNotNull(quote.getT(), "Timestamp should not be null");
     assertNotNull(quote.getC(), "Current price should not be null");
   }
+
 }
