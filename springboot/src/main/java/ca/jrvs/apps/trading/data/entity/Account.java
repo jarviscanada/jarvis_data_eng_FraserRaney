@@ -5,6 +5,7 @@ import javax.persistence.Id;
 
 @Entity
 public class Account {
+
   @Id
   int id;
   int traderId;

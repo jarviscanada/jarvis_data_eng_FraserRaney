@@ -18,6 +18,7 @@ public class AccountService {
 
   /**
    * Deletes the account if the balance is 0
+   *
    * @param traderId cannot be null
    * @throws IllegalArgumentException if unable to delete
    */

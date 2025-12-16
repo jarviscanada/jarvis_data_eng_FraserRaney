@@ -1,7 +1,12 @@
 package ca.jrvs.apps.trading.service;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import ca.jrvs.apps.trading.data.entity.Account;
 import ca.jrvs.apps.trading.data.repository.AccountJpaRepository;

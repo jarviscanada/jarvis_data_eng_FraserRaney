@@ -50,7 +50,7 @@ CREATE TABLE public.security_order
     status     varchar NOT NULL,
     ticker     varchar NOT NULL,
     "size"     int4    NOT NULL,
-    price      float8  NULL,
+    price      float8 NULL,
     notes      varchar NULL,
     CONSTRAINT security_order_pk PRIMARY KEY (id),
     CONSTRAINT security_order_account_fk FOREIGN KEY (account_id) REFERENCES account (id),
@@ -59,7 +59,8 @@ CREATE TABLE public.security_order
 
 DROP VIEW IF EXISTS public.position;
 
-CREATE OR REPLACE VIEW public.position
+CREATE
+OR REPLACE VIEW public.position
 AS
 SELECT account_id,
        ticker,
