@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
 
 @Controller
 @RequestMapping("/quote")
@@ -27,7 +26,7 @@ public class QuoteController {
   public FinnhubQuote getQuote(@PathVariable String ticker) {
     try {
       return quoteService.findFinnhubQuoteByTicker(ticker.toUpperCase());
-    } catch (Exception e){
+    } catch (Exception e) {
       throw ResponseExceptionUtil.getResponseStatusException(e);
     }
   }

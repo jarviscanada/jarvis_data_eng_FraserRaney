@@ -2,7 +2,6 @@ package ca.jrvs.apps.trading.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import ca.jrvs.apps.trading.data.entity.FinnhubQuote;
 import org.junit.jupiter.api.Test;

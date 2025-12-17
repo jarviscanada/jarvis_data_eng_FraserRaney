@@ -6,14 +6,17 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
 public class ResponseExceptionUtil {
+
   private static final Logger logger = LoggerFactory.getLogger(ResponseExceptionUtil.class);
+
   public static ResponseStatusException getResponseStatusException(Exception e) {
     if (e instanceof IllegalArgumentException) {
       logger.debug("Invalid input");
       return new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
     } else {
       logger.error("internet error");
-      return new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Internal Error: please contact admin");
+      return new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
+          "Internal Error: please contact admin");
     }
 
   }
