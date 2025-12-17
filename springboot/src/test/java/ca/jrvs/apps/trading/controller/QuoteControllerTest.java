@@ -8,6 +8,7 @@ import ca.jrvs.apps.trading.data.dao.MarketDataDao;
 import ca.jrvs.apps.trading.service.QuoteService;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.StatusLine;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,6 +26,10 @@ class QuoteControllerTest {
 
   @Mock
   private HttpResponse mockResponse;
+
+  @Mock
+  private StatusLine mockStatusLine;
+
 
   @Mock
   private HttpEntity mockEntity;
@@ -54,6 +59,8 @@ class QuoteControllerTest {
     String ticker = "AAPL";
 
     when(mockHttpClient.execute(any(HttpGet.class))).thenReturn(mockResponse);
+    when(mockResponse.getStatusLine()).thenReturn(mockStatusLine);
+    when(mockStatusLine.getStatusCode()).thenReturn(200);
     when(mockResponse.getEntity()).thenReturn(mockEntity);
     when(mockEntity.getContent())
         .thenThrow(new HttpClientErrorException(HttpStatus.BAD_REQUEST));
@@ -68,6 +75,8 @@ class QuoteControllerTest {
     String ticker = "AAPL";
 
     when(mockHttpClient.execute(any(HttpGet.class))).thenReturn(mockResponse);
+    when(mockResponse.getStatusLine()).thenReturn(mockStatusLine);
+    when(mockStatusLine.getStatusCode()).thenReturn(200);
     when(mockResponse.getEntity()).thenReturn(mockEntity);
     when(mockEntity.getContent())
         .thenThrow(new IllegalArgumentException());

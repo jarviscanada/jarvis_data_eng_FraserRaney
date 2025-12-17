@@ -12,6 +12,7 @@ import java.io.ByteArrayInputStream;
 import java.nio.charset.StandardCharsets;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.StatusLine;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.junit.jupiter.api.BeforeEach;
@@ -28,6 +29,10 @@ class QuoteServiceTest {
 
   @Mock
   private HttpResponse mockResponse;
+
+  @Mock
+  private StatusLine mockStatusLine;
+
 
   @Mock
   private HttpEntity mockEntity;
@@ -55,6 +60,8 @@ class QuoteServiceTest {
   void findFinnhubQuoteByTicker_throws() throws Exception {
     String ticker = "AAPL";
     when(mockHttpClient.execute(any(HttpGet.class))).thenReturn(mockResponse);
+    when(mockResponse.getStatusLine()).thenReturn(mockStatusLine);
+    when(mockStatusLine.getStatusCode()).thenReturn(200);
     when(mockResponse.getEntity()).thenReturn(mockEntity);
     when(mockEntity.getContent())
         .thenThrow(new HttpClientErrorException(HttpStatus.BAD_REQUEST));
@@ -72,6 +79,8 @@ class QuoteServiceTest {
     String json = "{\"c\":123.45,\"t\":1000000}";
 
     when(mockHttpClient.execute(any(HttpGet.class))).thenReturn(mockResponse);
+    when(mockResponse.getStatusLine()).thenReturn(mockStatusLine);
+    when(mockStatusLine.getStatusCode()).thenReturn(200);
     when(mockResponse.getEntity()).thenReturn(mockEntity);
     when(mockEntity.getContent()).thenReturn(
         new ByteArrayInputStream(json.getBytes(StandardCharsets.UTF_8)));
