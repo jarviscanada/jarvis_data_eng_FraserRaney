@@ -1,9 +1,8 @@
 package ca.jrvs.apps.trading.data.entity;
 
 public class FinnhubQuote {
-  //{"c":273.645,"d":-0.465,"dp":-0.1696,"h":274.03,"l":271.79,"o":273.28,"pc":274.11,"t":1765901185}
 
-  private double c; // current price
+  private double c;
   private double d;
   private double dp;
   private double h;

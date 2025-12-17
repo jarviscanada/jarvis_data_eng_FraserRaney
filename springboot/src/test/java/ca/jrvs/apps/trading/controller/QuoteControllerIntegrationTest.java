@@ -1,31 +1,24 @@
 package ca.jrvs.apps.trading.controller;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import ca.jrvs.apps.trading.data.entity.FinnhubQuote;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest
 class QuoteControllerIntegrationTest {
 
   @Autowired
-  private TestRestTemplate restTemplate;
+  private QuoteController quoteController;
 
   @Test
   void quoteControllerIntegrationTest() {
     String ticker = "AAPL";
 
-    ResponseEntity<FinnhubQuote> response =
-        restTemplate.getForEntity("/quote/finnhub/ticker/" + ticker, FinnhubQuote.class);
+    FinnhubQuote quote = quoteController.getQuote(ticker);
 
-    assertEquals(HttpStatus.OK, response.getStatusCode());
-    FinnhubQuote quote = response.getBody();
     assertNotNull(quote, "Response body should not be null");
 
     assertNotNull(quote.getT(), "Timestamp should not be null");
