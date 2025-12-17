@@ -1,5 +1,6 @@
 package ca.jrvs.apps.trading.data.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -8,6 +9,8 @@ public class Account {
 
   @Id
   int id;
+
+  @Column(name = "trader_id", nullable = false)
   int traderId;
   double amount;
 
