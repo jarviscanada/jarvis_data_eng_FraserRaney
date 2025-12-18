@@ -15,8 +15,8 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.conn.HttpClientConnectionManager;
 import org.apache.http.impl.client.HttpClients;
-import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,7 +41,7 @@ public class MarketDataDao {
 
   private final HttpClient httpClient;
 
-  public MarketDataDao(PoolingHttpClientConnectionManager cm, MarketDataConfig mc) {
+  public MarketDataDao(HttpClientConnectionManager cm, MarketDataConfig mc) {
     this.httpClient = HttpClients.custom()
         .setConnectionManager(cm)
         .build();

@@ -10,24 +10,25 @@ import ca.jrvs.apps.trading.data.entity.FinnhubQuote;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
+import org.apache.http.conn.HttpClientConnectionManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 public class MarketDataDaoIntegrationTest {
 
-  MarketDataDao marketDataDao;
+  private MarketDataDao marketDataDao;
+
+  @Autowired
+  private HttpClientConnectionManager cm;
+
+  @Autowired
+  private MarketDataConfig mc;
 
   @BeforeEach
   void setup() {
-    PoolingHttpClientConnectionManager cm = new PoolingHttpClientConnectionManager();
-    cm.setMaxTotal(50);
-    cm.setDefaultMaxPerRoute(50);
-    MarketDataConfig mc = new MarketDataConfig();
-    mc.setHost("https://finnhub.io/api/v1");
-    mc.setToken(System.getenv("FINNHUB_API_KEY"));
     marketDataDao = new MarketDataDao(cm, mc);
   }
 
