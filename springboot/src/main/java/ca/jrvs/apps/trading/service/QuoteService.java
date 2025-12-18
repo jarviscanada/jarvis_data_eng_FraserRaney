@@ -156,7 +156,7 @@ public class QuoteService {
    * Helper method to validate and save a single ticker Not to be confused with saveQuote(Quote
    * quote)
    */
-  protected Quote saveQuote(String ticker) {
+  public Quote saveQuote(String ticker) {
     FinnhubQuote finnhubQuote;
     FinnhubStatus finnhubStatus;
     Quote quote;

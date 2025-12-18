@@ -2,7 +2,7 @@ package ca.jrvs.apps.trading.controller;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import ca.jrvs.apps.trading.data.entity.FinnhubQuote;
+import ca.jrvs.apps.trading.data.entity.Quote;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,12 +17,12 @@ class QuoteControllerIntegrationTest {
   void quoteControllerIntegrationTest() {
     String ticker = "AAPL";
 
-    FinnhubQuote quote = quoteController.getQuote(ticker);
+    Quote quote = quoteController.getQuote(ticker);
 
     assertNotNull(quote, "Response body should not be null");
 
-    assertNotNull(quote.getT(), "Timestamp should not be null");
-    assertNotNull(quote.getC(), "Current price should not be null");
+    assertNotNull(quote.getTicker(), "Ticker should not be null");
+    assertNotNull(quote.getLastPrice(), "Current price should not be null");
   }
 
 }
