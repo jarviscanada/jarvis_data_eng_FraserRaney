@@ -7,11 +7,16 @@ import ca.jrvs.apps.trading.data.entity.Account;
 import ca.jrvs.apps.trading.data.repository.AccountJpaRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.context.annotation.ComponentScan;
 
-@SpringBootTest
-@ActiveProfiles("test")
+@DataJpaTest
+@ComponentScan(basePackages = {
+    "ca.jrvs.apps.trading.data.dao",
+    "ca.jrvs.apps.trading.service"
+})
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class AccountServiceIntegrationTest {
 
   @Autowired

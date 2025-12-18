@@ -29,7 +29,7 @@ public class AccountServiceTest {
   }
 
   @Test
-  public void deleteAccountByTraderId_balanceZero_deletesAccount() {
+  public void deleteAccountByTraderId_balance() {
     // given
     Integer traderId = 1;
     Account account = new Account();
@@ -47,7 +47,7 @@ public class AccountServiceTest {
   }
 
   @Test
-  public void deleteAccountByTraderId_balanceNotZero_throwsIllegalArgumentException() {
+  public void deleteAccountByTraderId_throwsArg() {
     // given
     Integer traderId = 2;
     Account account = new Account();

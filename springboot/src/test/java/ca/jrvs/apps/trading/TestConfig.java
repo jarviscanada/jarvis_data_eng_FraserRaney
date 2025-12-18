@@ -1,14 +1,16 @@
 package ca.jrvs.apps.trading;
 
 import ca.jrvs.apps.trading.data.config.MarketDataConfig;
+import javax.sql.DataSource;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ComponentScan(basePackages = {"ca.jrvs.apps.trading.data.dao", "ca.jrvs.apps.trading.service"})
+@ComponentScan(basePackages = {"ca.jrvs.apps.trading.data.dao"})
 public class TestConfig {
 
   @Value("${spring.datasource.url}")
@@ -23,11 +25,27 @@ public class TestConfig {
   @Value("${spring.datasource.driver-class-name}")
   private String driverClassName;
 
+  @Value("${finnhub.base.url}")
+  private String finnhubBaseUrl;
+
+  @Value("${finnhub.api.key}")
+  private String finnhubApiKey;
+
+  @Bean
+  public DataSource dataSourcTest() {
+    return DataSourceBuilder.create()
+        .url(dbUrl)
+        .username(username)
+        .password(password)
+        .driverClassName(driverClassName)
+        .build();
+  }
+
   @Bean
   public MarketDataConfig marketDataConfig() {
     MarketDataConfig marketDataConfig = new MarketDataConfig();
-    marketDataConfig.setHost("https://finnhub.io/api/v1");
-    marketDataConfig.setToken(System.getenv("FINNHUB_API_KEY"));
+    marketDataConfig.setHost(finnhubBaseUrl);
+    marketDataConfig.setToken(finnhubApiKey);
     return marketDataConfig;
   }
 

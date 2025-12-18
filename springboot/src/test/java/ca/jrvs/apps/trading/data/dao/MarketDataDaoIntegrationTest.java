@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import ca.jrvs.apps.trading.TestConfig;
 import ca.jrvs.apps.trading.data.config.MarketDataConfig;
 import ca.jrvs.apps.trading.data.entity.FinnhubQuote;
 import java.util.Arrays;
@@ -13,10 +14,15 @@ import java.util.Optional;
 import org.apache.http.conn.HttpClientConnectionManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@SpringBootTest
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration(classes = TestConfig.class)
+@TestPropertySource("classpath:application-test.properties")
 public class MarketDataDaoIntegrationTest {
 
   private MarketDataDao marketDataDao;
