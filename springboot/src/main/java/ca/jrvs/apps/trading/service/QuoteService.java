@@ -3,10 +3,12 @@ package ca.jrvs.apps.trading.service;
 import ca.jrvs.apps.trading.data.dao.MarketDataDao;
 import ca.jrvs.apps.trading.data.entity.FinnhubQuote;
 import ca.jrvs.apps.trading.data.entity.Quote;
+import ca.jrvs.apps.trading.data.repository.QuoteJpaRepository;
 import java.util.Collections;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,6 +16,9 @@ public class QuoteService {
 
   private static final Logger logger = LoggerFactory.getLogger(QuoteService.class);
   private final MarketDataDao marketDataDao;
+
+  @Autowired
+  private QuoteJpaRepository quoteRepo;
 
   public QuoteService(MarketDataDao marketDataDao) {
     this.marketDataDao = marketDataDao;
@@ -83,13 +88,17 @@ public class QuoteService {
    * @return a list of quotes
    */
   public List<Quote> findAllQuotes() {
-    //TODO
-    return Collections.emptyList();
+    List<Quote> quotes = quoteRepo.findAll();
+
+    if (quotes.isEmpty()) {
+      return Collections.emptyList();
+    }
+    return quotes;
   }
 
   /**
-   * Helper method to map an IexQuote to a Quote entity Note: 'iexQuote.getLatestPrice() == null' if
-   * the stock market is closed Make sure to set a default value for number field(s)
+   * Helper method to map an FinnhubQuote to a Quote entity Note: 'FinnhubQuote.getLatestPrice() ==
+   * null' if the stock market is closed Make sure to set a default value for number field(s)
    */
   protected static Quote buildQuoteFromIexQuote(FinnhubQuote iexQuote) {
     //TODO

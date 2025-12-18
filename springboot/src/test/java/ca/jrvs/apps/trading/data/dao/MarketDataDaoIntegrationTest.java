@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 import ca.jrvs.apps.trading.TestConfig;
 import ca.jrvs.apps.trading.data.config.MarketDataConfig;
 import ca.jrvs.apps.trading.data.entity.FinnhubQuote;
+import ca.jrvs.apps.trading.data.entity.FinnhubStatus;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -65,6 +66,15 @@ public class MarketDataDaoIntegrationTest {
     } catch (Exception e) {
       fail();
     }
+  }
+
+  @Test
+  void isUSMarketOpen() {
+    FinnhubStatus status = marketDataDao.isUSMarketOpen();
+
+    assertNotNull(status);
+    assertNotNull(status.getExchange(), "Exchange should not be null");
+    assertEquals(status.getExchange(), "US");
   }
 
 }

@@ -2,6 +2,7 @@ package ca.jrvs.apps.trading.data.dao;
 
 import ca.jrvs.apps.trading.data.config.MarketDataConfig;
 import ca.jrvs.apps.trading.data.entity.FinnhubQuote;
+import ca.jrvs.apps.trading.data.entity.FinnhubStatus;
 import ca.jrvs.apps.trading.data.util.JsonParser;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -167,6 +168,26 @@ public class MarketDataDao {
       return Collections.emptyList();
     } catch (Exception e) {
       handleException("MarketDataDao.findAllById", e, logger);
+      throw e;
+    }
+  }
+
+  public FinnhubStatus isUSMarketOpen() {
+    String url = String.format(
+        "%s/stock/market-status?exchange=US&token=%s",
+        baseUrl, apiKey
+    );
+    try {
+      Optional<String> body = executeHttpGet(url);
+      if (body.isPresent()) {
+        return JsonParser.toObjectFromJson(body.get(), FinnhubStatus.class);
+      }
+      throw new DataRetrievalFailureException("HTTP request failed with status 404");
+    } catch (IOException e) {
+      handleException("MarketDataDao.isUSMarketOpen.parseJson", e, logger);
+      throw new DataRetrievalFailureException("Error parsing Json: ");
+    } catch (Exception e) {
+      handleException("MarketDataDao.isUSMarketOpen", e, logger);
       throw e;
     }
   }
