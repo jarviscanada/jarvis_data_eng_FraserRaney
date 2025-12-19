@@ -177,10 +177,6 @@ public class QuoteService {
     }
   }
 
-  public FinnhubStatus getMarketStatus() {
-    return marketDataDao.isUSMarketOpen();
-  }
-
   public static void handleException(String method, Exception e, Logger log) {
     log.warn(String.format(exceptionFormat, method, e.getMessage()));
   }

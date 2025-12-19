@@ -66,7 +66,7 @@ class QuoteControllerTest {
         .thenThrow(new HttpClientErrorException(HttpStatus.BAD_REQUEST));
 
     assertThrows(ResponseStatusException.class,
-        () -> quoteController.getQuote(ticker));
+        () -> quoteController.createQuote(ticker));
 
   }
 
@@ -82,7 +82,7 @@ class QuoteControllerTest {
         .thenThrow(new IllegalArgumentException());
 
     assertThrows(ResponseStatusException.class,
-        () -> quoteController.getQuote(ticker));
+        () -> quoteController.createQuote(ticker));
 
   }
 }
