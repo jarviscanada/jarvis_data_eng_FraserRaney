@@ -2,9 +2,14 @@ package ca.jrvs.apps.trading.service;
 
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import ca.jrvs.apps.trading.data.entity.Account;
+import ca.jrvs.apps.trading.data.entity.Trader;
 import ca.jrvs.apps.trading.data.repository.AccountJpaRepository;
+import ca.jrvs.apps.trading.data.repository.TraderJpaRepository;
+import java.sql.Date;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -23,22 +28,40 @@ public class AccountServiceIntegrationTest {
   private AccountJpaRepository accountRepository;
 
   @Autowired
+  private TraderJpaRepository traderRepository;
+
+  @Autowired
   private AccountService accountService;
+
+  private Trader trader;
+
+  @BeforeEach
+  void setUp() {
+    trader = new Trader();
+    trader.setCountry("Canada");
+    trader.setFirstName("John");
+    trader.setLastName("Doe");
+    trader.setDateOfBirth(new Date(1990, 05, 14));
+    trader.setEmail("john.doe@example.com");
+  }
 
 
   @Test
   public void testDeleteAccount() {
+    Trader saved = traderRepository.save(trader);
+
     Account acc = new Account();
-    acc.setId(1);
-    acc.setTraderId(1);
+    acc.setTraderId(saved.getId());
     acc.setAmount(0L);
-    Account saved = accountRepository.save(acc);
+    Account saved2 = accountRepository.save(acc);
 
-    accountService.deleteAccountByTraderId(1);
+    assertTrue(traderRepository.existsById(saved.getId()));
+    assertTrue(accountRepository.existsById(saved2.getId()));
 
-    assertFalse(accountRepository.findById(saved.getId()).isPresent());
+    accountService.deleteAccountByTraderId(saved.getId());
+
+    assertFalse(accountRepository.findById(saved2.getId()).isPresent());
   }
-
 
 }
 
