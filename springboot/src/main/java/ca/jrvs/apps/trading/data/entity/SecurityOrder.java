@@ -1,6 +1,5 @@
 package ca.jrvs.apps.trading.data.entity;
 
-import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,14 +11,14 @@ public class SecurityOrder {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Integer id;
+  private int id;
 
   @Column(name = "account_id")
   private int accountId;
 
   private String status;
   private String ticker;
-  private int size;
+  private long size;
   private double price;
   private String notes;
 
@@ -39,11 +38,11 @@ public class SecurityOrder {
     this.price = price;
   }
 
-  public int getSize() {
+  public long getSize() {
     return size;
   }
 
-  public void setSize(int size) {
+  public void setSize(long size) {
     this.size = size;
   }
 
@@ -63,11 +62,11 @@ public class SecurityOrder {
     this.accountId = accountId;
   }
 
-  public Integer getId() {
+  public int getId() {
     return id;
   }
 
-  public void setId(Integer id) {
+  public void setId(int id) {
     this.id = id;
   }
 

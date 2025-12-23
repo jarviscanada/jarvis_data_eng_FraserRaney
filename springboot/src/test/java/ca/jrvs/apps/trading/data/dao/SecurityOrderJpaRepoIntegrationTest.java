@@ -42,7 +42,6 @@ public class SecurityOrderJpaRepoIntegrationTest {
   private Account testAccount;
   private Quote testQuote;
   private Trader testTrader;
-  private Trader savedTrader;
 
   @BeforeEach
   void setupDependencies() {
@@ -52,10 +51,10 @@ public class SecurityOrderJpaRepoIntegrationTest {
     testTrader.setLastName("Doe");
     testTrader.setDateOfBirth(new Date(1990, 05, 14));
     testTrader.setEmail("john.doe@example.com");
-    savedTrader = traderRepo.save(testTrader);
+    testTrader = traderRepo.save(testTrader);
 
     testAccount = new Account();
-    testAccount.setTraderId(savedTrader.getId());
+    testAccount.setTraderId(testTrader.getId());
     testAccount.setAmount(1000D);
     testAccount = accountRepo.save(testAccount);
 
