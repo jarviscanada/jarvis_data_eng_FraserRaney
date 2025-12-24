@@ -6,6 +6,8 @@ import java.util.List;
 
 
 public interface PositionRepository extends ReadOnlyRepository<Position, PositionKey> {
+
   List<Position> findAllByIdAccountId(Integer accountId);
+
   Integer countAllByIdAccountId(Integer accountId);
 }
