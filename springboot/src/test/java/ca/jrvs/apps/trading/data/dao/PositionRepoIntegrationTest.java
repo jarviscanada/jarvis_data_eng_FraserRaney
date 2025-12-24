@@ -15,7 +15,7 @@ import ca.jrvs.apps.trading.data.repository.PositionRepository;
 import ca.jrvs.apps.trading.data.repository.QuoteJpaRepository;
 import ca.jrvs.apps.trading.data.repository.SecurityOrderJpaRepository;
 import ca.jrvs.apps.trading.data.repository.TraderJpaRepository;
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -60,7 +60,7 @@ public class PositionRepoIntegrationTest {
     testTrader.setCountry("Canada");
     testTrader.setFirstName("John");
     testTrader.setLastName("Doe");
-    testTrader.setDateOfBirth(new Date(1990, 05, 14));
+    testTrader.setDateOfBirth(LocalDate.of(1990, 05, 14));
     testTrader.setEmail("john.doe@example.com");
     savedTrader = traderRepo.save(testTrader);
 

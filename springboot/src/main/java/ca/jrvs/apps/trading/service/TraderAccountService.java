@@ -160,7 +160,11 @@ public class TraderAccountService {
     if (account == null) {
       throw new IllegalArgumentException("Trader account does not exist");
     }
-    account.setAmount(account.getAmount() - fund);
+    double withdrawn = account.getAmount() - fund;
+    if (withdrawn < 0) {
+      withdrawn = 0.0;
+    }
+    account.setAmount(withdrawn);
     account = accountRepo.save(account);
 
     return account;

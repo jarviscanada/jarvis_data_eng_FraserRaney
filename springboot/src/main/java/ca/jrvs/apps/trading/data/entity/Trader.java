@@ -1,6 +1,6 @@
 package ca.jrvs.apps.trading.data.entity;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,7 +21,7 @@ public class Trader {
   private String lastName;
 
   @Column(name = "dob", nullable = false)
-  private Date dateOfBirth;
+  private LocalDate dateOfBirth;
 
   private String country;
   private String email;
@@ -51,11 +51,11 @@ public class Trader {
     this.lastName = lastName;
   }
 
-  public Date getDateOfBirth() {
+  public LocalDate getDateOfBirth() {
     return dateOfBirth;
   }
 
-  public void setDateOfBirth(Date dateOfBirth) {
+  public void setDateOfBirth(LocalDate dateOfBirth) {
     this.dateOfBirth = dateOfBirth;
   }
 

@@ -8,7 +8,7 @@ import ca.jrvs.apps.trading.data.entity.Account;
 import ca.jrvs.apps.trading.data.entity.Trader;
 import ca.jrvs.apps.trading.data.repository.AccountJpaRepository;
 import ca.jrvs.apps.trading.data.repository.TraderJpaRepository;
-import java.sql.Date;
+import java.time.LocalDate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +41,7 @@ public class AccountServiceIntegrationTest {
     trader.setCountry("Canada");
     trader.setFirstName("John");
     trader.setLastName("Doe");
-    trader.setDateOfBirth(new Date(1990, 05, 14));
+    trader.setDateOfBirth(LocalDate.of(1990, 05, 14));
     trader.setEmail("john.doe@example.com");
   }
 

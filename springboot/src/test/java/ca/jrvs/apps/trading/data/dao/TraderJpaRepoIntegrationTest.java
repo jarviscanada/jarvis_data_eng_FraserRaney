@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import ca.jrvs.apps.trading.data.entity.Trader;
 import ca.jrvs.apps.trading.data.repository.TraderJpaRepository;
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,7 +29,7 @@ public class TraderJpaRepoIntegrationTest {
     trader = new Trader();
     trader.setFirstName("John");
     trader.setLastName("Doe");
-    trader.setDateOfBirth(new Date(1990, 1, 1));
+    trader.setDateOfBirth(LocalDate.of(1990, 1, 1));
     trader.setCountry("Canada");
     trader.setEmail("john.doe@example.com");
   }
