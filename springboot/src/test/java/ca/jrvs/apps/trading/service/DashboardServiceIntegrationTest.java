@@ -17,6 +17,7 @@ import ca.jrvs.apps.trading.data.repository.TraderJpaRepository;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,6 +82,13 @@ class DashboardServiceIntegrationTest {
     order2.setPrice(300.0);
 
     securityOrderRepo.saveAll(Arrays.asList(order1, order2));
+  }
+
+  @AfterEach
+  void cleanup() {
+    securityOrderRepo.deleteAll();
+    accountRepo.deleteAll();
+    traderRepo.deleteAll();
   }
 
   @Test

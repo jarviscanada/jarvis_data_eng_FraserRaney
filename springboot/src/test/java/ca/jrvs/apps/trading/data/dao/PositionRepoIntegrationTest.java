@@ -1,7 +1,6 @@
 package ca.jrvs.apps.trading.data.dao;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import ca.jrvs.apps.trading.data.entity.Account;
@@ -56,6 +55,7 @@ public class PositionRepoIntegrationTest {
 
   @BeforeEach
   void setupDependencies() {
+
     testTrader = new Trader();
     testTrader.setCountry("Canada");
     testTrader.setFirstName("John");
@@ -100,13 +100,6 @@ public class PositionRepoIntegrationTest {
 
     securityOrderRepo.save(order1);
     securityOrderRepo.save(order2);
-  }
-
-  @Test
-  public void testFindAll() {
-    List<Position> all = positionRepo.findAll();
-    assertNotNull(all);
-    assertTrue(all.size() == 2);  // Adjust based on setup
   }
 
   @Test

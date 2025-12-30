@@ -13,6 +13,7 @@ import ca.jrvs.apps.trading.TestConfig;
 import ca.jrvs.apps.trading.data.entity.FinnhubQuote;
 import ca.jrvs.apps.trading.data.entity.Quote;
 import ca.jrvs.apps.trading.data.repository.QuoteJpaRepository;
+import ca.jrvs.apps.trading.data.repository.SecurityOrderJpaRepository;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.jupiter.api.AfterEach;
@@ -49,8 +50,12 @@ public class QuoteServiceIntegrationTest {
   @Autowired
   private QuoteJpaRepository quoteRepo;
 
+  @Autowired
+  private SecurityOrderJpaRepository securityOrderRepo;
+
   @BeforeEach
   public void setup() {
+    securityOrderRepo.deleteAll();
     quoteRepo.deleteAll();
   }
 

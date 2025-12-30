@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import ca.jrvs.apps.trading.data.entity.Account;
 import ca.jrvs.apps.trading.data.entity.Trader;
 import ca.jrvs.apps.trading.data.repository.AccountJpaRepository;
+import ca.jrvs.apps.trading.data.repository.SecurityOrderJpaRepository;
 import ca.jrvs.apps.trading.data.repository.TraderJpaRepository;
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -25,6 +26,8 @@ public class AccountJpaRepoIntegrationTest {
   @Autowired
   private AccountJpaRepository accountRepo;
 
+  @Autowired
+  private SecurityOrderJpaRepository securityOrderRepo;
 
   @Autowired
   private TraderJpaRepository traderRepo;
@@ -35,6 +38,10 @@ public class AccountJpaRepoIntegrationTest {
 
   @BeforeEach
   void setup() {
+    securityOrderRepo.deleteAll();
+    accountRepo.deleteAll();
+    traderRepo.deleteAll();
+
     testTrader = new Trader();
     testTrader.setCountry("Canada");
     testTrader.setFirstName("John");

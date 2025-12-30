@@ -45,6 +45,10 @@ public class SecurityOrderJpaRepoIntegrationTest {
 
   @BeforeEach
   void setupDependencies() {
+    securityOrderRepo.deleteAll();
+    accountRepo.deleteAll();
+    traderRepo.deleteAll();
+
     testTrader = new Trader();
     testTrader.setCountry("Canada");
     testTrader.setFirstName("John");

@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import ca.jrvs.apps.trading.data.entity.Quote;
 import ca.jrvs.apps.trading.data.repository.QuoteJpaRepository;
+import ca.jrvs.apps.trading.data.repository.SecurityOrderJpaRepository;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -22,6 +23,9 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 public class QuoteJpaRepoIntegrationTest {
 
   @Autowired
+  SecurityOrderJpaRepository securityOrderRepo;
+
+  @Autowired
   private QuoteJpaRepository quoteRepo;
 
   private Quote aapl;
@@ -29,6 +33,9 @@ public class QuoteJpaRepoIntegrationTest {
 
   @BeforeEach
   void setup() {
+    securityOrderRepo.deleteAll();
+    quoteRepo.deleteAll();
+
     aapl = new Quote();
     aapl.setTicker("AAPL");
     aapl.setLastPrice(150.0);
