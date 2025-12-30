@@ -5,6 +5,7 @@ public class MarketOrder {
   private String ticker;
   private int size;
   private int traderId;
+  private Option option;
 
   public String getTicker() {
     return ticker;
@@ -39,6 +40,14 @@ public class MarketOrder {
         '}';
   }
 
-  private enum Option { BUY, SELL }
+  public Option getOption() {
+    return option;
+  }
+
+  public void setOption(Option option) {
+    this.option = option;
+  }
+
+  public enum Option {BUY, SELL}
 
 }
