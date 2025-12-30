@@ -47,11 +47,6 @@ public class TraderAccountService {
    * @throws IllegalArgumentException if a trader has null fields or id is not null
    */
   public TraderAccountView createTraderAndAccount(Trader trader) {
-    /*
-    if (trader.getId() != 0){
-      throw new IllegalArgumentException("Trader id must be 0");
-    }
-    */
     if (trader != null) {
       final Trader sanitizedTrader = trader;
       Arrays.stream(trader.getClass().getDeclaredFields()).forEach(field -> {

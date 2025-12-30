@@ -14,7 +14,8 @@ public class Position {
 
   private Long position;
 
-  public Position() {}
+  public Position() {
+  }
 
   public Position(PositionKey key, Long position) {
     this.id = key;
