@@ -18,8 +18,6 @@ import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfigurat
 public class Application implements CommandLineRunner {
 
   private static final Logger logger = LoggerFactory.getLogger(Application.class);
-  //@Value("${app.init.dailyList}")
-  //private String[] initDailyList;
 
   public static void main(String[] args) throws Exception {
     SpringApplication app = new SpringApplication(Application.class);
