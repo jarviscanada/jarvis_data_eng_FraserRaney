@@ -1,7 +1,7 @@
 # Introduction
 This project is a Spring Boot trading application that exposes a REST API for managing traders, accounts, portfolios, stock quotes, and market orders. The API is designed to simulate a simplified trading platform where users can create trader accounts, deposit and withdraw funds, retrieve real-time market data, place market orders, and view account and portfolio summaries. External market data is integrated through the Finnhub API, allowing quotes to be refreshed with live pricing information.
 
-The application is built using Java 8 and Maven, following a layered architecture with controllers, services, and a persistence layer implemented using JPA / Hibernate and PostgreSQL. Apache Tomcat serves as the embedded web container, while Swagger UI provides manual testing. The system is containerized using Docker, enabling consistent deployment across environments. Automated testing is implemented with JUnit 5 and Mockito, ensuring reliability of the service and data layers.
+The application is built using Java 8 and Maven, following a layered architecture with controllers, services, and a persistence layer implemented using JPA / Hibernate and PostgreSQL. Apache Tomcat serves as the embedded web container, while Swagger UI provides manual testing. The system is containerized using Docker, enabling consistent deployment across environments. Automated testing is implemented with JUnit 5 and Mockito, ensuring the reliability of the service and data layers.
 
 ## Option 1:
 Download the `docker-compose.yml`
@@ -19,7 +19,7 @@ This will:
 
 - start the server on localhost:8080
 
-You can then access the Swagger-UI interface at `localhost:8080/swagger-ui.html` from a web broswer.
+You can then access the Swagger-UI interface at `localhost:8080/swagger-ui.html` from a web browser.
 
 
 ## Option 2: Run the containers separately (manual network)
@@ -53,11 +53,11 @@ docker compose -f oci://fraserraney/trading-compose:latest up -d
 ### Controller Layer (REST APIs)
 The controller layer is responsible for handling incoming HTTP requests from clients. It defines REST endpoints using annotations such as @GetMapping and@PostMapping. Controllers parse request parameters, path variables, and request bodies and delegate all business logic to the service layer. Controllers also translate exceptions into appropriate HTTP responses.
 ### Service Layer (Business Logic)
-The service layer contains the core business logic of the application. It coordinates workflows across multiple repositories and external services while enforcing business rules (e.g., checking account balance before buying, validating trader state before deletion). Services are annotated with @Service and are managed by Spring's IoC container. They are responsible for composing data into views such as TraderAccountView and PortfolioView and ensure that controllers remain thin and that logic is testable.
+The service layer contains the core business logic of the application. It coordinates workflows across multiple repositories and external services while enforcing business rules (e.g., checking account balances before buying, validating trader state before deletion). Services are annotated with @Service and are managed by Spring's IoC container. They are responsible for composing data into views such as TraderAccountView and PortfolioView ensuring that controllers remain thin and that logic is testable.
 ### JPA Repository Layer (Data Access)
-The JPA Repository layer abstracts database access using Spring Data JPA. Interfaces such as TraderJpaRepository, AccountJpaRepository, and SecurityOrderJpaRepository extend JpaRepository, which provides CRUD operations out of the box (e.g., save, findById, findAll, delete). Custom query methods are also defined using method naming conventions. This layer interacts directly with PostgreSQL via Hibernate and JDBC but hides SQL complexity from the service layer. For the Position View, the repository is typically read-only.
+The JPA Repository layer abstracts database access using Spring Data JPA. Interfaces such as TraderJpaRepository, AccountJpaRepository, and SecurityOrderJpaRepository extend JpaRepository, which provides CRUD operations out of the box (e.g., save, findById, findAll, delete). Custom query methods are also defined using method naming conventions. This layer interacts directly with PostgreSQL via Hibernate and JDBC, while hiding the SQL complexity from the service layer. For the Position View, the repository is typically read-only.
 ### Spring Boot: WebServlet / Tomcat and IoC
-Spring Boot simplifies application setup and runtime configuration. It embeds Apache Tomcat as the WebServlet container, which handles HTTP request routing, threading, and lifecycle management. Spring?s Inversion of Control (IoC) container manages object creation, dependency injection, and lifecycle using annotations like @Controller, @Service, and @Autowired. This enables loose coupling between components and makes the application easier to test and extend.
+Spring Boot simplifies application setup and runtime configuration. It embeds Apache Tomcat as the WebServlet container, which handles HTTP request routing, threading, and lifecycle management. Spring's Inversion of Control (IoC) container manages object creation, dependency injection, and lifecycle using annotations like @Controller, @Service, and @Autowired. This enables loose coupling between components and makes the application easier to test and extend.
 ### PostgreSQL (PSQL) and Finnhub
 PostgreSQL is the persistence layer for the application. It stores traders, accounts, quotes, security orders, and the position view. PostgreSQL runs in a Docker container with a mounted volume to persist data across restarts. Finnhub is an external market data API used to fetch real-time stock information, such as quotes and market status. The application accesses Finnhub through a dedicated MarketDataDao using an HTTP client. Finnhub provides live market data. PostgreSQL stores validated, application-specific state.
 
@@ -117,7 +117,7 @@ The Docker CLI is used by the developer to interact with Docker. Commands such a
 The Docker Host runs the Docker daemon, which manages images, containers, networks, and volumes. The daemon pulls base images from Docker Hub, builds custom images, and creates and runs containers based on those images.
 
 ## Docker Images
-- trading-db: Built from the postgres:16-alpine base image. This image includes a DDL SQL file placed in /docker-entrypoint-initdb.d/. When the container starts for the first time, PostgreSQL automatically executes this script to create tables, views, and schema required by the trading application.
+- trading-db: Built from the postgres:16-alpine base image. This image includes a DDL SQL file placed in /docker-entrypoint-initdb.d/. When the container starts for the first time, PostgreSQL automatically executes this script to create tables and view required by the trading application.
 - trading-app: Built using a multi-stage Docker build. The application is compiled using Maven and packaged as a JAR, then run on an Amazon Corretto image.
 
 ## Docker Containers
