@@ -50,6 +50,11 @@
       ],
       "git_url": "/core_java",
       "name": "Core Java Apps"
+    },
+    {
+      "description": "This Spring Boot trading application provides a REST API for managing traders, accounts, portfolios, stock quotes, and market orders. It integrates live market data via Finnhub and uses Java 8, Maven, JPA/Hibernate, PostgreSQL, and Docker. Swagger UI enables testing, while JUnit 5 and Mockito ensure reliable service and data layers.",
+      "git_url": "/springboot",
+      "name": "Springboot App"
     }
   ],
   "name": "Fraser Raney",

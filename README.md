@@ -24,6 +24,8 @@ Project source code: [https://github.com/jarviscanada/jarvis_data_eng_FraserRane
   - Grep App: A command-line tool built with Java 8 in IntelliJ IDEA and containerised with a Docker. The build is managed by Maven, testing is done with JUnit 5, and logging is handled via SLF4J with a Log4j backend. Lambdas and streams are also used.
   - Stockquote App: A Java 8/Maven CLI tool that fetches Finnhub stock data, persists trades using a JDBC/PSQL DAO layer, and logs flow/error events separately with SLF4J. Uses OkHttp, Jackson, and a shaded JAR. Fully tested with JUnit/Mockito and deployed through Docker Compose with Docker Hub images.
 
+**Springboot App** [[GitHub](https://github.com/jarviscanada/jarvis_data_eng_FraserRaney/tree/master/springboot)]: This Spring Boot trading application provides a REST API for managing traders, accounts, portfolios, stock quotes, and market orders. It integrates live market data via Finnhub and uses Java 8, Maven, JPA/Hibernate, PostgreSQL, and Docker. Swagger UI enables testing, while JUnit 5 and Mockito ensure reliable service and data layers.
+
 
 ## Highlighted Projects
 **Lamontagne Geophysics - 3C Plotter**: Maintained and enhanced a browser-based geophysical data visualization tool using vanilla ES6+ JavaScript, D3.js, HTML5 and CSS3. Implemented signal-normalization algorithms, offline caching via custom service workers, installable web app manifests, support for legacy file formats, user preferences and viewing options, dynamic PDF export, UI enhancements and bug fixes. https://www.lamontagnegeophysics.com/plotter/ .
