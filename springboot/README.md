@@ -1,4 +1,7 @@
 # Introduction
+This project is a Spring Boot?based trading application that exposes a RESTful API for managing traders, accounts, portfolios, stock quotes, and market orders. The API is designed to simulate a simplified trading platform where users can create trader accounts, deposit and withdraw funds, retrieve real-time market data, place market orders, and view account and portfolio summaries. External market data is integrated through the Finnhub API, allowing quotes to be refreshed with live pricing information.
+
+The application is built using Java 8 and Maven, following a layered architecture with controllers, services, and a persistence layer implemented using JPA / Hibernate and PostgreSQL. Apache Tomcat serves as the embedded web container, while Swagger UI provides manual testing. The system is containerized using Docker, enabling consistent deployment across environments. Automated testing is implemented with JUnit 5 and Mockito, ensuring reliability of the service and data layers.
 
 ## Option 1:
 Download the `docker-compose.yml`
