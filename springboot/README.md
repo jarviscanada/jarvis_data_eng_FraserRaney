@@ -92,6 +92,15 @@ DashboardController exposes read-only REST endpoints that aggregate and present 
 - GET `/dashboard/portfolio/traderId/{traderId}`: Retrieves a trader?s portfolio, including all open positions.
 
 # Test
+This application was tested using a combination of unit tests, integration tests, and manual API validation. All REST endpoints were manually validated using Swagger UI and direct HTTP requests to verify request handling, response formats, and error scenarios.
+## Data Layer
+- JPA repository tests were implemented using a local PostgreSQL test database (jrvstrading_test) to validate full CRUD functionality, including create, read, update, delete, existence checks, and count operations.
+- The MarketDataDao was tested with unit tests that were written using Mockito to mock external API responses from Finnhub.
+
+## Service Layer
+- Unit tests were used where JPA repositories and external dependencies were mocked using Mockito.
+- Integration tests were used which used real database connections and live HTTP calls to validate end-to-end behavior.
+- Beans for the HTTP client and data source were manually configured in test configurations.
 
 # Deployment
 
