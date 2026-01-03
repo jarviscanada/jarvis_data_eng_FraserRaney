@@ -54,9 +54,9 @@ jarvis_projects:
       #- "JDBC App: Curabitur laoreet tristique leo, eget suscipit nisi. Sed in sodales ex. Maecenas vitae tincidunt dui, et eleifend quam."
       # Keywords: Java 8, Lambda, Stream API, IntelliJ
       - "Stockquote App: A Java 8/Maven CLI tool that fetches Finnhub stock data, persists trades using a JDBC/PSQL DAO layer, and logs flow/error events separately with SLF4J. Uses OkHttp, Jackson, and a shaded JAR. Fully tested with JUnit/Mockito and deployed through Docker Compose with Docker Hub images."
-  #- name: "Springboot App"
-  #  git_url: "/springboot"
-  #  description: ""
+  - name: "Springboot App"
+    git_url: "/springboot"
+    description: "This Spring Boot trading application provides a REST API for managing traders, accounts, portfolios, stock quotes, and market orders. It integrates live market data via Finnhub and uses Java 8, Maven, JPA/Hibernate, PostgreSQL, and Docker. Swagger UI enables testing, while JUnit 5 and Mockito ensure reliable service and data layers."
   #- name: "Python Data Analytics"
   #  git_url: "/python_data_anlytics"
   #  description: ""
