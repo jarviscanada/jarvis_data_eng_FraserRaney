@@ -65,14 +65,31 @@ The database schema is defined via an SQL script (sql/ddl.sql). For production o
 
 ## REST API Usage
 ### Swagger
+Swagger is a set of tools and specifications for designing, building, and documenting RESTful APIs. It provides an interactive UI that lets developers explore and test API endpoints in a browser, showing available paths, parameters, request/response formats, and real-time responses, making API development and testing easier and more transparent.
 
 ### Quote Controller
+QuoteController exposes REST endpoints for managing stock quote data in the trading application. The controller supports creating quotes using live market data from Finnhub, updating existing quotes, refreshing all stored quotes with the latest market prices, and retrieving the current daily list of quotes.
+- POST `/quote/finnhub/ticker/{ticker}`: Fetches real-time market data for the given ticker from Finnhub, creates a Quote entity, and persists it in the database.
+- PUT `/quote/`: Creates a new quote or updates an existing one using the provided request body.
+- PUT `/quote/finnhubMarketData`: Refreshes market data for all stored quotes by calling Finnhub and updating the database.
+- GET `/quote/dailyList`: Retrieves all stored quotes representing the current daily market snapshot.
 
 ### Trader Account Controller
+TraderAccountController exposes REST endpoints for managing traders and their associated accounts in the trading application. It supports creating traders and initializing their accounts, depositing and withdrawing funds, and deleting traders when business constraints are satisfied.
+- POST `/trader/firstname/{firstname}/lastname/{lastname}/dob/{dob}/country/{country}/email/{email}`: Creates a new trader and initializes an associated account with a zero balance. `dob` must follow `yyyy-MM-dd` format.
+- POST `/trader/`: Creates a trader using a JSON request body.
+- DELETE `/trader/traderId/{traderId}`: Deletes a trader and all related data only if account balance is zero and no open positions exist.
+- PUT `/trader/deposit/traderId/{traderId}/amount/{amount}`: Deposits funds into a trader?s account.
+- PUT `/trader/withdraw/traderId/{traderId}/amount/{amount}`: Withdraws funds from a trader?s account.
 
 ### Order Controller
+OrderController exposes REST endpoints for submitting and executing market orders in the trading application. It accepts user-defined market orders, validates input, and delegates execution logic to OrderService.
+- POST `/order/marketOrder`: Submits a market order to buy or sell a security at the current market price using the provided request body.
 
 ### Dashboard Controller
+DashboardController exposes read-only REST endpoints that aggregate and present a trader?s account and portfolio information in a dashboard-friendly format.
+- GET `/dashboard/profile/traderId/{traderId}`: Retrieves a consolidated view of a trader?s profile and account information.
+- GET `/dashboard/portfolio/traderId/{traderId}`: Retrieves a trader?s portfolio, including all open positions.
 
 # Test
 
