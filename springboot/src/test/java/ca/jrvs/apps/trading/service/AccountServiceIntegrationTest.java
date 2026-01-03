@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.test.context.ActiveProfiles;
 
 @DataJpaTest
 @ComponentScan(basePackages = {
@@ -22,6 +23,7 @@ import org.springframework.context.annotation.ComponentScan;
     "ca.jrvs.apps.trading.service"
 })
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@ActiveProfiles("test")
 public class AccountServiceIntegrationTest {
 
   @Autowired
