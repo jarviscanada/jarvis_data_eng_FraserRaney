@@ -79,20 +79,20 @@ TraderAccountController exposes REST endpoints for managing traders and their as
 - POST `/trader/firstname/{firstname}/lastname/{lastname}/dob/{dob}/country/{country}/email/{email}`: Creates a new trader and initializes an associated account with a zero balance. `dob` must follow `yyyy-MM-dd` format.
 - POST `/trader/`: Creates a trader using a JSON request body.
 - DELETE `/trader/traderId/{traderId}`: Deletes a trader and all related data only if account balance is zero and no open positions exist.
-- PUT `/trader/deposit/traderId/{traderId}/amount/{amount}`: Deposits funds into a trader?s account.
-- PUT `/trader/withdraw/traderId/{traderId}/amount/{amount}`: Withdraws funds from a trader?s account.
+- PUT `/trader/deposit/traderId/{traderId}/amount/{amount}`: Deposits funds into a trader's account.
+- PUT `/trader/withdraw/traderId/{traderId}/amount/{amount}`: Withdraws funds from a trader's account.
 
 ### Order Controller
 OrderController exposes REST endpoints for submitting and executing market orders in the trading application. It accepts user-defined market orders, validates input, and delegates execution logic to OrderService.
 - POST `/order/marketOrder`: Submits a market order to buy or sell a security at the current market price using the provided request body.
 
 ### Dashboard Controller
-DashboardController exposes read-only REST endpoints that aggregate and present a trader?s account and portfolio information in a dashboard-friendly format.
-- GET `/dashboard/profile/traderId/{traderId}`: Retrieves a consolidated view of a trader?s profile and account information.
-- GET `/dashboard/portfolio/traderId/{traderId}`: Retrieves a trader?s portfolio, including all open positions.
+DashboardController exposes read-only REST endpoints that aggregate and present a trader's account and portfolio information in a dashboard-friendly format.
+- GET `/dashboard/profile/traderId/{traderId}`: Retrieves a consolidated view of a trader's profile and account information.
+- GET `/dashboard/portfolio/traderId/{traderId}`: Retrieves a trader's portfolio, including all open positions.
 
 # Test
-This application was tested using a combination of unit tests, integration tests, and manual API validation. All REST endpoints were manually validated using Swagger UI and direct HTTP requests to verify request handling, response formats, and error scenarios.
+This application was tested using a combination of unit tests, integration tests, and manual API validation. All REST endpoints were manually validated using Swagger UI and direct HTTP requests to verify request handling, response formats, and error scenarios. The line coverage was greater than 50% for all service and data layer classes.
 ## Data Layer
 - JPA repository tests were implemented using a local PostgreSQL test database (jrvstrading_test) to validate full CRUD functionality, including create, read, update, delete, existence checks, and count operations.
 - The MarketDataDao was tested with unit tests that were written using Mockito to mock external API responses from Finnhub.
@@ -103,5 +103,28 @@ This application was tested using a combination of unit tests, integration tests
 - Beans for the HTTP client and data source were manually configured in test configurations.
 
 # Deployment
+The project uses separate Docker containers for the database and application. The database container is based on postgres:16-alpine, including a ddl SQL file to initialize the DB. The application container uses a multi-stage Docker build. The build stage uses maven:3.8.6-openjdk-8-slim to compile and package the Spring Boot application. The runtime stage uses amazoncorretto:8-alpine to run the resulting jar file while minimizing the size of the container. Using docker-compose.yml, both containers can be deployed together with a single command, ensuring proper startup order, networking, volume and port mapping.
+
+![Docker Deployment](./assets/docker-deploy.png)
+
+## Docker CLI
+The Docker CLI is used by the developer to interact with Docker. Commands such as docker build, docker run, and docker network create are issued from the CLI and sent to the Docker daemon. These commands are responsible for building images, starting containers, and configuring container networking.
+
+## Docker Host & Docker Daemon
+The Docker Host runs the Docker daemon, which manages images, containers, networks, and volumes. The daemon pulls base images from Docker Hub, builds custom images, and creates and runs containers based on those images.
+
+## Docker Images
+- trading-db: Built from the postgres:16-alpine base image. This image includes a DDL SQL file placed in /docker-entrypoint-initdb.d/. When the container starts for the first time, PostgreSQL automatically executes this script to create tables, views, and schema required by the trading application.
+- trading-app: Built using a multi-stage Docker build. The application is compiled using Maven and packaged as a JAR, then run on an Amazon Corretto image.
+
+## Docker Containers
+- jrvs-pgspring: A running PostgreSQL container created from the trading-db image. It exposes port 5432 and stores data in a Docker volume to persist database state.
+- trading-app: A running Spring Boot container created from the trading-app image. It connects to the database container over the Docker network and exposes port 8080 for the REST API.
+
+## Docker Network
+Both containers are attached to a custom bridge network. This allows the application container to communicate with PostgreSQL using the container name as the hostname.
+
+## Docker Hub
+Docker Hub provides the base images (`postgres`, `maven` and `amazoncorretto`. These images are pulled by the Docker daemon during the build process and extended to create the application-specific images.
 
 # Improvements
