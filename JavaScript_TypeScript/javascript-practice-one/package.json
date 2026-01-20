@@ -1,0 +1,17 @@
+{
+  "name": "javascript-practice-one",
+  "version": "1.0.0",
+  "description": "",
+  "main": "analyze-content.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "jest": "^30.2.0",
+    "jsdom": "^26.1.0"
+  }
+}
