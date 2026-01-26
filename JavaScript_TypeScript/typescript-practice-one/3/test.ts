@@ -1,4 +1,4 @@
-import {FirstArgument, IsTypeEqual, typeAssert} from 'type-assertions';
+import {FirstArgument, IsTypeEqual, typeAssert} from '../type-assertions';
 import {logPerson, Person, persons} from './index';
 
 

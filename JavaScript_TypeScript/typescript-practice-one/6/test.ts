@@ -1,5 +1,5 @@
-import {IsTypeEqual, FirstArgument, typeAssert} from 'type-assertions';
-import {logPerson, Person, persons, filterPersons} from './index';
+import {IsTypeEqual, FirstArgument, typeAssert} from '../type-assertions';
+import {logPerson, Person, persons, filterPersons} from './index.js';
 
 typeAssert<
     IsTypeEqual<

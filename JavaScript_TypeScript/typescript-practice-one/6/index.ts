@@ -64,18 +64,18 @@ export function filterPersons(persons: Person[], personType: string, criteria: P
     return persons
         .filter((person) => person.type === personType)
         .filter((person) => {
-            //let criteriaKeys = Object.keys(criteria) as (keyof Person)[];
-            let criteriaKeys = getObjectKeys(criteria);
+            let criteriaKeys = Object.keys(criteria) as (keyof Person)[];
+            //let criteriaKeys = getObjectKeys(criteria);
             return criteriaKeys.every((fieldName) => {
                 return person[fieldName] === criteria[fieldName];
             });
         });
 }
-
+/*
 export function getObjectKeys<T>(obj: T){
     return Object.keys(obj) as (keyof T)[]
 }
-
+*/
 export const usersOfAge23 = filterPersons(persons, 'user', { age: 23 });
 export const adminsOfAge23 = filterPersons(persons, 'admin', { age: 23 });
 
