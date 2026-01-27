@@ -12,7 +12,11 @@
     "run:5": "tsx 5/test.ts",
     "run:6": "tsx 6/test.ts",
     "run:7": "tsx 7/test.ts",
-    "run:8": "tsx 8/test.ts"
+    "run:8": "tsx 8/test.ts",
+    "run:9": "tsx 9/test.ts",
+    "run:10": "tsx 10/test.ts",
+    "run:11": "tsx 11/test.ts",
+    "run:12": "tsx 12/test.ts"
   },
   "keywords": [],
   "author": "",
