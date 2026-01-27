@@ -5,11 +5,13 @@
     "outDir": "./built",
     "allowJs": true,
     "target": "es5",
-
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
     "module": "nodenext",
-    "types": ["node", "jest"],
+    "types": [
+      "node",
+      "jest"
+    ],
     // For nodejs:
     // "lib": ["esnext"],
     // "types": ["node"],
@@ -19,11 +21,9 @@
     "sourceMap": true,
     "declaration": true,
     "declarationMap": true,
-
     // Stricter Typechecking Options
     "noUncheckedIndexedAccess": true,
     "exactOptionalPropertyTypes": true,
-
     // Style Options
     // "noImplicitReturns": true,
     // "noImplicitOverride": true,
@@ -39,10 +39,12 @@
     "isolatedModules": true,
     "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
-    "skipLibCheck": true,
-
+    "skipLibCheck": true
   },
-  "include": ["./src/**/*"],
-  "exclude": ["./src/**/*.test.ts"]
-
+  "include": [
+    "./src/**/*"
+  ],
+  "exclude": [
+    "./src/**/*.test.ts"
+  ]
 }

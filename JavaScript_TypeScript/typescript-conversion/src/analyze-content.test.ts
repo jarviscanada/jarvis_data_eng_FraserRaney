@@ -2,7 +2,7 @@ const analyzeContent = require("./analyze-content.ts");
 
 test('analyzes text content correctly', () => {
   expect(analyzeContent("this is a test\nSeems to work"))
-  .toEqual({ contentType: "TEXT", lineNumber: 2 });
+  .toEqual({contentType: "TEXT", lineNumber: 2});
 });
 
 test('analyzes CSS content correctly', () => {
