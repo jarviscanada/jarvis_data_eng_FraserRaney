@@ -39,5 +39,5 @@ describe('DoublyLinkedList basic behavior', () => {
     expect(list.pop()).toBe(3);
     expect(list.shift()).toBe(1);
   });
-  
+
 });

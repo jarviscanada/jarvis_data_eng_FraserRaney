@@ -10,7 +10,7 @@ export class DoublyLinkedList<T> {
   private head: Node<T> | null = null;
   /** Tail node */
   private tail: Node<T> | null = null;
-  /** List length */
+  /** List size */
   private size: number = 0;
 
   public length(): number {
