@@ -1,24 +1,33 @@
-import {IsTypeEqual, FirstArgument, typeAssert} from '../type-assertions';
-import {logPerson, isUser, isAdmin, Person, persons} from './index';
+import {FirstArgument, IsTypeEqual, typeAssert} from '../type-assertions';
+import {isAdmin, isUser, logPerson, Person, persons} from './index';
 
 typeAssert<
     IsTypeEqual<
         Person,
-        {name: string; age: number} & ({type: 'user'; occupation: string} | {type: 'admin'; role: string})
+        { name: string; age: number } & ({ type: 'user'; occupation: string } | {
+      type: 'admin';
+      role: string
+    })
     >
 >();
 
 typeAssert<
     IsTypeEqual<
         typeof persons,
-        ({name: string; age: number} & ({type: 'user'; occupation: string} | {type: 'admin'; role: string}))[]
+        ({ name: string; age: number } & ({ type: 'user'; occupation: string } | {
+          type: 'admin';
+          role: string
+        }))[]
     >
 >();
 
 typeAssert<
     IsTypeEqual<
         FirstArgument<typeof logPerson>,
-        {name: string; age: number} & ({type: 'user'; occupation: string} | {type: 'admin'; role: string})
+        { name: string; age: number } & ({ type: 'user'; occupation: string } | {
+      type: 'admin';
+      role: string
+    })
     >
 >();
 
@@ -32,7 +41,10 @@ typeAssert<
 typeAssert<
     IsTypeEqual<
         FirstArgument<typeof isUser>,
-        {name: string; age: number} & ({type: 'user'; occupation: string} | {type: 'admin'; role: string})
+        { name: string; age: number } & ({ type: 'user'; occupation: string } | {
+      type: 'admin';
+      role: string
+    })
     >
 >();
 typeAssert<
@@ -45,7 +57,10 @@ typeAssert<
 typeAssert<
     IsTypeEqual<
         FirstArgument<typeof isAdmin>,
-        {name: string; age: number} & ({type: 'user'; occupation: string} | {type: 'admin'; role: string})
+        { name: string; age: number } & ({ type: 'user'; occupation: string } | {
+      type: 'admin';
+      role: string
+    })
     >
 >();
 typeAssert<
