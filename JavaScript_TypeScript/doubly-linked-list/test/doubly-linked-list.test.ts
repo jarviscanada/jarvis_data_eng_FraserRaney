@@ -1,5 +1,5 @@
-import { describe, it, expect } from 'vitest';
-import { DoublyLinkedList } from '../src/doubly-linked-list.js';
+import {describe, expect, it} from 'vitest';
+import {DoublyLinkedList} from '../src/doubly-linked-list.js';
 
 describe('DoublyLinkedList basic behavior', () => {
   it('starts empty', () => {
