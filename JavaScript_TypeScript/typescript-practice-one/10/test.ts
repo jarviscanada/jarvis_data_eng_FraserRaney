@@ -1,5 +1,5 @@
-import {IsTypeEqual, IsTypeAssignable, FirstArgument, typeAssert} from '../type-assertions';
-import {api, promisify, ApiResponse} from './index';
+import {FirstArgument, IsTypeAssignable, IsTypeEqual, typeAssert} from '../type-assertions';
+import {api, ApiResponse, promisify} from './index';
 
 typeAssert<
     IsTypeAssignable<

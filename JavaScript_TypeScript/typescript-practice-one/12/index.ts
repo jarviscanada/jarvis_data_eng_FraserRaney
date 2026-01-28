@@ -1,11 +1,11 @@
 import {
-  getMaxIndex,
+  getAverageValue,
   getMaxElement,
-  getMinIndex,
-  getMinElement,
-  getMedianIndex,
+  getMaxIndex,
   getMedianElement,
-  getAverageValue
+  getMedianIndex,
+  getMinElement,
+  getMinIndex
 } from 'stats';
 
 /*
@@ -62,19 +62,19 @@ interface Admin {
 }
 
 const admins: Admin[] = [
-  { type: 'admin', name: 'Jane Doe', age: 32, role: 'Administrator' },
-  { type: 'admin', name: 'Bruce Willis', age: 64, role: 'World saver' },
-  { type: 'admin', name: 'Steve', age: 40, role: 'Steve' },
-  { type: 'admin', name: 'Will Bruces', age: 30, role: 'Overseer' },
-  { type: 'admin', name: 'Superwoman', age: 28, role: 'Customer support' }
+  {type: 'admin', name: 'Jane Doe', age: 32, role: 'Administrator'},
+  {type: 'admin', name: 'Bruce Willis', age: 64, role: 'World saver'},
+  {type: 'admin', name: 'Steve', age: 40, role: 'Steve'},
+  {type: 'admin', name: 'Will Bruces', age: 30, role: 'Overseer'},
+  {type: 'admin', name: 'Superwoman', age: 28, role: 'Customer support'}
 ];
 
 const users: User[] = [
-  { type: 'user', name: 'Max Mustermann', age: 25, occupation: 'Chimney sweep' },
-  { type: 'user', name: 'Kate Müller', age: 23, occupation: 'Astronaut' },
-  { type: 'user', name: 'Moses', age: 70, occupation: 'Desert guide' },
-  { type: 'user', name: 'Superman', age: 28, occupation: 'Ordinary person' },
-  { type: 'user', name: 'Inspector Gadget', age: 31, occupation: 'Undercover' }
+  {type: 'user', name: 'Max Mustermann', age: 25, occupation: 'Chimney sweep'},
+  {type: 'user', name: 'Kate Müller', age: 23, occupation: 'Astronaut'},
+  {type: 'user', name: 'Moses', age: 70, occupation: 'Desert guide'},
+  {type: 'user', name: 'Superman', age: 28, occupation: 'Ordinary person'},
+  {type: 'user', name: 'Inspector Gadget', age: 31, occupation: 'Undercover'}
 ];
 
 function logUser(user: User | null) {

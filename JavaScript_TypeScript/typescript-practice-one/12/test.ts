@@ -1,12 +1,12 @@
 import {IsTypeEqual, typeAssert} from '../type-assertions';
 import {
-  getMaxIndex,
+  getAverageValue,
   getMaxElement,
-  getMinIndex,
-  getMinElement,
-  getMedianIndex,
+  getMaxIndex,
   getMedianElement,
-  getAverageValue
+  getMedianIndex,
+  getMinElement,
+  getMinIndex
 } from './index';
 
 typeAssert<

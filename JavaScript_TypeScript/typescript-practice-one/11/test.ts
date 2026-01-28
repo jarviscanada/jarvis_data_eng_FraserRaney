@@ -1,4 +1,4 @@
-import {IsTypeEqual, ArrayElement, typeAssert} from '../type-assertions';
+import {ArrayElement, IsTypeEqual, typeAssert} from '../type-assertions';
 import {nameDecorators} from './index';
 
 typeAssert<

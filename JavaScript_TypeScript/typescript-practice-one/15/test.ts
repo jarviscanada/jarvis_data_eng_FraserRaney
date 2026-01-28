@@ -1,4 +1,4 @@
-import {typeAssert, IsTypeEqual} from '../type-assertions';
+import {IsTypeEqual, typeAssert} from '../type-assertions';
 import {ObjectManipulator} from './index';
 
 const test1 = new ObjectManipulator({})
@@ -6,7 +6,7 @@ const test1 = new ObjectManipulator({})
 .set('y', 'hello')
 .getObject();
 
-typeAssert<IsTypeEqual<typeof test1, {x: number; y: string}>>();
+typeAssert<IsTypeEqual<typeof test1, { x: number; y: string }>>();
 
 const test2 = new ObjectManipulator({})
 .set('x', 123)
@@ -16,7 +16,7 @@ const test2 = new ObjectManipulator({})
 .delete('y')
 .getObject();
 
-typeAssert<IsTypeEqual<typeof test2, {x: number}>>();
+typeAssert<IsTypeEqual<typeof test2, { x: number }>>();
 
 const test3 = new ObjectManipulator({})
 .set('x', 123)

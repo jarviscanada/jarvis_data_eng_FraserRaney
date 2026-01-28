@@ -1,11 +1,11 @@
 function dateWizard(date, format) {
   var details = dateWizard.dateDetails(date);
-  return format.replace(/{([^}]+)}/g, function(s, match) {
+  return format.replace(/{([^}]+)}/g, function (s, match) {
     return dateWizard.pad(details[match]);
   });
 }
 
-dateWizard.pad = function(s) {
+dateWizard.pad = function (s) {
   s = String(s);
   while (s.length < 2) {
     s = '0' + s;

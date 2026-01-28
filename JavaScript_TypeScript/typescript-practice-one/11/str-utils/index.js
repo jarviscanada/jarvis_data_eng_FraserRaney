@@ -49,7 +49,7 @@ function strRandomize(value) {
 function strInvertCase(value) {
   return value
   .split('')
-  .map(function(c) {
+  .map(function (c) {
     if (c === c.toLowerCase()) {
       return c.toUpperCase();
     } else {

@@ -13,6 +13,7 @@ declare namespace dateWizard {
   }
 
   function dateDetails(date: Date): DateDetails;
+
   function utcDateDetails(date: Date): DateDetails;
 }
 

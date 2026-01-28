@@ -1,5 +1,5 @@
-import {typeAssert, IsTypeEqual} from '../type-assertions/index';
-import {map, reduce, filter, add, subtract, prop, pipe} from './index';
+import {IsTypeEqual, typeAssert} from '../type-assertions/index';
+import {add, filter, map, pipe, prop, reduce, subtract} from './index';
 
 const mapResult1 = map()(String)()([1, 2, 3]);
 typeAssert<IsTypeEqual<typeof mapResult1, string[]>>();

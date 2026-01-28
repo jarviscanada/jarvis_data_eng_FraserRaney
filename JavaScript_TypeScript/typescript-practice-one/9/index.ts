@@ -44,13 +44,13 @@ interface Admin {
 type Person = User | Admin;
 
 const admins: Admin[] = [
-  { type: 'admin', name: 'Jane Doe', age: 32, role: 'Administrator' },
-  { type: 'admin', name: 'Bruce Willis', age: 64, role: 'World saver' }
+  {type: 'admin', name: 'Jane Doe', age: 32, role: 'Administrator'},
+  {type: 'admin', name: 'Bruce Willis', age: 64, role: 'World saver'}
 ];
 
 const users: User[] = [
-  { type: 'user', name: 'Max Mustermann', age: 25, occupation: 'Chimney sweep' },
-  { type: 'user', name: 'Kate Müller', age: 23, occupation: 'Astronaut' }
+  {type: 'user', name: 'Max Mustermann', age: 25, occupation: 'Chimney sweep'},
+  {type: 'user', name: 'Kate Müller', age: 23, occupation: 'Astronaut'}
 ];
 
 export type ApiResponse<T> = (
@@ -62,7 +62,8 @@ export type ApiResponse<T> = (
       status: 'error';
       error: string;
     }
-    );;
+    );
+;
 
 export function requestAdmins(callback: (response: ApiResponse<Admin[]>) => void) {
   callback({

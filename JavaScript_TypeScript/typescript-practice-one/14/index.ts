@@ -64,7 +64,7 @@ export function map<T, U>(
 };
 
 
-export function map(mapper?:any, input?:any): any {
+export function map(mapper?: any, input?: any): any {
   if (arguments.length === 0) {
     return map;
   }
@@ -222,11 +222,11 @@ export function reduce(reducer?: any, initialValue?: any, input?: any) {
           return subSubInput.reduce(reducer, subInitialValue);
         };
       }
-      return subInput.reduce(reducer,subInitialValue);
+      return subInput.reduce(reducer, subInitialValue);
     }
   }
   if (arguments.length === 2) {
-    return function subFunction(subInput?:any) {
+    return function subFunction(subInput?: any) {
       if (arguments.length === 0) {
         return subFunction;
       }
@@ -264,7 +264,7 @@ export function add(a: number): AddB;
 
 export function add(a: number, b: number): number;
 
-export function add(a?:any, b?:any):any {
+export function add(a?: any, b?: any): any {
   if (arguments.length === 0) {
     return add;
   }
@@ -363,7 +363,7 @@ export function prop<
 ): O[K];
 
 
-export function prop(obj?:any, propName?:any) {
+export function prop(obj?: any, propName?: any) {
   if (arguments.length === 0) {
     return prop;
   }
@@ -404,12 +404,17 @@ type TR<I, O> = (arg: I) => O;
 
 interface PipeFunc {
   (): PipeFunc;
+
   <A1 extends unknown[], R1>(f: F<A1, R1>): (...args: A1) => R1;
+
   <A1 extends unknown[], R1, R2>(f: F<A1, R1>, tr1: TR<R1, R2>): (...args: A1) => R2;
+
   <A1 extends unknown[], R1, R2, R3>(f: F<A1, R1>, tr1: TR<R1, R2>, tr2: TR<R2, R3>): (...args: A1) => R3;
+
   <A1 extends unknown[], R1, R2, R3, R4>(
       f: F<A1, R1>, tr1: TR<R1, R2>, tr2: TR<R2, R3>, tr3: TR<R3, R4>
   ): (...args: A1) => R4;
+
   <A1 extends unknown[], R1, R2, R3, R4, R5>(
       f: F<A1, R1>, tr1: TR<R1, R2>, tr2: TR<R2, R3>, tr3: TR<R3, R4>, tr4: TR<R4, R5>
   ): (...args: A1) => R5;
