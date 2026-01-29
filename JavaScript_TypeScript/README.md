@@ -23,7 +23,7 @@ This folder is dedicated to solving various JavaScript and TypeScript practice e
 - [typescript-practice-one](./typescript-practice-one)  
   Collection of TypeScript exercises (15 exercises) from https://typescript-exercises.github.io/ using ES modules. Tests use a custom assertion library provided with the exercises.
 
-## Installation (short)
+## Installation
 
 Prerequisites:
 - Node.js (recommended LTS)
@@ -37,7 +37,7 @@ Install dependencies per exercise (recommended):
 
 (Each subfolder is a small independent project and contains its own package.json. Installing in each folder ensures test runners and dev dependencies are available.)
 
-## Testing (short)
+## Testing
 
 Run tests from within the exercise folder:
 
