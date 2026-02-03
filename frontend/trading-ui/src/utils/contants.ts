@@ -3,10 +3,10 @@ export const BACKEND_URL =
 
 export const tradersUrl = `${BACKEND_URL}/dashboard/traders`;
 
-export const createTraderUrl = `${BACKEND_URL}/trader`;
+export const createTraderUrl = `${BACKEND_URL}/trader/`;
 
 export const deleteTraderUrl = (traderId: string) =>
-    `${BACKEND_URL}/trader/${traderId}`;
+    `${BACKEND_URL}/trader/traderId/${traderId}`;
 
 export const dailyListQuotesUrl =
     `${BACKEND_URL}/quote/dailyList`;

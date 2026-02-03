@@ -3,17 +3,17 @@ import {Popconfirm, Table} from 'antd';
 //import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './TraderList.scss'
 //import { useState, useEffect } from 'react'
-import TraderListData from './TraderListData.json'
+//import TraderListData from './TraderListData.json'
 import type {ColumnsType} from 'antd/es/table';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faTrashAlt as deleteIcon} from '@fortawesome/free-solid-svg-icons';
 
-export type dataEntry = {
+export type Trader = {
   key: string;
   id: number;
   firstName: string;
   lastName: string;
-  dob: string;
+  dateOfBirth: string;
   country: string;
   email: string;
   amount: number;
@@ -21,10 +21,11 @@ export type dataEntry = {
 
 type TraderListProps = {
   onTraderDeleteClick: (id: number) => void;
+  traders: Trader[];
 };
 
 function TraderList(props: TraderListProps) {
-  const columns: ColumnsType<dataEntry> = [
+  const columns: ColumnsType<Trader> = [
     {
       title: 'First Name',
       dataIndex: 'firstName',
@@ -44,9 +45,9 @@ function TraderList(props: TraderListProps) {
     },
     {
       title: 'Date of Birth',
-      dataIndex: 'dob',
-      key: 'dob',
-      sorter: (a, b) => new Date(a.dob).getTime() - new Date(b.dob).getTime()
+      dataIndex: 'dateOfBirth',
+      key: 'dateOfBirth',
+      sorter: (a, b) => new Date(a.dateOfBirth).getTime() - new Date(b.dateOfBirth).getTime()
     },
     {
       title: 'Country',
@@ -70,7 +71,7 @@ function TraderList(props: TraderListProps) {
     },
   ];
   // Initialization of columns for tabl
-  const dataSource: dataEntry[] = TraderListData
+  const dataSource: Trader[] = props.traders
   //const [tableColumns, setTableColumns] = useState(columns)
   //const [dataSource, setDataSource] = useState<dataEntry[]>([])
 
@@ -83,7 +84,7 @@ function TraderList(props: TraderListProps) {
   */
 
   return (
-      <Table<dataEntry>
+      <Table<Trader>
           dataSource={dataSource}
           columns={columns}
           pagination={false}

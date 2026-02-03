@@ -1,33 +1,60 @@
 //import React from 'react'
 import './Dashboard.scss'
 import NavBar from "../../component/NavBar/NavBar.tsx";
-import type {dataEntry} from "../../component/TraderList/TraderList.tsx";
+import type {Trader} from "../../component/TraderList/TraderList.tsx";
 import TraderList from "../../component/TraderList/TraderList.tsx";
-import TraderListData from '../../component/TraderList/TraderListData.json'
+//import TraderListData from '../../component/TraderList/TraderListData.json'
 import {Button, DatePicker, Form, Input, Modal} from 'antd'
 import {useEffect, useState} from 'react'
 import axios from "axios";
-import {tradersUrl} from "../../utils/contants.ts";
+import {createTraderUrl, deleteTraderUrl, tradersUrl} from "../../utils/contants.ts";
 
+type TraderAccountView = {
+  trader: Trader;
+  account: {
+    id: number;
+    traderId: number;
+    amount: number;
+  }
+}
 
 function Dashboard() {
-  // Initializing State
 
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [traders, setTraders] = useState<dataEntry[]>(TraderListData);
+  const [traders, setTraders] = useState<Trader[]>([]);
 
   const [form] = Form.useForm();
 
-  const getTraders = async () => {
-    const response = await axios.get(tradersUrl);
-    if (response) {
-      console.log(response.data);
-    }
-  }
+  const fetchTraders = async (
+      signal?: AbortSignal
+  ): Promise<Trader[]> => {
+    const response = await axios.get<TraderAccountView[]>(
+        tradersUrl,
+        { signal }
+    );
+
+    return response.data.map(tav => tav.trader);
+  };
+
 
   useEffect(() => {
-    getTraders()
-  }, [])
+    const controller = new AbortController();
+
+    const load = async () => {
+      try {
+        const traders = await fetchTraders(controller.signal);
+        setTraders(traders);
+      } catch (err) {
+        if (axios.isCancel(err)) return;
+        console.error(err);
+      }
+    };
+
+    load();
+
+    return () => controller.abort();
+  }, []);
+
 
   const showModal = () => setIsModalVisible(true);
   const handleCancel = () => {
@@ -37,24 +64,41 @@ function Dashboard() {
   const handleOk = async () => {
     try {
       const values = await form.validateFields();
-      console.log("New trader:", values);
-      // Add to traders state if mocking
-      setTraders([...traders, {...values, id: Date.now(), key: Date.now().toString()}]);
+      try {
+        const res = await axios.post(createTraderUrl, values, {
+          headers: {
+            'Accept': 'application/json;charset=UTF-8',
+            'Content-Type': 'application/json'
+          }
+        });
+        console.log(res.data);
+        const traders = await fetchTraders();
+        setTraders(traders);// refresh list // refresh list
+      } catch (err) {
+        console.error(err);
+      }
+
       form.resetFields();
       setIsModalVisible(false);
     } catch (err) {
       console.error(err);
     }
   };
-  /*
-  useEffect(() => {
-    getTraders()
-  }, [])
-  */
+
   const onTraderDelete = async (id: number) => {
     console.log("Trader " + id + " is deleted.")
-    // axios.delete("")
-    //await getTraders()
+    try {
+      const res = await axios.delete(deleteTraderUrl(id.toString()), {
+      headers: {
+        'accept': '*/*'
+      }
+      });
+      console.log(res.data);
+      const traders = await fetchTraders();
+      setTraders(traders);// refresh list
+    } catch (err) {
+      console.error(err);
+    }
   }
 
 
@@ -87,14 +131,14 @@ function Dashboard() {
                   <Form.Item label="Country" name="country">
                     <Input/>
                   </Form.Item>
-                  <Form.Item label="Date of Birth" name="dob" rules={[{required: true}]}>
+                  <Form.Item label="Date of Birth" name="dateOfBirth" rules={[{required: true}]}>
                     <DatePicker style={{width: "100%"}}/>
                   </Form.Item>
                 </Form>
               </Modal>
             </div>
           </div>
-          <TraderList onTraderDeleteClick={onTraderDelete}/>
+          <TraderList onTraderDeleteClick={onTraderDelete} traders={traders}/>
         </div>
       </div>
   )
