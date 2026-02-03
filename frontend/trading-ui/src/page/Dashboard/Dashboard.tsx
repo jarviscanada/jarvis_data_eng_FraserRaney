@@ -5,7 +5,9 @@ import type {dataEntry} from "../../component/TraderList/TraderList.tsx";
 import TraderList from "../../component/TraderList/TraderList.tsx";
 import TraderListData from '../../component/TraderList/TraderListData.json'
 import {Button, DatePicker, Form, Input, Modal} from 'antd'
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
+import axios from "axios";
+import {tradersUrl} from "../../utils/contants.ts";
 
 
 function Dashboard() {
@@ -16,14 +18,16 @@ function Dashboard() {
 
   const [form] = Form.useForm();
 
-  /*
-  const getTraders = () => {
-    setState({
-      ...state,
-      traders: [...TraderListData]
-    })
+  const getTraders = async () => {
+    const response = await axios.get(tradersUrl);
+    if (response) {
+      console.log(response.data);
+    }
   }
-  */
+
+  useEffect(() => {
+    getTraders()
+  }, [])
 
   const showModal = () => setIsModalVisible(true);
   const handleCancel = () => {
