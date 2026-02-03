@@ -1,12 +1,14 @@
 //import React from 'react';
-import { Table } from 'antd';
+import {Popconfirm, Table} from 'antd';
 //import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './TraderList.scss'
-import { useState, useEffect } from 'react'
+//import { useState, useEffect } from 'react'
 import TraderListData from './TraderListData.json'
-import type { ColumnsType } from 'antd/es/table';
+import type {ColumnsType} from 'antd/es/table';
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faTrashAlt as deleteIcon} from '@fortawesome/free-solid-svg-icons';
 
-type dataEntry = {
+export type dataEntry = {
   key: string;
   id: number;
   firstName: string;
@@ -15,57 +17,70 @@ type dataEntry = {
   country: string;
   email: string;
   amount: number;
-  actions: string;
 }
 
-const columns: ColumnsType<dataEntry> = [
-  {
-    title: 'First Name',
-    dataIndex: 'firstName',
-    key: 'firstName',
-  },
-  {
-    title: 'Last Name',
-    dataIndex: 'lastName',
-    key: 'lastName',
-  },
-  {
-    title: 'Email',
-    dataIndex: 'email',
-    key: 'email',
-  },
-  {
-    title: 'Date of Birth',
-    dataIndex: 'dob',
-    key: 'dob',
-  },
-  {
-    title: 'Country',
-    dataIndex: 'country',
-    key: 'country',
-  },
-  {
-    title: 'Actions',
-    dataIndex: 'actions',
-    key: 'actions'
-  },
-];
+type TraderListProps = {
+  onTraderDeleteClick: (id: number) => void;
+};
 
-
-function TraderList(props: unknown[]) {
-  console.log(props)
-  // Initialization of columns for table
-
+function TraderList(props: TraderListProps) {
+  const columns: ColumnsType<dataEntry> = [
+    {
+      title: 'First Name',
+      dataIndex: 'firstName',
+      key: 'firstName',
+      sorter: (a, b) => a.firstName.localeCompare(b.firstName),
+    },
+    {
+      title: 'Last Name',
+      dataIndex: 'lastName',
+      key: 'lastName',
+      sorter: (a, b) => a.lastName.localeCompare(b.lastName),
+    },
+    {
+      title: 'Email',
+      dataIndex: 'email',
+      key: 'email',
+    },
+    {
+      title: 'Date of Birth',
+      dataIndex: 'dob',
+      key: 'dob',
+      sorter: (a, b) => new Date(a.dob).getTime() - new Date(b.dob).getTime()
+    },
+    {
+      title: 'Country',
+      dataIndex: 'country',
+      key: 'country',
+    },
+    {
+      title: 'Actions',
+      dataIndex: 'actions',
+      key: 'actions',
+      render: (_, record) => (
+          <Popconfirm
+              title="Delete trader?"
+              onConfirm={() => props.onTraderDeleteClick(record.id)}
+          >
+            <div className="trader-delete-icon">
+              <FontAwesomeIcon icon={deleteIcon}/>
+            </div>
+          </Popconfirm>
+      ),
+    },
+  ];
+  // Initialization of columns for tabl
+  const dataSource: dataEntry[] = TraderListData
   //const [tableColumns, setTableColumns] = useState(columns)
-  const [dataSource, setDataSource] = useState<dataEntry[]>([])
+  //const [dataSource, setDataSource] = useState<dataEntry[]>([])
 
 
-
+  /*
   useEffect(() => {
-    const dataSource: dataEntry[] = TraderListData
-    setDataSource(dataSource)
+    //const dataSource: dataEntry[] = TraderListData
+    //setDataSource(dataSource)
   }, [])
-
+  */
 
   return (
       <Table<dataEntry>

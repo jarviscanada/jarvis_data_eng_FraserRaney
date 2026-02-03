@@ -7,8 +7,7 @@
     "dob": "1990-01-01",
     "country": "Canada",
     "email": "mike@test.com",
-    "amount": 0,
-    "actions": "<button (click)='deleteTrader'>Delete Trader</button>"
+    "amount": 0
   },
   {
     "key": "2",
@@ -18,7 +17,6 @@
     "dob": "1990-01-01",
     "country": "Austria",
     "email": "hellen@test.com",
-    "actions": "<button (click)='deleteTrader'>Delete Trader</button>",
     "amount": 0
   },
   {
@@ -29,7 +27,6 @@
     "dob": "1990-01-01",
     "country": "United Kingdom",
     "email": "jack@test.com",
-    "actions": "<button (click)='deleteTrader'>Delete Trader</button>",
     "amount": 0
   },
   {
@@ -40,7 +37,6 @@
     "dob": "1990-01-01",
     "country": "Switzerland",
     "email": "robert@test.com",
-    "actions": "<button (click)='deleteTrader'>Delete Trader</button>",
     "amount": 0
   },
   {
@@ -51,7 +47,6 @@
     "dob": "1990-01-01",
     "country": "Russia",
     "email": "dustin@test.com",
-    "actions": "<button (click)='deleteTrader'>Delete Trader</button>",
     "amount": 0
   },
   {
@@ -62,7 +57,6 @@
     "dob": "1990-01-01",
     "country": "China",
     "email": "sergio@test.com",
-    "actions": "<button (click)='deleteTrader'>Delete Trader</button>",
     "amount": 0
   },
   {
@@ -73,7 +67,6 @@
     "dob": "1990-01-01",
     "country": "Malaysia",
     "email": "magnolia@test.com",
-    "actions": "<button (click)='deleteTrader'>Delete Trader</button>",
     "amount": 0
   },
   {
@@ -84,7 +77,6 @@
     "dob": "1990-01-01",
     "country": "Mexico",
     "email": "jeremy@test.com",
-    "actions": "<button (click)='deleteTrader'>Delete Trader</button>",
     "amount": 0
   },
   {
@@ -95,7 +87,6 @@
     "dob": "1990-01-01",
     "country": "Turkey",
     "email": "valerie@test.com",
-    "actions": "<button (click)='deleteTrader'>Delete Trader</button>",
     "amount": 0
   },
   {
@@ -106,7 +97,6 @@
     "dob": "1990-01-01",
     "country": "Morocco",
     "email": "hellen@test.com",
-    "actions": "<button (click)='deleteTrader'>Delete Trader</button>",
     "amount": 0
   }
 ]
