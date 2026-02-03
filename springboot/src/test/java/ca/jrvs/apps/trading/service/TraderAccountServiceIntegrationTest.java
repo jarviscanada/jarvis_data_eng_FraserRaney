@@ -10,9 +10,12 @@ import ca.jrvs.apps.trading.data.entity.Account;
 import ca.jrvs.apps.trading.data.entity.Trader;
 import ca.jrvs.apps.trading.data.entity.TraderAccountView;
 import ca.jrvs.apps.trading.data.repository.AccountJpaRepository;
+import ca.jrvs.apps.trading.data.repository.SecurityOrderJpaRepository;
 import ca.jrvs.apps.trading.data.repository.TraderJpaRepository;
 import java.time.LocalDate;
+import java.util.List;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -38,8 +41,18 @@ public class TraderAccountServiceIntegrationTest {
   @Autowired
   private AccountJpaRepository accountRepo;
 
+  @Autowired
+  private SecurityOrderJpaRepository securityOrderRepo;
+
   @AfterEach
   void cleanup() {
+    accountRepo.deleteAll();
+    traderRepo.deleteAll();
+  }
+
+  @BeforeEach
+  void setup() {
+    securityOrderRepo.deleteAll();
     accountRepo.deleteAll();
     traderRepo.deleteAll();
   }
@@ -129,6 +142,17 @@ public class TraderAccountServiceIntegrationTest {
 
     assertThrows(IllegalArgumentException.class,
         () -> traderAccountService.deleteTraderById(savedTrader.getId()));
+  }
+
+  @Test
+  void getAllTraders() {
+    Trader trader = createTrader();
+    TraderAccountView view =
+        traderAccountService.createTraderAndAccount(trader);
+    
+    List<TraderAccountView> traderList = traderAccountService.getAllTraders();
+
+    assertEquals(1, traderList.size());
   }
 
   private Trader createTrader() {

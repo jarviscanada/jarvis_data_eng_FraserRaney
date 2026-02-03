@@ -7,7 +7,9 @@ import ca.jrvs.apps.trading.data.repository.AccountJpaRepository;
 import ca.jrvs.apps.trading.data.repository.PositionRepository;
 import ca.jrvs.apps.trading.data.repository.SecurityOrderJpaRepository;
 import ca.jrvs.apps.trading.data.repository.TraderJpaRepository;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -164,6 +166,39 @@ public class TraderAccountService {
 
     return account;
   }
+
+  /**
+   * Retrieve all traders along with their account information.
+   *
+   * <p>
+   * This method is intended for dashboard-style views where a list of traders
+   * and their associated account balances are required.
+   * </p>
+   *
+   * @return a list of TraderAccountView objects
+   * @throws IllegalArgumentException if unable to retrieve traders or accounts
+   */
+  public List<TraderAccountView> getAllTraders() {
+    try {
+      List<TraderAccountView> result = new ArrayList<>();
+
+      for (Trader trader : traderRepo.findAll()) {
+        Account account = accountRepo.getAccountByTraderId(trader.getId());
+        if (account == null) {
+          throw new IllegalArgumentException(
+              "Account not found for traderId=" + trader.getId());
+        }
+        result.add(new TraderAccountView(account, trader));
+      }
+
+      return result;
+
+    } catch (Exception e) {
+      handleException("getAllTraders", e, logger);
+      throw new IllegalArgumentException("Unable to retrieve traders");
+    }
+  }
+
 
   public static void handleException(String method, Exception e, Logger log) {
     log.warn(String.format(exceptionFormat, method, e.getMessage()));
