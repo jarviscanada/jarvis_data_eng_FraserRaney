@@ -30,7 +30,7 @@ function Dashboard() {
   ): Promise<Trader[]> => {
     const response = await axios.get<TraderAccountView[]>(
         tradersUrl,
-        { signal }
+        {signal}
     );
 
     return response.data.map(tav => tav.trader);
@@ -89,9 +89,9 @@ function Dashboard() {
     console.log("Trader " + id + " is deleted.")
     try {
       const res = await axios.delete(deleteTraderUrl(id.toString()), {
-      headers: {
-        'accept': '*/*'
-      }
+        headers: {
+          'accept': '*/*'
+        }
       });
       console.log(res.data);
       const traders = await fetchTraders();
