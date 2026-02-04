@@ -162,7 +162,13 @@ function TraderAccountPage() {
               <Modal title="Deposit Funds" okText="Submit" open={isDepositModalVisible}
                      onOk={handleDepositOk} onCancel={handleDepositCancel}>
                 <Form form={depositForm} layout="vertical">
-                  <Form.Item label="Funds" name="depositFunds" rules={[{required: true}]}>
+                  <Form.Item label="Funds" name="depositFunds" rules={[{
+                    required: true, message: "Please enter an amount"
+                  },
+                    {
+                      pattern: new RegExp(/^[0-9]+$/),
+                      message: "Amount has to be a whole number greater than 0."
+                    },]}>
                     <Input placeholder="Funds"/>
                   </Form.Item>
                 </Form>
@@ -171,7 +177,13 @@ function TraderAccountPage() {
               <Modal title="Withdraw Funds" okText="Submit" open={isWithdrawlModalVisible}
                      onOk={handleWithdrawOk} onCancel={handleWithdrawCancel}>
                 <Form form={withdrawlForm} layout="vertical">
-                  <Form.Item label="Funds" name="withdrawFunds" rules={[{required: true}]}>
+                  <Form.Item label="Funds" name="withdrawFunds" rules={[{
+                    required: true, message: "Please enter an amount"
+                  },
+                    {
+                      pattern: new RegExp(/^[0-9]+$/),
+                      message: "Amount has to be a whole number greater than 0."
+                    },]}>
                     <Input placeholder="Funds"/>
                   </Form.Item>
                 </Form>

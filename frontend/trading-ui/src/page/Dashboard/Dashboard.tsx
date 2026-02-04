@@ -119,19 +119,27 @@ function Dashboard() {
                   onCancel={handleCancel}
               >
                 <Form form={form} layout="vertical">
-                  <Form.Item label="First Name" name="firstName" rules={[{required: true}]}>
+                  <Form.Item label="First Name" name="firstName"
+                             rules={[{required: true, message: 'Please enter a first name'}]}>
                     <Input placeholder="John"/>
                   </Form.Item>
-                  <Form.Item label="Last Name" name="lastName" rules={[{required: true}]}>
+                  <Form.Item label="Last Name" name="lastName"
+                             rules={[{required: true, message: "Please enter a last name"}]}>
                     <Input placeholder="Doe"/>
                   </Form.Item>
-                  <Form.Item label="Email" name="email" rules={[{type: "email", required: true}]}>
+                  <Form.Item label="Email" name="email" rules={[{
+                    type: "email",
+                    required: true,
+                    message: "Please enter a valid email"
+                  }]}>
                     <Input/>
                   </Form.Item>
-                  <Form.Item label="Country" name="country">
+                  <Form.Item label="Country" name="country"
+                             rules={[{required: true, message: "Please enter a country"}]}>
                     <Input/>
                   </Form.Item>
-                  <Form.Item label="Date of Birth" name="dateOfBirth" rules={[{required: true}]}>
+                  <Form.Item label="Date of Birth" name="dateOfBirth"
+                             rules={[{required: true, message: "Please select a date pf birth"}]}>
                     <DatePicker style={{width: "100%"}}/>
                   </Form.Item>
                 </Form>
