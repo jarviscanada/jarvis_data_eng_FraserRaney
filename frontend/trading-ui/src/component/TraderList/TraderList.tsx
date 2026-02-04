@@ -16,7 +16,6 @@ export type Trader = {
   dateOfBirth: string;
   country: string;
   email: string;
-  amount: number;
 }
 
 type TraderListProps = {

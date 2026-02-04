@@ -12,10 +12,10 @@ export const dailyListQuotesUrl =
     `${BACKEND_URL}/quote/dailyList`;
 
 export const traderAccountUrl = (traderId: string) =>
-    `${BACKEND_URL}/dashboard/profile/${traderId}`;
+    `${BACKEND_URL}/dashboard/profile/traderId/${traderId}`;
 
-export const depositFundsUrl = (traderId: string) =>
-    `${BACKEND_URL}/trader/deposit/${traderId}`;
+export const depositFundsUrl = (traderId: string, amount: string) =>
+    `${BACKEND_URL}/trader/deposit/traderId/${traderId}/amount/${amount}`;
 
-export const withdrawFundsUrl = (traderId: string) =>
-    `${BACKEND_URL}/trader/withdraw/${traderId}`;
+export const withdrawFundsUrl = (traderId: string, amount: string) =>
+    `${BACKEND_URL}/trader/withdraw/traderId/${traderId}/amount/${amount}`;

@@ -9,7 +9,7 @@ import {useEffect, useState} from 'react'
 import axios from "axios";
 import {createTraderUrl, deleteTraderUrl, tradersUrl} from "../../utils/contants.ts";
 
-type TraderAccountView = {
+export type TraderAccountView = {
   trader: Trader;
   account: {
     id: number;
