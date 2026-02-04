@@ -2,15 +2,24 @@
 import './NavBar.scss'
 import {NavLink} from 'react-router-dom'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faAddressBook as dashboardIcon} from '@fortawesome/free-solid-svg-icons';
+import {
+  faAddressBook as dashboardIcon,
+  faHome as homeIcon,
+  faMoneyBill as quoteIcon,
+} from '@fortawesome/free-solid-svg-icons';
 
 function NavBar() {
   return (
       <nav className="page-navigation">
         <NavLink
             to="/"
-            className="page-navigation-header"
-        />
+            className={({isActive}) =>
+                `page-navigation-item ${isActive ? 'active' : ''}`
+            }
+            title="Dashboard"
+        >
+          <FontAwesomeIcon icon={homeIcon}/>
+        </ NavLink>
 
         <NavLink
             to="/traders"
@@ -22,6 +31,15 @@ function NavBar() {
           <FontAwesomeIcon icon={dashboardIcon}/>
         </NavLink>
 
+        <NavLink
+            to="/quotes"
+            className={({isActive}) =>
+                `page-navigation-item ${isActive ? 'active' : ''}`
+            }
+            title="Quotes"
+        >
+          <FontAwesomeIcon icon={quoteIcon}/>
+        </NavLink>
       </nav>
   )
 }
