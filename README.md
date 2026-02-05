@@ -26,7 +26,7 @@ Project source code: [https://github.com/jarviscanada/jarvis_data_eng_FraserRane
 
 **Springboot App** [[GitHub](https://github.com/jarviscanada/jarvis_data_eng_FraserRaney/tree/master/springboot)]: This Spring Boot trading application provides a REST API for managing traders, accounts, portfolios, stock quotes, and market orders. It integrates live market data via Finnhub and uses Java 8, Maven, JPA/Hibernate, PostgreSQL, and Docker. Swagger UI enables testing, while JUnit 5 and Mockito ensure reliable service and data layers.
 
-**React Trading App** [[GitHub](https://github.com/jarviscanada/jarvis_data_eng_FraserRaney/tree/master/frontend)]: This full-stack trading management application uses React, TypeScript, Ant Design, and the Spring Boot backend. The app supports CRUD operations for traders and accounts, real-time data from Finnhub with client-side validation, and API fetch managed by Axios. Providing a typical, responsive frontend.
+**React Trading App** [[GitHub](https://github.com/jarviscanada/jarvis_data_eng_FraserRaney/tree/master/frontend)]: This full-stack trading management application uses React, TypeScript, Ant Design, and the Spring Boot backend. The app supports CRUD operations for traders and accounts, real-time data from Finnhub with client-side validation, and API fetch managed by Axios. The app provides a typical, responsive frontend.
 
 
 ## Highlighted Projects
