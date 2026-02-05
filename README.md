@@ -26,6 +26,8 @@ Project source code: [https://github.com/jarviscanada/jarvis_data_eng_FraserRane
 
 **Springboot App** [[GitHub](https://github.com/jarviscanada/jarvis_data_eng_FraserRaney/tree/master/springboot)]: This Spring Boot trading application provides a REST API for managing traders, accounts, portfolios, stock quotes, and market orders. It integrates live market data via Finnhub and uses Java 8, Maven, JPA/Hibernate, PostgreSQL, and Docker. Swagger UI enables testing, while JUnit 5 and Mockito ensure reliable service and data layers.
 
+**React Trading App** [[GitHub](https://github.com/jarviscanada/jarvis_data_eng_FraserRaney/tree/master/frontend)]: This full-stack trading management application uses React, TypeScript, Ant Design, and the Spring Boot backend. The app supports CRUD operations for traders and accounts, real-time data from Finnhub with client-side validation, and API fetch managed by Axios. Providing a typical, responsive frontend.
+
 
 ## Highlighted Projects
 **Lamontagne Geophysics - 3C Plotter**: Maintained and enhanced a browser-based geophysical data visualization tool using vanilla ES6+ JavaScript, D3.js, HTML5 and CSS3. Implemented signal-normalization algorithms, offline caching via custom service workers, installable web app manifests, support for legacy file formats, user preferences and viewing options, dynamic PDF export, UI enhancements and bug fixes. https://www.lamontagnegeophysics.com/plotter/ .
