@@ -11,7 +11,7 @@ Overall, uses a typical full-stack setup with React, Spring Boot, Docker, REST A
 ## Prerequisites
 
 - Docker 
-- Node.js (v18+)
+- Node.js
 - npm
 
 ## Backend (Docker)
