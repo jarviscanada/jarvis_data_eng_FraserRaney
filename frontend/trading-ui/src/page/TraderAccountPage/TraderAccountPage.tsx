@@ -172,7 +172,7 @@ function TraderAccountPage() {
                     Amount
                   </div>
                   <div className="content amount">
-                    ${traderAccountView && traderAccountView.account.amount}
+                    ${traderAccountView && traderAccountView.account.amount.toFixed(2)}
                   </div>
                 </div>
               </div>

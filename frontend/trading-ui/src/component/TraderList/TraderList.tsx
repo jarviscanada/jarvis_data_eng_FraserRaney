@@ -3,6 +3,7 @@ import './TraderList.scss'
 import type {ColumnsType} from 'antd/es/table';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faTrashAlt as deleteIcon} from '@fortawesome/free-solid-svg-icons';
+import {useNavigate} from "react-router-dom";
 
 export type Trader = {
   key: string;
@@ -20,6 +21,7 @@ type TraderListProps = {
 };
 
 function TraderList(props: TraderListProps) {
+  const navigate = useNavigate();
   const columns: ColumnsType<Trader> = [
     {
       title: 'First Name',
@@ -58,7 +60,9 @@ function TraderList(props: TraderListProps) {
               title="Delete trader?"
               onConfirm={() => props.onTraderDeleteClick(record.id)}
           >
-            <div className="trader-delete-icon">
+            <div className="trader-delete-icon"
+                 onClick={(e) => e.stopPropagation()}
+            >
               <FontAwesomeIcon icon={deleteIcon}/>
             </div>
           </Popconfirm>
@@ -74,6 +78,11 @@ function TraderList(props: TraderListProps) {
           columns={columns}
           pagination={false}
           rowKey="id"
+          onRow={(record) => ({
+            onClick: () => {
+              navigate(`/trader/${record.id}`);
+            },
+          })}
       />
   )
 }
