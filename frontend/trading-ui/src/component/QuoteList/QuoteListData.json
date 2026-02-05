@@ -1,0 +1,18 @@
+[
+  {
+    "ticker": "MSFT",
+    "lastPrice": 485.69,
+    "high": 488.14,
+    "low": 484.29,
+    "open": 486.78,
+    "close": 487.48
+  },
+  {
+    "ticker": "AAPL",
+    "lastPrice": 272.91,
+    "high": 273.68,
+    "low": 271.76,
+    "open": 271.79,
+    "close": 273.08
+  }
+]
