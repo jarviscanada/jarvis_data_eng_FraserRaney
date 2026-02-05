@@ -57,7 +57,7 @@
       "name": "Springboot App"
     },
     {
-      "description": "This full-stack trading management application uses React, TypeScript, Ant Design, and the Spring Boot backend. The app supports CRUD operations for traders and accounts, real-time data from Finnhub with client-side validation, and API fetch managed by Axios. Providing a typical, responsive frontend.",
+      "description": "This full-stack trading management application uses React, TypeScript, Ant Design, and the Spring Boot backend. The app supports CRUD operations for traders and accounts, real-time data from Finnhub with client-side validation, and API fetch managed by Axios. The app provides a typical, responsive frontend.",
       "git_url": "/frontend",
       "name": "React Trading App"
     }
