@@ -1,9 +1,5 @@
-//import React from 'react';
 import {Popconfirm, Table} from 'antd';
-//import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './TraderList.scss'
-//import { useState, useEffect } from 'react'
-//import TraderListData from './TraderListData.json'
 import type {ColumnsType} from 'antd/es/table';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faTrashAlt as deleteIcon} from '@fortawesome/free-solid-svg-icons';
@@ -69,18 +65,8 @@ function TraderList(props: TraderListProps) {
       ),
     },
   ];
-  // Initialization of columns for tabl
+
   const dataSource: Trader[] = props.traders
-  //const [tableColumns, setTableColumns] = useState(columns)
-  //const [dataSource, setDataSource] = useState<dataEntry[]>([])
-
-
-  /*
-  useEffect(() => {
-    //const dataSource: dataEntry[] = TraderListData
-    //setDataSource(dataSource)
-  }, [])
-  */
 
   return (
       <Table<Trader>

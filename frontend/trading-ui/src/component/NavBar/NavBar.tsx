@@ -22,7 +22,7 @@ function NavBar() {
         </ NavLink>
 
         <NavLink
-            to="/traders"
+            to="/dashboard"
             className={({isActive}) =>
                 `page-navigation-item ${isActive ? 'active' : ''}`
             }

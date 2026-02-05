@@ -1,9 +1,5 @@
-//import React from 'react';
 import {Table} from 'antd';
-//import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './QuoteList.scss'
-//import { useState, useEffect } from 'react'
-//import QuoteListData from './QuoteListData.json'
 import type {ColumnsType} from 'antd/es/table';
 
 export type Quote = {
@@ -55,7 +51,7 @@ function QuoteList(props: QuoteListProps) {
       key: 'close',
     }
   ];
-  // Initialization of columns for tabl
+
   const dataSource: Quote[] = props.quotes || [];
 
   return (

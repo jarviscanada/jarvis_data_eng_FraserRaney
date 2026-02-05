@@ -22,8 +22,12 @@ function QuotePage() {
   };
 
   const refreshQuotes = async () => {
-    const quotes = await fetchDailyList();
-    setQuotes(quotes);
+    try {
+      const quotes = await fetchDailyList();
+      setQuotes(quotes);
+    } catch (err) {
+      console.error("refreshQuotes", err);
+    }
   }
 
   useEffect(() => {
@@ -35,7 +39,7 @@ function QuotePage() {
         setQuotes(quotes);
       } catch (err) {
         if (axios.isCancel(err)) return;
-        console.error(err);
+        console.error("loadQuotesData", err);
       }
     };
 
@@ -47,7 +51,6 @@ function QuotePage() {
 
   return (
       <div className="quote-page">
-        {/* Include NavBar below */}
         <NavBar/>
         <div className="quote-page-content">
           <div className="title">

@@ -45,29 +45,49 @@ function TraderAccountPage() {
 
   const handleDepositOk = async () => {
     if (routeParams.traderId) {
-      const values = await depositForm.validateFields();
-      const response = await axios.put(depositFundsUrl(routeParams.traderId, values.depositFunds.toString()));
-      if (response) {
-        const tav = await fetchTraderAccountView();
-        setTraderAccountView(tav);
+      try {
+        const values = await depositForm.validateFields();
+        try {
+          await axios.put(depositFundsUrl(routeParams.traderId, values.depositFunds.toString()));
+          try {
+            const tav = await fetchTraderAccountView();
+            setTraderAccountView(tav);
+            setIsDepositModalVisible(false);
+          } catch (err) {
+            console.error("depositFunds.refreshTraderAccountView", err);
+          }
+        } catch (err) {
+          console.error("depositFunds", err);
+        }
         setIsDepositModalVisible(false);
+        depositForm.resetFields();
+      } catch (err) {
+        console.error("depositFunds.processForm", err);
       }
-      setIsDepositModalVisible(false);
-      depositForm.resetFields();
     }
   }
 
   const handleWithdrawOk = async () => {
     if (routeParams.traderId) {
-      const values = await withdrawlForm.validateFields()
-      const response = await axios.put(withdrawFundsUrl(routeParams.traderId, values.withdrawFunds.toString()));
-      if (response) {
-        const tav = await fetchTraderAccountView();
-        setTraderAccountView(tav);
+      try {
+        const values = await withdrawlForm.validateFields()
+        try {
+          await axios.put(withdrawFundsUrl(routeParams.traderId, values.withdrawFunds.toString()));
+          try {
+            const tav = await fetchTraderAccountView();
+            setTraderAccountView(tav);
+            setIsWithdrawlModalVisible(false);
+          } catch (err) {
+            console.error("withdrawFunds.refreshTraderAccountView", err);
+          }
+        } catch (err) {
+          console.error("withdrawFunds", err);
+        }
         setIsWithdrawlModalVisible(false);
+        withdrawlForm.resetFields();
+      } catch (err) {
+        console.error("withdrawFunds.processForm", err);
       }
-      setIsWithdrawlModalVisible(false);
-      withdrawlForm.resetFields();
     }
   }
 
@@ -80,7 +100,7 @@ function TraderAccountPage() {
         setTraderAccountView(tav);
       } catch (err) {
         if (axios.isCancel(err)) return;
-        console.error(err);
+        console.error("loadTraderAccountViewData", err);
       }
     };
 

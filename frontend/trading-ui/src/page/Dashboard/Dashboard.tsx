@@ -1,9 +1,7 @@
-//import React from 'react'
 import './Dashboard.scss'
 import NavBar from "../../component/NavBar/NavBar.tsx";
 import type {Trader} from "../../component/TraderList/TraderList.tsx";
 import TraderList from "../../component/TraderList/TraderList.tsx";
-//import TraderListData from '../../component/TraderList/TraderListData.json'
 import {Button, DatePicker, Form, Input, Modal} from 'antd'
 import {useEffect, useState} from 'react'
 import axios from "axios";
@@ -46,7 +44,7 @@ function Dashboard() {
         setTraders(traders);
       } catch (err) {
         if (axios.isCancel(err)) return;
-        console.error(err);
+        console.error("loadTradersData", err);
       }
     };
 
@@ -65,46 +63,51 @@ function Dashboard() {
     try {
       const values = await form.validateFields();
       try {
-        const res = await axios.post(createTraderUrl, values, {
+        await axios.post(createTraderUrl, values, {
           headers: {
             'Accept': 'application/json;charset=UTF-8',
             'Content-Type': 'application/json'
           }
         });
-        console.log(res.data);
-        const traders = await fetchTraders();
-        setTraders(traders);// refresh list // refresh list
+        try {
+          const traders = await fetchTraders();
+          setTraders(traders);
+        } catch (err) {
+          console.error("createNewTrader.fetchTraders", err);
+        }
       } catch (err) {
-        console.error(err);
+        console.error("createNewTrader", err);
       }
 
       form.resetFields();
       setIsModalVisible(false);
     } catch (err) {
-      console.error(err);
+      console.error("createNewTrader.processForm", err);
     }
   };
 
   const onTraderDelete = async (id: number) => {
     console.log("Trader " + id + " is deleted.")
     try {
-      const res = await axios.delete(deleteTraderUrl(id.toString()), {
+      await axios.delete(deleteTraderUrl(id.toString()), {
         headers: {
           'accept': '*/*'
         }
       });
-      console.log(res.data);
-      const traders = await fetchTraders();
-      setTraders(traders);// refresh list
+      try {
+        const traders = await fetchTraders();
+        setTraders(traders);
+      } catch (err) {
+        console.error("deleteTrader.fetchTraders", err);
+      }
     } catch (err) {
-      console.error(err);
+      console.error("deleteTrader", err);
     }
   }
 
 
   return (
       <div className="dashboard">
-        {/* Include NavBar below */}
         <NavBar/>
         <div className="dashboard-content">
           <div className="title">
@@ -114,7 +117,7 @@ function Dashboard() {
               <Modal
                   title="Add New Trader"
                   okText="Submit"
-                  open={isModalVisible} // ? In AntD v5+, use `open` instead of `visible`
+                  open={isModalVisible}
                   onOk={handleOk}
                   onCancel={handleCancel}
               >
