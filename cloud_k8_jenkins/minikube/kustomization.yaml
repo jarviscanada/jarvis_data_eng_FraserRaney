@@ -1,0 +1,7 @@
+secretGenerator:
+  - name: mysql-pass
+    literals:
+      - password=password
+resources:
+  - psql-deployment.yaml
+  - trading-deployment.yaml
