@@ -1,0 +1,20 @@
+services:
+
+  db:
+    image: fraserraney/trading-db:latest
+    container_name: jrvs-pgspring
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgspringdata:/var/lib/postgresql/data
+
+  app:
+    image: fraserraney/trading-app:latest
+    container_name: trading-app
+    depends_on:
+      - db
+    ports:
+      - "8080:8080"
+
+volumes:
+  pgspringdata:
