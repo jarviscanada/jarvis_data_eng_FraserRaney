@@ -1,6 +1,7 @@
 secretGenerator:
-  - name: mysql-pass
+  - name: trading-app
     literals:
+      - user=postgres
       - password=password
 resources:
   - psql-deployment.yaml
