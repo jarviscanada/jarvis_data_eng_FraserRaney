@@ -12,13 +12,18 @@ spec:
     command:
       - cat
     tty: true
+    volumeMounts:
+      - mountPath: /root/.docker
+        name: docker-config
   - name: kaniko
     image: gcr.io/kaniko-project/executor:debug
+    command:
+      - sleep
     args:
-      - "-c"
-      - "cat"
+      - "infinity"
+    tty: true
     volumeMounts:
-      - mountPath: /kaniko/.docker/
+      - mountPath: /kaniko/.docker
         name: docker-config
   - name: kubectl
     image: bitnami/kubectl:latest
@@ -26,8 +31,8 @@ spec:
       - cat
     tty: true
   volumes:
-  - name: docker-config
-    emptyDir: {}
+    - name: docker-config
+      emptyDir: {}
 """
         }
     }
@@ -46,18 +51,16 @@ spec:
             steps {
                 container('azcli') {
                     withCredentials([
-                        usernamePassword(
-                            credentialsId: 'AZ_SP_DEV',
-                            usernameVariable: 'AZ_USER',
-                            passwordVariable: 'AZ_PWD'
-                        ),
+                        usernamePassword(credentialsId: 'AZ_SP_DEV',
+                                         usernameVariable: 'AZ_USER',
+                                         passwordVariable: 'AZ_PWD'),
                         string(credentialsId: 'AZ_TENANT_DEV', variable: 'AZ_TENANT')
                     ]) {
                         sh '''
-                        az login --service-principal \
-                          --username "$AZ_USER" \
-                          --password "$AZ_PWD" \
-                          --tenant "$AZ_TENANT"
+                          az login --service-principal \
+                            --username "$AZ_USER" \
+                            --password "$AZ_PWD" \
+                            --tenant "$AZ_TENANT"
                         '''
                     }
                 }
@@ -68,14 +71,11 @@ spec:
             steps {
                 container('kaniko') {
                     withCredentials([
-                        usernamePassword(
-                            credentialsId: 'AZ_SP_DEV',
-                            usernameVariable: 'AZ_USER',
-                            passwordVariable: 'AZ_PWD'
-                        )
+                        usernamePassword(credentialsId: 'AZ_SP_DEV',
+                                         usernameVariable: 'AZ_USER',
+                                         passwordVariable: 'AZ_PWD')
                     ]) {
                         sh '''
-                        # Create Kaniko Docker config for ACR
                         mkdir -p /kaniko/.docker
                         cat > /kaniko/.docker/config.json <<EOF
 {
@@ -87,12 +87,10 @@ spec:
 }
 EOF
 
-                        # Run Kaniko to build & push the image
                         /kaniko/executor \
                           --context $WORKSPACE \
                           --dockerfile $WORKSPACE/Dockerfile \
-                          --destination ${ACR_LOGIN}/${IMAGE_NAME} \
-                          --insecure
+                          --destination ${ACR_LOGIN}/${IMAGE_NAME}
                         '''
                     }
                 }
@@ -112,6 +110,7 @@ EOF
                     sh '''
                     kubectl set image deployment/trading \
                       trading-app=${ACR_LOGIN}/${IMAGE_NAME}
+
                     kubectl rollout status deployment/trading
                     kubectl get all
                     '''
