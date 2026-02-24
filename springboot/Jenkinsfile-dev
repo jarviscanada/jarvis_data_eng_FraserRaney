@@ -75,9 +75,9 @@ spec:
                                          usernameVariable: 'AZ_USER',
                                          passwordVariable: 'AZ_PWD')
                     ]) {
-                        sh '''
-                        mkdir -p /kaniko/.docker
-                        cat > /kaniko/.docker/config.json <<EOF
+sh '''
+mkdir -p /kaniko/.docker
+cat > /kaniko/.docker/config.json <<EOF
 {
   "auths": {
     "${ACR_LOGIN}": {
@@ -87,11 +87,11 @@ spec:
 }
 EOF
 
-                        /kaniko/executor \
-                          --context $WORKSPACE \
-                          --dockerfile $WORKSPACE/Dockerfile \
-                          --destination ${ACR_LOGIN}/${IMAGE_NAME}
-                        '''
+/kaniko/executor \
+  --context "$WORKSPACE" \
+  --dockerfile "$WORKSPACE/Dockerfile" \
+  --destination "${ACR_LOGIN}/${IMAGE_NAME}"
+'''
                     }
                 }
             }
