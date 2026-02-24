@@ -1,50 +1,104 @@
 pipeline {
     agent {
-      docker { image 'jrvs/jenkins_agent:az_kubectl' }
+        kubernetes {
+            label 'aks-ci-agent'
+            yaml """
+apiVersion: v1
+kind: Pod
+spec:
+  containers:
+  - name: azcli
+    image: mcr.microsoft.com/azure-cli
+    command:
+      - cat
+    tty: true
+  - name: kaniko
+    image: gcr.io/kaniko-project/executor:latest
+    args:
+      - sleep
+      - \"infinity\"
+    volumeMounts:
+      - mountPath: /kaniko/.docker/
+        name: docker-config
+  - name: kubectl
+    image: bitnami/kubectl:latest
+    command:
+      - cat
+    tty: true
+  volumes:
+  - name: docker-config
+    emptyDir: {}
+"""
+        }
     }
 
     environment {
-        app_name = 'trading-app'
-
-        //Init
-        AZ_USER=credentials('AZ_USER_DEV')
-        AZ_PWD=credentials('AZ_PWD_DEV')
-        AZ_TENANT=credentials('AZ_TENANT_DEV')
-
-        //Build
-        ACR_NAME='acrfraserraney'
-        //${BUILD_NUMBER} is a Jenkins built-in env https://bit.ly/32mySlQ
-        //Note: double quote is neccessary here
-        IMAGE_NAME="trading-app:${BUILD_NUMBER}"
-
-        //Deploy
-        RESOURCE_GROUP='rg-trading-app-aks'
-        CLUSTER_NAME='aks-trading-app'
-        DOCKER_REPO='acrfraserraney.azurecr.io'
-        DEPLOYMENT_NAME='deployment.apps/trading'
+        ACR_NAME    = 'acrfraserraney'
+        ACR_LOGIN   = 'acrfraserraney.azurecr.io'
+        IMAGE_NAME  = "trading-app:${BUILD_NUMBER}"
+        RESOURCE_GROUP  = 'rg-trading-app-aks'
+        CLUSTER_NAME     = 'aks-trading-app'
     }
 
     stages {
-        stage('Init') {
+
+        stage('Init - Azure Login') {
             steps {
-                sh 'az login --service-principal --username ${AZ_USER} --password ${AZ_PWD} --tenant ${AZ_TENANT}'
+                container('azcli') {
+                    withCredentials([
+                        usernamePassword(credentialsId: 'AZ_SP_DEV',
+                                         usernameVariable: 'AZ_USER',
+                                         passwordVariable: 'AZ_PWD'),
+                        string(credentialsId: 'AZ_TENANT_DEV', variable: 'AZ_TENANT')
+                    ]) {
+                        sh '''
+                          az login --service-principal \
+                            --username "$AZ_USER" \
+                            --password "$AZ_PWD" \
+                            --tenant "$AZ_TENANT"
+                        '''
+                    }
+                }
             }
         }
-        stage('Build') {
+
+        stage('Build & Push Image') {
             steps {
-                sh ' az acr build --image ${IMAGE_NAME} --registry $ACR_NAME --file Dockerfile .'
+                container('kaniko') {
+                    sh '''
+                    # Configure Kaniko with Azure auth for ACR
+                    mkdir -p /kaniko/.docker
+                    az acr login -n ${ACR_NAME}
+
+                    # Copy Azure credentials into Kaniko Docker config
+                    cp /root/.docker/config.json /kaniko/.docker/config.json
+
+                    /kaniko/executor \
+                      --context $WORKSPACE \
+                      --dockerfile $WORKSPACE/Dockerfile \
+                      --destination ${ACR_LOGIN}/${IMAGE_NAME}
+                    '''
+                }
             }
         }
-        stage('Deploy') {
+
+        stage('Deploy to AKS') {
             steps {
-                //Connect to AKS
-                sh 'az aks get-credentials --name $CLUSTER_NAME --resource-group $RESOURCE_GROUP'
-                //show cluster info for debugging purposes
-                sh 'kubectl cluster-info'
-                //Deploy the new image
-                sh 'kubectl set image ${DEPLOYMENT_NAME} trading-app=${DOCKER_REPO}/${IMAGE_NAME}'
-                //Check result
-                sh 'kubectl get all'
+                container('azcli') {
+                    sh '''
+                    az aks get-credentials \
+                      --resource-group ${RESOURCE_GROUP} \
+                      --name ${CLUSTER_NAME}
+                    '''
+                }
+                container('kubectl') {
+                    sh '''
+                    kubectl set image deployment/trading \
+                      trading-app=${ACR_LOGIN}/${IMAGE_NAME}
+
+                    kubectl get all
+                    '''
+                }
             }
         }
     }
