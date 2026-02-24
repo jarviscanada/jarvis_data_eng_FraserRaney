@@ -81,7 +81,7 @@ cat > /kaniko/.docker/config.json <<EOF
 {
   "auths": {
     "${ACR_LOGIN}": {
-      "auth": "$(echo -n "${AZ_USER}:${AZ_PWD}" | base64)"
+      "auth": "$(echo -n "${AZ_USER}:${AZ_PWD}" | base64 | tr -d '\\n')"
     }
   }
 }
