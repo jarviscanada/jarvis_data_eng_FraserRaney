@@ -1,5 +1,7 @@
 pipeline {
-    agent any
+    agent {
+      docker { image 'jrvs/jenkins_agent:az_kubectl' }
+    }
 
     environment {
         app_name = 'trading-app'
@@ -20,9 +22,6 @@ pipeline {
         CLUSTER_NAME='aks-trading-app'
         DOCKER_REPO='acrfraserraney.azurecr.io'
         DEPLOYMENT_NAME='deployment.apps/trading'
-    }
-    agent {
-      docker { image 'jrvs/jenkins_agent:az_kubectl' }
     }
 
     stages {
