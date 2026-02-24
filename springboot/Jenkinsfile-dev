@@ -89,7 +89,7 @@ EOF
 
 /kaniko/executor \
   --context "$WORKSPACE" \
-  --dockerfile "$WORKSPACE/Dockerfile" \
+  --dockerfile "$WORKSPACE/springboot/Dockerfile" \
   --destination "${ACR_LOGIN}/${IMAGE_NAME}"
 '''
                     }
