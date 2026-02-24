@@ -88,8 +88,8 @@ cat > /kaniko/.docker/config.json <<EOF
 EOF
 
 /kaniko/executor \
-  --context "$WORKSPACE" \
-  --dockerfile "$WORKSPACE/springboot/Dockerfile" \
+  --context /home/jenkins/agent/workspace/pipeline-trading-app/springboot \
+  --dockerfile /home/jenkins/agent/workspace/pipeline-trading-app/springboot/Dockerfile \
   --destination "${ACR_LOGIN}/${IMAGE_NAME}"
 '''
                     }
