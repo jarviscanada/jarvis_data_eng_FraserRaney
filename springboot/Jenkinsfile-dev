@@ -14,9 +14,12 @@ spec:
     tty: true
   - name: kaniko
     image: gcr.io/kaniko-project/executor:debug
+    command:
+      - /busybox/sh
     args:
-      - sleep
-      - \"infinity\"
+      - -c
+      - cat
+    tty: true
     volumeMounts:
       - mountPath: /kaniko/.docker/
         name: docker-config
