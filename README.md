@@ -28,6 +28,8 @@ Project source code: [https://github.com/jarviscanada/jarvis_data_eng_FraserRane
 
 **React Trading App** [[GitHub](https://github.com/jarviscanada/jarvis_data_eng_FraserRaney/tree/master/frontend)]: This full-stack trading management application uses React, TypeScript, Ant Design, and the Spring Boot backend. The app supports CRUD operations for traders and accounts, real-time data from Finnhub with client-side validation, and API fetch managed by Axios. The app provides a typical, responsive frontend.
 
+**Cloud, K8S, and DevOps** [[GitHub](https://github.com/jarviscanada/jarvis_data_eng_FraserRaney/tree/master/cloud_k8_jenkins)]: Designed and deployed a cloud-native trading application on Azure using AKS and ACR, with separate dev and production clusters. Implemented a containerized CI/CD pipeline in Jenkins running on Kubernetes to automate image builds, registry pushes, and rolling deployments.
+
 
 ## Highlighted Projects
 **Lamontagne Geophysics - 3C Plotter**: Maintained and enhanced a browser-based geophysical data visualization tool using vanilla ES6+ JavaScript, D3.js, HTML5 and CSS3. Implemented signal-normalization algorithms, offline caching via custom service workers, installable web app manifests, support for legacy file formats, user preferences and viewing options, dynamic PDF export, UI enhancements and bug fixes. https://www.lamontagnegeophysics.com/plotter/ .

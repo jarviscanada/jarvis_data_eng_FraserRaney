@@ -60,6 +60,11 @@
       "description": "This full-stack trading management application uses React, TypeScript, Ant Design, and the Spring Boot backend. The app supports CRUD operations for traders and accounts, real-time data from Finnhub with client-side validation, and API fetch managed by Axios. The app provides a typical, responsive frontend.",
       "git_url": "/frontend",
       "name": "React Trading App"
+    },
+    {
+      "description": "Designed and deployed a cloud-native trading application on Azure using AKS and ACR, with separate dev and production clusters. Implemented a containerized CI/CD pipeline in Jenkins running on Kubernetes to automate image builds, registry pushes, and rolling deployments.",
+      "git_url": "/cloud_k8_jenkins",
+      "name": "Cloud, K8S, and DevOps"
     }
   ],
   "name": "Fraser Raney",
