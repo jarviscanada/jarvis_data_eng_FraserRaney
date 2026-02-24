@@ -1,6 +1,7 @@
 pipeline {
     agent {
         kubernetes {
+            label 'aks-ci-agent'
             yaml """
 apiVersion: v1
 kind: Pod
@@ -8,26 +9,22 @@ spec:
   containers:
   - name: azcli
     image: mcr.microsoft.com/azure-cli
-    command: ["cat"]
+    command:
+      - cat
     tty: true
-    volumeMounts:
-      - name: docker-config
-        mountPath: /root/.docker
-
   - name: kaniko
     image: gcr.io/kaniko-project/executor:debug
-    command: ["/busybox/sh"]
-    args: ["-c", "cat"]
-    tty: true
+    args:
+      - "-c"
+      - "cat"
     volumeMounts:
-      - name: docker-config
-        mountPath: /kaniko/.docker
-
+      - mountPath: /kaniko/.docker/
+        name: docker-config
   - name: kubectl
     image: bitnami/kubectl:latest
-    command: ["cat"]
+    command:
+      - cat
     tty: true
-
   volumes:
   - name: docker-config
     emptyDir: {}
@@ -36,23 +33,16 @@ spec:
     }
 
     environment {
-        ACR_NAME        = 'acrfraserraney'
-        ACR_LOGIN       = 'acrfraserraney.azurecr.io'
-        IMAGE_NAME      = "trading-app:${BUILD_NUMBER}"
-        RESOURCE_GROUP  = 'rg-trading-app-aks'
-        CLUSTER_NAME    = 'aks-trading-app'
-        DEPLOYMENT_NAME = 'trading'
+        ACR_NAME       = 'acrfraserraney'
+        ACR_LOGIN      = 'acrfraserraney.azurecr.io'
+        IMAGE_NAME     = "trading-app:${BUILD_NUMBER}"
+        RESOURCE_GROUP = 'rg-trading-app-aks'
+        CLUSTER_NAME   = 'aks-trading-app'
     }
 
     stages {
 
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
-        }
-
-        stage('Azure Login & ACR Auth') {
+        stage('Azure Login') {
             steps {
                 container('azcli') {
                     withCredentials([
@@ -61,35 +51,50 @@ spec:
                             usernameVariable: 'AZ_USER',
                             passwordVariable: 'AZ_PWD'
                         ),
-                        string(
-                            credentialsId: 'AZ_TENANT_DEV',
-                            variable: 'AZ_TENANT'
-                        )
+                        string(credentialsId: 'AZ_TENANT_DEV', variable: 'AZ_TENANT')
                     ]) {
                         sh '''
-                          az login --service-principal \
-                            --username "$AZ_USER" \
-                            --password "$AZ_PWD" \
-                            --tenant "$AZ_TENANT"
-
-                          az acr login --name ${ACR_NAME}
+                        az login --service-principal \
+                          --username "$AZ_USER" \
+                          --password "$AZ_PWD" \
+                          --tenant "$AZ_TENANT"
                         '''
                     }
                 }
             }
         }
 
-        stage('Build & Push Image (Kaniko)') {
+        stage('Build & Push Image') {
             steps {
                 container('kaniko') {
-                    sh '''
-                      /kaniko/executor \
-                        --context $WORKSPACE \
-                        --dockerfile $WORKSPACE/Dockerfile \
-                        --destination ${ACR_LOGIN}/${IMAGE_NAME} \
-                        --docker-config=/kaniko/.docker \
-                        --verbosity info
-                    '''
+                    withCredentials([
+                        usernamePassword(
+                            credentialsId: 'AZ_SP_DEV',
+                            usernameVariable: 'AZ_USER',
+                            passwordVariable: 'AZ_PWD'
+                        )
+                    ]) {
+                        sh '''
+                        # Create Kaniko Docker config for ACR
+                        mkdir -p /kaniko/.docker
+                        cat > /kaniko/.docker/config.json <<EOF
+{
+  "auths": {
+    "${ACR_LOGIN}": {
+      "auth": "$(echo -n "${AZ_USER}:${AZ_PWD}" | base64)"
+    }
+  }
+}
+EOF
+
+                        # Run Kaniko to build & push the image
+                        /kaniko/executor \
+                          --context $WORKSPACE \
+                          --dockerfile $WORKSPACE/Dockerfile \
+                          --destination ${ACR_LOGIN}/${IMAGE_NAME} \
+                          --insecure
+                        '''
+                    }
                 }
             }
         }
@@ -98,33 +103,20 @@ spec:
             steps {
                 container('azcli') {
                     sh '''
-                      az aks get-credentials \
-                        --resource-group ${RESOURCE_GROUP} \
-                        --name ${CLUSTER_NAME} \
-                        --overwrite-existing
+                    az aks get-credentials \
+                      --resource-group ${RESOURCE_GROUP} \
+                      --name ${CLUSTER_NAME}
                     '''
                 }
-
                 container('kubectl') {
                     sh '''
-                      kubectl set image deployment/${DEPLOYMENT_NAME} \
-                        trading-app=${ACR_LOGIN}/${IMAGE_NAME}
-
-                      kubectl rollout status deployment/${DEPLOYMENT_NAME}
-
-                      kubectl get pods
+                    kubectl set image deployment/trading \
+                      trading-app=${ACR_LOGIN}/${IMAGE_NAME}
+                    kubectl rollout status deployment/trading
+                    kubectl get all
                     '''
                 }
             }
-        }
-    }
-
-    post {
-        success {
-            echo "? Deployment successful!"
-        }
-        failure {
-            echo "? Pipeline failed."
         }
     }
 }
