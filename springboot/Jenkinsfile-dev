@@ -123,7 +123,7 @@ EOF
                 kubectl config view
 
                 kubectl set image deployment/trading \
-                  trading-app=${ACR_LOGIN}/${IMAGE_NAME}
+                  trading=${ACR_LOGIN}/${IMAGE_NAME}
 
                 kubectl rollout status deployment/trading
                 kubectl get all
