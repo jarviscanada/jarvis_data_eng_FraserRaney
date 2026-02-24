@@ -171,8 +171,8 @@ public class TraderAccountService {
    * Retrieve all traders along with their account information.
    *
    * <p>
-   * This method is intended for dashboard-style views where a list of traders
-   * and their associated account balances are required.
+   * This method is intended for dashboard-style views where a list of traders and their associated
+   * account balances are required.
    * </p>
    *
    * @return a list of TraderAccountView objects

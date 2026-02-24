@@ -149,7 +149,7 @@ public class TraderAccountServiceIntegrationTest {
     Trader trader = createTrader();
     TraderAccountView view =
         traderAccountService.createTraderAndAccount(trader);
-    
+
     List<TraderAccountView> traderList = traderAccountService.getAllTraders();
 
     assertEquals(1, traderList.size());
