@@ -1,0 +1,7 @@
+agent:
+  enabled: true
+  image:
+    registry: docker.io
+    repository: fraserraney/jenkins_agent
+    tag: latest
+    pullPolicy: Always
