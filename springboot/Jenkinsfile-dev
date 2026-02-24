@@ -105,28 +105,30 @@ EOF
         }
 
         stage('Deploy to AKS') {
-            steps {
-                container('azcli') {
-                    sh '''
-                    mkdir -p /home/jenkins/.kube
-                    az aks get-credentials \
-                      --resource-group ${RESOURCE_GROUP} \
-                      --name ${CLUSTER_NAME} \
-                      --file /home/jenkins/.kube/config
-                    '''
-                }
-                container('kubectl') {
-                    sh '''
-                    export KUBECONFIG=/home/jenkins/.kube/config
-
-                    kubectl set image deployment/trading \
-                      trading-app=${ACR_LOGIN}/${IMAGE_NAME}
-
-                    kubectl rollout status deployment/trading
-                    kubectl get all
-                    '''
-                }
+          steps {
+            container('azcli') {
+              sh '''
+                mkdir -p /home/jenkins/.kube
+                az aks get-credentials \
+                  --resource-group ${RESOURCE_GROUP} \
+                  --name ${CLUSTER_NAME} \
+                  --file /home/jenkins/.kube/config
+              '''
             }
+            container('kubectl') {
+              sh '''
+                export KUBECONFIG=/home/jenkins/.kube/config
+                echo "Using KUBECONFIG = $KUBECONFIG"
+                kubectl config view
+
+                kubectl set image deployment/trading \
+                  trading-app=${ACR_LOGIN}/${IMAGE_NAME}
+
+                kubectl rollout status deployment/trading
+                kubectl get all
+              '''
+            }
+          }
         }
     }
 }
