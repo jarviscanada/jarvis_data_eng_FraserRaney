@@ -25,13 +25,20 @@ spec:
     volumeMounts:
       - mountPath: /kaniko/.docker
         name: docker-config
+      - mountPath: /home/jenkins/.kube
+        name: kube-config
   - name: kubectl
     image: bitnami/kubectl:latest
     command:
       - cat
     tty: true
+    volumeMounts:
+      - mountPath: /home/jenkins/.kube
+        name: kube-config
   volumes:
     - name: docker-config
+      emptyDir: {}
+    - name: kube-config
       emptyDir: {}
 """
         }
@@ -101,13 +108,17 @@ EOF
             steps {
                 container('azcli') {
                     sh '''
+                    mkdir -p /home/jenkins/.kube
                     az aks get-credentials \
                       --resource-group ${RESOURCE_GROUP} \
-                      --name ${CLUSTER_NAME}
+                      --name ${CLUSTER_NAME} \
+                      --file /home/jenkins/.kube/config
                     '''
                 }
                 container('kubectl') {
                     sh '''
+                    export KUBECONFIG=/home/jenkins/.kube/config
+
                     kubectl set image deployment/trading \
                       trading-app=${ACR_LOGIN}/${IMAGE_NAME}
 
