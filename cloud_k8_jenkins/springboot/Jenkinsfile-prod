@@ -75,7 +75,6 @@ agent {
             container('kubectl') {
               sh '''
                 export KUBECONFIG=/home/jenkins/.kube/config
-                echo "Using KUBECONFIG = $KUBECONFIG"
                 kubectl config view
 
                 kubectl set image deployment/trading \

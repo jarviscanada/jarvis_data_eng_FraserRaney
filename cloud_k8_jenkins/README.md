@@ -1,5 +1,5 @@
 # Introduction
-This project demonstrates a cloud-native trading application deployed on Azure Kubernetes Service (AKS) with a fully automated CI/CD pipeline using Jenkins.
+This project demonstrates a cloud-native trading application deployed on Azure Kubernetes Service (AKS) with a fully automated CI/CD pipeline using Jenkins. It was designed with separate development and production Kubernetes clusters to support safe iteration and controlled releases. Azure Container Registry (ACR) is used for the container images.
 
 The system is designed with:
 - Azure Kubernetes Service (AKS)
@@ -7,26 +7,22 @@ The system is designed with:
 - Jenkins (running inside Kubernetes)
 - Helm (for Kubernetes packaging)
 - PostgreSQL database
-- Separate Dev and Prod environments
+- Jenkins credentials
 
-Two AKS clusters are provisioned: Dev and Prod.
-Both clusters:
-- Pull container images from ACR
-- Use Kubernetes Deployments & Services
+The `aks` folder contains the Kubernetes manifests for AKS.
 
-The Jenkins pipeline:
-1. Authenticates to Azure using a Service Principal
-2. Builds Docker image using Azure ACR build 
-3. Pushes image to Azure Container Registry 
-4. Retrieves AKS credentials 
-5. Updates Kubernetes deployment image 
-6. Waits for rollout to complete
+The Jenkins pipelines (`springboot/Jenkinsfile-dev` and `springboot/Jenkinsfile-prod`):
+1. Authenticate to Azure using a Service Principal
+2. Build Docker image using Azure ACR build 
+3. Push image to Azure Container Registry 
+4. Retrieve AKS credentials 
+5. Update Kubernetes deployment image 
+6. Wait for rollout to complete
 
 # Application Architecture
 The application consists of:
 - Azure Load Balancer (exposes service externally)
 - Kubernetes Deployment (Spring Boot application)
-- Horizontal scaling capability
 - PostgreSQL database pod
 - Azure Container Registry (ACR) for container images
 - Jenkins for CI/CD automation
@@ -41,7 +37,7 @@ The application consists of:
 - Logs into Azure using Service Principal
 - Validates Azure CLI
 ```bash
-az login --service-principal
+az login --service-principal --username $AZ_USER --password $AZ_PWD --tenant $AZ_TENANT
 ```
 ### Build & Push Stage
 - Uses Azure Container Registry build
@@ -49,14 +45,24 @@ az login --service-principal
 - Tags image using `${BUILD_NUMBER}`
 - Pushes image directly to ACR
 ```bash
-az acr build --image trading-app:${BUILD_NUMBER}
+az acr build --image ${IMAGE_NAME} --registry ${ACR_NAME} --file springboot/Dockerfile springboot
 ```
 ### Deploy Stage
 - Fetches AKS credentials
 - Updates Kubernetes deployment image
 - Waits for rollout
+
+#### From Azure CLI:
 ```bash
-kubectl set image deployment/trading trading=${ACR_NAME}/${IMAGE}
+az aks get-credentials \
+  --resource-group ${RESOURCE_GROUP} \
+  --name ${CLUSTER_NAME} \
+  --file /home/jenkins/.kube/config
+```
+#### and then using kubectl
+```bash
+export KUBECONFIG=/home/jenkins/.kube/config
+kubectl set image deployment/trading trading=${ACR_LOGIN}/${IMAGE_NAME}
 kubectl rollout status deployment/trading
 ```
 
