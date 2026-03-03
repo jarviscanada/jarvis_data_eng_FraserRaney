@@ -48,6 +48,63 @@ Python
 
 Since this is a PoC project, all work was completed locally using exported SQL data rather than accessing LGS's production Azure environment.
 
+## Quick Start
+### 1. Set Up PostgreSQL (Docker)
+#### 1.1 If necessary, create the Docker container for the PostgreSQL instance
+
+```bash
+./psql/psql_docker.sh create postgres password
+```
+
+#### 1.2 Start a PostgreSQL instance using Docker
+```bash
+./psql/psql_docker.sh start
+```
+
+### 2. Create the database tables
+```bash
+psql -h localhost -U postgres -d lgs_db -f psql/retail.sql
+```
+When prompted, enter the password
+```bash
+password
+```
+### 3. Set Up Python Environment
+
+#### 3.1 Create and activate a virtual environment
+
+Mac/Linux:
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+Windows:
+```bash
+python -m venv venv
+venv\Scripts\activate
+```
+### 3.2 Install required dependencies
+```bash
+pip install -r requirements.txt
+```
+### 4. Run the Jupyter Notebook
+#### Option A - Using VS Code
+
+Open:
+
+`python_data_wrangling/retail_data_analytics_wrangling.ipynb`
+
+Select the venv virtual environment as the kernel.
+
+Click Run All.
+
+#### Option B - Using Jupyter from the Command Line
+```bash
+jupyter notebook python_data_wrangling/retail_data_analytics_wrangling.ipynb
+```
+
+Then select Kernel. Restart & Run All.
+
 # Implementaion
 ## Project Architecture
 The project follows a simplified analytics pipeline architecture:
