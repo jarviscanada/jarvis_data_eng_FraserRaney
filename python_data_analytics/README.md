@@ -188,9 +188,11 @@ Based on the analytics performed, LGS can:
 
 # Improvements
 1. Build Long-Term Customer Retention Table
+
     Instead of only monthly counts, construct a full retention table to measure long-term retention patterns.
 
 2. Automate the ETL Pipeline
+
     Replace manual SQL loading with scheduled ETL jobs.
 
 
