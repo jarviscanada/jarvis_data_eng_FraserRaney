@@ -70,6 +70,11 @@
       "description": "Built a proof-of-concept customer analytics pipeline for a UK retail dataset using PostgreSQL (Docker), Python, and Jupyter Notebook. Performed data wrangling to measure revenue trends, customer acquisition, and retention. Performed Recency, Frequency, and Monetary (RFM) analysis and segmentation. Generated insights to support marketing and revenue growth strategies.",
       "git_url": "/python_data_anlytics",
       "name": "Python Data Analytics"
+    },
+    {
+      "description": "Redesigned a single-machine Python analytics workflow into a scalable pipeline using Apache Spark and PySpark. Implemented customer RFM segmentation on retail transaction data using Azure Databricks and evaluated notebook-based analytics in Apache Zeppelin, demonstrating distributed data processing that can scale marketing analytics pipelines beyond traditional pandas workflows.",
+      "git_url": "/spark",
+      "name": "Spark"
     }
   ],
   "name": "Fraser Raney",

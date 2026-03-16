@@ -32,6 +32,8 @@ Project source code: [https://github.com/jarviscanada/jarvis_data_eng_FraserRane
 
 **Python Data Analytics** [[GitHub](https://github.com/jarviscanada/jarvis_data_eng_FraserRaney/tree/master/python_data_anlytics)]: Built a proof-of-concept customer analytics pipeline for a UK retail dataset using PostgreSQL (Docker), Python, and Jupyter Notebook. Performed data wrangling to measure revenue trends, customer acquisition, and retention. Performed Recency, Frequency, and Monetary (RFM) analysis and segmentation. Generated insights to support marketing and revenue growth strategies.
 
+**Spark** [[GitHub](https://github.com/jarviscanada/jarvis_data_eng_FraserRaney/tree/master/spark)]: Redesigned a single-machine Python analytics workflow into a scalable pipeline using Apache Spark and PySpark. Implemented customer RFM segmentation on retail transaction data using Azure Databricks and evaluated notebook-based analytics in Apache Zeppelin, demonstrating distributed data processing that can scale marketing analytics pipelines beyond traditional pandas workflows.
+
 
 ## Highlighted Projects
 **Lamontagne Geophysics - 3C Plotter**: Maintained and enhanced a browser-based geophysical data visualization tools using vanilla ES6+ JavaScript, D3.js, HTML5, and CSS3. Implemented signal-normalization algorithms, offline caching via custom service workers, installable web app manifests, support for legacy file formats, user preferences and viewing options, dynamic PDF export, UI enhancements, and bug fixes. https://www.lamontagnegeophysics.com/plotter/ .
