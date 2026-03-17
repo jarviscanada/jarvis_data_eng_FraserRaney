@@ -84,11 +84,11 @@ Apache Zeppelin is a web-based notebook environment designed for interactive dat
 ![Zeppelin Architecture](./assets/zeppelin-arch.png)
 
 # Future Improvements
-1. Integrate Apache Hadoop Storage
+1. Integrate Apache Hadoop Storage:
 Future iterations could store the dataset in Hadoop Distributed File System (HDFS) to demonstrate compatibility with legacy big data ecosystems and enable testing Spark workloads on traditional Hadoop-based storage systems.
 
-2. Connect Directly to Azure PostgreSQL via JDBC
+2. Connect Directly to Azure PostgreSQL via JDBC:
 Instead of uploading CSV files manually, the pipeline could ingest data directly from an Azure PostgreSQL database using JDBC, enabling automated data ingestion and closer integration with the company's operational data systems.
 
-3. Automate Data Pipelines and Scheduling
+3. Automate Data Pipelines and Scheduling:
 The analytics workflow could be operationalized using scheduled Databricks jobs or orchestration tools to run the RFM segmentation process automatically as new transaction data becomes available.
