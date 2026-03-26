@@ -1,0 +1,33 @@
+resources:
+  jobs:
+    orchestration:
+      name: orchestration
+      tasks:
+        - task_key: bronze_ingestion
+          notebook_task:
+            notebook_path: /Workspace/Users/fraserr01@gmail.com/Bronze
+            source: WORKSPACE
+          existing_cluster_id: 0321-184250-k7w8uzs7
+        - task_key: silver_transform
+          depends_on:
+            - task_key: bronze_ingestion
+          notebook_task:
+            notebook_path: /Workspace/Users/fraserr01@gmail.com/Silver
+            source: WORKSPACE
+          existing_cluster_id: 0321-184250-k7w8uzs7
+        - task_key: gold_aggregation
+          depends_on:
+            - task_key: silver_transform
+          notebook_task:
+            notebook_path: /Workspace/Users/fraserr01@gmail.com/Gold
+            source: WORKSPACE
+          existing_cluster_id: 0321-184250-k7w8uzs7
+        - task_key: Dashboard
+          depends_on:
+            - task_key: gold_aggregation
+          dashboard_task:
+            subscription: {}
+            warehouse_id: 6df4e80f4f9a9d01
+            dashboard_id: 01f1272363b61b2aaf244c114a2a2983
+      queue:
+        enabled: true

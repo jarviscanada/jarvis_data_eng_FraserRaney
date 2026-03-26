@@ -1,0 +1,14 @@
+id: 0f65e30f-8c9d-48bf-90be-32bd22aaaa08
+pipeline_type: WORKSPACE
+name: stock-dlt-project
+libraries:
+  - glob:
+      include: /Workspace/Users/fraser.raney@queensu.ca/stock-dlt-project/src/**
+schema: stock_pipeline
+continuous: false
+development: false
+photon: true
+channel: CURRENT
+catalog: workspace
+serverless: true
+root_path: /Workspace/Users/fraser.raney@queensu.ca/stock-dlt-project
