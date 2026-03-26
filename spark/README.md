@@ -1,9 +1,11 @@
 # Introduction
 The London Gift Shop (LGS) marketing team previously relied on a data analytics solution built using Jupyter Notebook and Python to analyze customer purchasing behavior. This solution generated valuable insights that enabled the marketing team to design targeted campaigns, such as sending promotional emails to specific customer segments, improving retention and engagement. However, the original solution was difficult to scale because it ran in a single-machine environment.
 
-LGS decided to re-architect the analytics pipeline using Apache Spark, a distributed data processing framework capable of handling large-scale datasets across clusters of machines.
+To address scalability limitations, LGS decided to re-architect the analytics pipeline using Apache Spark, a distributed data processing framework capable of handling large-scale datasets across clusters of machines.
 
-The original analytics workflow was rewritten using PySpark and Spark Structured APIs, enabling the data pipeline to run in a distributed environment. Two Spark notebook environments used for large-scale data processing and analytics were evaluated: Apache Zeppelin and Azure Databricks. The project demonstrates how the original Python-based analysis can be migrated to a scalable big-data architecture while maintaining the same analytical outcomes.
+Building on this new architecture, the original analytics workflow was rewritten using PySpark and Spark Structured APIs. This enabled the data pipeline to run in a distributed environment. Two Spark notebook environments, Apache Zeppelin and Azure Databricks, were evaluated for large-scale data processing and analytics. The project demonstrates how the original Python-based analysis can be migrated to a scalable big-data architecture while maintaining the same analytical outcomes.
+
+Additionally, we examine two pipeline implementations using Azure: an ETL pipeline utilizing Azure SQL Database with Azure Databricks, and a Delta Live Tables (DLT) pipeline implemented with the Databricks Free Edition.
 
 The solution leverages modern data engineering tools, including:
 
@@ -15,7 +17,7 @@ The solution leverages modern data engineering tools, including:
 
 - `Azure Databricks 16.4`, a managed cloud platform for running Spark workloads.
 
-- Azure infrastructure for scalable cloud-based data engineering environments.
+- `Azure SQL Database` for scalable cloud-based data engineering storage.
 
 By migrating the original single-machine workflow to a distributed Spark-based architecture, this project demonstrates how organizations can scale customer analytics pipelines to handle larger datasets and support enterprise-level data strategies.
 
@@ -83,12 +85,100 @@ Apache Zeppelin is a web-based notebook environment designed for interactive dat
 ## Architecture Diagram
 ![Zeppelin Architecture](./assets/zeppelin-arch.png)
 
+# Azure SQL + Databricks ETL Pipeline
+
+To further enhance scalability and demonstrate production-grade data engineering practices, the project was extended to include an end-to-end ETL pipeline integrating Azure SQL Database with Azure Databricks.
+
+## Architecture Overview
+
+This pipeline demonstrates how transactional data can be ingested, transformed, and analyzed using a cloud-native architecture.
+
+### Notebooks and Manifest
+- [Databricks Job Manifest](./notebook/databricks-job.yaml)
+- [Bronze](./notebook/Bronze.ipynb)
+- [Silver](./notebook/Silver.ipynb)
+- [Gold](./notebook/Gold.ipynb)
+- [Dashboard PDF Example](./notebook/Dashboard%202026-03-24%2004_00.pdf)
+
+### Dataset
+The [Financial Transactions Dataset: Analytics](https://www.kaggle.com/datasets/computingvictor/transactions-fraud-datasets) dataset from Kaggle was used. It is a comprehensive financial dataset that combines transaction records, customer demographics, card details, merchant categories, and fraud labels to enable analysis of customer behavior, spending patterns, and fraud detection across a banking system.
+
+### Data Flow
+
+1. **Data Source**  
+   Data is stored in Azure SQL Database.
+
+2. **Data Ingestion (JDBC)**  
+   Azure Databricks connects to Azure SQL using JDBC to extract data into Spark DataFrames.
+
+3. **Bronze Layer**  
+   Raw data is ingested and stored without modification.
+
+4. **Silver Layer**  
+   Data is cleaned, validated, and joined across multiple datasets (e.g., transactions, users, cards).
+
+5. **Gold Layer**  
+   Aggregated datasets are created to support analytics and dashboards.
+
+6. **Orchestration**  
+   Databricks Workflows are used to automate the pipeline execution and ensure proper sequencing.
+
+7. **Visualization**  
+   Databricks dashboards are built on top of gold tables to provide business insights.
+
+## Architecture Diagram
+
+![ETL Architecture](./assets/etl-arch.png)
+
+# Delta Live Tables (DLT) Pipeline
+
+To demonstrate modern data engineering practices, a Delta Live Tables (DLT) pipeline was implemented using the Databricks Free Edition. This pipeline ingests real-time financial data from the Alpha Vantage API and processes it using a declarative ETL framework.
+
+## Architecture Overview
+
+The pipeline follows the Medallion architecture (Bronze, Silver, Gold) and is fully managed by DLT, which automatically handles orchestration, dependency management, and data quality enforcement.
+
+### Pipeline Manifest and Source Files
+- [config.py](./stock-dlt-project/config/config.py)
+- [bronze/api_ingestion.py](./stock-dlt-project/src/bronze/api_ingestion.py)
+- [silver/transformations.py](./stock-dlt-project/src/silver/transformations.py)
+- [gold/aggregations.py](./stock-dlt-project/src/gold/aggregations.py)
+- [DLT Pipeline Manifest](./stock-dlt-project/stock-dlt-project-pipeline.yaml)
+- [Dashboard Refresh Job Manifest](./stock-dlt-project/stock-dlt-project-job.yaml)
+- [Dashboard PDF Example](./stock-dlt-project/stock-dlt-project%202026-03-24%2016_22.pdf)
+
+### Dataset
+Stock market data was retrieved from the Alpha Vantage API. The time series endpoint was used to aggregate data from the following ticker symbols: AMZN, GOOG, IBM, MSFT, and TLSA.
+
+### Data Flow
+
+1. **Data Source (API)**  
+   Stock market data is retrieved from the Alpha Vantage API.
+
+2. **Bronze Layer**  
+   Raw time-series stock data is ingested and stored.
+
+3. **Silver Layer**  
+   Data is cleaned, typed, and structured for analysis and interpretation.
+
+4. **Gold Layer**  
+   Analytical tables are created for:
+    - Price trend analysis (7, 30, 90 days)
+    - Volume trend analysis (rolling averages)
+
+5. **Pipeline Management**  
+   DLT automatically manages dependencies, execution order, and monitoring.
+
+## Architecture Diagram
+
+![DLT Architecture](./assets/dlt-arch.png)
+
 # Future Improvements
 1. Integrate Apache Hadoop Storage:
-Future iterations could store the dataset in Hadoop Distributed File System (HDFS) to demonstrate compatibility with legacy big data ecosystems and enable testing Spark workloads on traditional Hadoop-based storage systems.
+   Future iterations could store the dataset in Hadoop Distributed File System (HDFS) to demonstrate compatibility with legacy big data ecosystems and enable testing Spark workloads on traditional Hadoop-based storage systems.
 
 2. Connect Directly to Azure PostgreSQL via JDBC:
-Instead of uploading CSV files manually, the pipeline could ingest data directly from an Azure PostgreSQL database using JDBC, enabling automated data ingestion and closer integration with the company's operational data systems.
+   Instead of uploading LGS CSV files manually, the pipeline could ingest the LGS data directly from an Azure PostgreSQL database using JDBC, enabling automated data ingestion and closer integration with the company's operational data systems.
 
 3. Automate Data Pipelines and Scheduling:
-The analytics workflow could be operationalized using scheduled Databricks jobs or orchestration tools to run the RFM segmentation process automatically as new transaction data becomes available.
+   The LGS analytics workflow could be operationalized using scheduled Databricks jobs to run the RFM segmentation process automatically as new transaction data becomes available.
