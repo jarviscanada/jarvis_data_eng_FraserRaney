@@ -72,7 +72,7 @@
       "name": "Python Data Analytics"
     },
     {
-      "description": "Redesigned a single-machine Python analytics workflow into a scalable pipeline using Apache Spark and PySpark. Implemented customer RFM segmentation on retail transaction data using Azure Databricks and evaluated notebook-based analytics in Apache Zeppelin, demonstrating distributed data processing that can scale marketing analytics pipelines beyond traditional pandas workflows.",
+      "description": "Redesigned a single-machine Python analytics workflow into scalable data pipelines using Apache Spark and PySpark. Built an end-to-end ETL pipeline with Azure SQL and Databricks (Bronze/Silver/Gold), and implemented a Delta Live Tables (DLT) pipeline for real-time API ingestion, demonstrating modern, distributed data engineering and analytics at scale.",
       "git_url": "/spark",
       "name": "Spark"
     }

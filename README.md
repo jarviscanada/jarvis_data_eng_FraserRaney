@@ -32,7 +32,7 @@ Project source code: [https://github.com/jarviscanada/jarvis_data_eng_FraserRane
 
 **Python Data Analytics** [[GitHub](https://github.com/jarviscanada/jarvis_data_eng_FraserRaney/tree/master/python_data_anlytics)]: Built a proof-of-concept customer analytics pipeline for a UK retail dataset using PostgreSQL (Docker), Python, and Jupyter Notebook. Performed data wrangling to measure revenue trends, customer acquisition, and retention. Performed Recency, Frequency, and Monetary (RFM) analysis and segmentation. Generated insights to support marketing and revenue growth strategies.
 
-**Spark** [[GitHub](https://github.com/jarviscanada/jarvis_data_eng_FraserRaney/tree/master/spark)]: Redesigned a single-machine Python analytics workflow into a scalable pipeline using Apache Spark and PySpark. Implemented customer RFM segmentation on retail transaction data using Azure Databricks and evaluated notebook-based analytics in Apache Zeppelin, demonstrating distributed data processing that can scale marketing analytics pipelines beyond traditional pandas workflows.
+**Spark** [[GitHub](https://github.com/jarviscanada/jarvis_data_eng_FraserRaney/tree/master/spark)]: Redesigned a single-machine Python analytics workflow into scalable data pipelines using Apache Spark and PySpark. Built an end-to-end ETL pipeline with Azure SQL and Databricks (Bronze/Silver/Gold), and implemented a Delta Live Tables (DLT) pipeline for real-time API ingestion, demonstrating modern, distributed data engineering and analytics at scale.
 
 
 ## Highlighted Projects
