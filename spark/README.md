@@ -22,7 +22,7 @@ The solution leverages modern data engineering tools, including:
 By migrating the original single-machine workflow to a distributed Spark-based architecture, this project demonstrates how organizations can scale customer analytics pipelines to handle larger datasets and support enterprise-level data strategies.
 
 # Databricks Implementation
-- [Retail Data Analytics with PySpark](./notebook/Retail Data Analytics with PySpark.ipynb)
+- [Retail Data Analytics with PySpark](./notebook/Retail%20Data%20Analytics%20with%20PySpark.ipynb)
 ## Dataset and Analytics Work
 The dataset used in this project contains retail transaction records from the London Gift Shop (LGS), including information such as customer IDs, invoice numbers, purchase dates, quantities, and unit prices. The dataset was previously stored in a PostgreSQL database. For this implementation, the data was exported as a CSV file and uploaded into the Databricks environment using the Databricks UI.
 
