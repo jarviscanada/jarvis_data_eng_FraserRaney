@@ -197,6 +197,4 @@ Based on the analytics performed, LGS can:
 
 
 3. Deploy an Interactive Dashboard
-    Create a production-ready BI dashboard using:
-    - Power BI
-    - Or a Flask/FastAPI backend with a visualization frontend
+    Create a production-ready BI dashboard using Power BI
